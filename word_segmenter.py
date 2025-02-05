@@ -1,10 +1,12 @@
 import pandas as pd
 from collections import defaultdict
+import sys
 
 def load_word_list(filename):
-    """Load HSK3 words from file"""
-    with open(filename, 'r', encoding='utf-8') as f:
-        return set(line.strip() for line in f)
+    """Load HSK3 words from CSV file"""
+    df = pd.read_csv(filename)
+    # Assuming first column contains the Chinese words
+    return set(df.iloc[:, 0].astype(str).tolist())
 
 def load_sentences(filename):
     """Load sentences from iknow CSV file"""
@@ -28,6 +30,8 @@ def segment_sentence(sentence, word_list, max_word_len):
         
         # If no word found, take single character
         if not found_word:
+            # Add debug info to see what words we're missing
+            print(f"No word found for: {sentence[i:i+max_word_len]}", file=sys.stderr)
             words.append(sentence[i])
             i += 1
     

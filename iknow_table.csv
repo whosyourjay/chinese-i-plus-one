@@ -996,12 +996,11 @@ Word,Pinyin,Translation,Sentence,Sentence Pinyin,Sentence Translation
 梦,mèng,dream,我做了一个梦。,Wǒ zuòle yí gè mèng.,I had a dream.
 梦,mèng,dream,我在梦里见到了你。,Wǒ zài mèng li jiàndàole nǐ.,I saw you in my dream.
 别的,bié de,"other, another",他从别的门进来。,Tā cóng bié de mén jìnlái.,He came in through another door.
-别的,bié de,"other, another",还有别的事吗？,Háiyǒu bié de shì ma?,Is there anything else?刀 [dāo]
-别的,bié de,"other, another",knife,这把刀很锋利。,Zhè bǎ dāo hěn fēnglì.
-别的,bié de,"other, another",This knife is sharp.,这是一把菜刀。,Zhè shì yì bǎ càidāo.
-别的,bié de,"other, another",This is a kitchen knife.,选 [xuǎn],"to choose, to select, to elect"
-别的,bié de,"other, another",你在选什么？,Nǐ zài xuǎn shénme?,What are you choosing?
-别的,bié de,"other, another",我们选他当部长。,Wǒmen xuǎn tā dāng bùzhǎng.,We elected him as minister.
+别的,bié de,"other, another",还有别的事吗？,Háiyǒu bié de shì ma?,Is there anything else?
+刀,dāo,knife,这把刀很锋利。,Zhè bǎ dāo hěn fēnglì.,This knife is sharp.
+刀,dāo,knife,这是一把菜刀。,Zhè shì yì bǎ càidāo.,This is a kitchen knife.
+选,xuǎn,"to choose, to select, to elect",你在选什么？,Nǐ zài xuǎn shénme?,What are you choosing?
+选,xuǎn,"to choose, to select, to elect",我们选他当部长。,Wǒmen xuǎn tā dāng bùzhǎng.,We elected him as minister.
 年龄,niánlíng,age,儿子已经到了上学的年龄。,Érzi yǐjīng dàole shàngxué de niánlíng.,My son is old enough to start school.
 年龄,niánlíng,age,我国的退休年龄是六十岁。,Wǒ guó de tuìxiū niánlíng shì liùshí suì.,The retirement age in my country is 60.
 理由,lǐyóu,"reason, ground",你迟到的理由是什么？,Nǐ chídào de lǐyóu shì shénme?,What's your reason for being late?
@@ -1195,12 +1194,11 @@ Word,Pinyin,Translation,Sentence,Sentence Pinyin,Sentence Translation
 动物,dòngwù,animal,我们要保护动物。,Wǒmen yào bǎohù dòngwù.,We should protect animals.
 动物,dòngwù,animal,你喜欢什么动物？,Nǐ xǐhuan shénme dòngwù?,What kind of animals do you like?
 如何,rúhé,"how, what",你近来情况如何？,Nǐ jìnlái qíngkuàng rúhé?,How have you been recently?
-如何,rúhé,"how, what",这部电影你觉得如何？,Zhè bù diànyǐng nǐ juéde rúhé?,What did you think of the movie?通知 [tōngzhī]
-如何,rúhé,"how, what","to notify, to inform; notice",他通知我去开会。,Tā tōngzhī wǒ qù kāihuì.
-如何,rúhé,"how, what",He informed me that I should attend the meeting.,我收到了通知书。,Wǒ shōudàole tōngzhīshū.
-如何,rúhé,"how, what",I received a notice.,选择 [xuǎnzé],"to select, to choose"
-如何,rúhé,"how, what",我选择了这个产品。,Wǒ xuǎnzéle zhège chǎnpǐn.,I chose this product.
-如何,rúhé,"how, what",他选择了这个答案。,Tā xuǎnzéle zhège dá'àn.,He chose this answer.
+如何,rúhé,"how, what",这部电影你觉得如何？,Zhè bù diànyǐng nǐ juéde rúhé?,What did you think of the movie?
+通知,tōngzhī,"to notify, to inform; notice",他通知我去开会。,Tā tōngzhī wǒ qù kāihuì.,He informed me that I should attend the meeting.
+通知,tōngzhī,"to notify, to inform; notice",我收到了通知书。,Wǒ shōudàole tōngzhīshū.,I received a notice.
+选择,xuǎnzé,"to select, to choose",我选择了这个产品。,Wǒ xuǎnzéle zhège chǎnpǐn.,I chose this product.
+选择,xuǎnzé,"to select, to choose",他选择了这个答案。,Tā xuǎnzéle zhège dá'àn.,He chose this answer.
 讨论,tǎolùn,"to confer, to discuss",他们在讨论工作方案。,Tāmen zài tǎolùn gōngzuò fāng'àn.,They are discussing the work plan.
 讨论,tǎolùn,"to confer, to discuss",我们在讨论问题。,Wǒmen zài tǎolùn wèntí.,We are discussing the problem.
 文章,wénzhāng,"article, essay",他在报纸发表了一篇文章。,Tā zài bàozhǐ fābiǎole yì piān wénzhāng.,He published an article in the newspaper.
@@ -2794,12 +2792,11 @@ Word,Pinyin,Translation,Sentence,Sentence Pinyin,Sentence Translation
 玩具,wánjù,"toy, plaything",她有很多玩具。,Tā yǒu hěn duō wánjù.,She has a lot of toys.
 玩具,wánjù,"toy, plaything",孩子们在一起玩玩具。,Háizimen zài yìqǐ wán wánjù.,The children are playing with toys together.
 人物,rénwù,"figure, personage",他是个重要人物。,Tā shì gè zhòngyào rénwù.,He's an important figure.
-人物,rénwù,"figure, personage",你认识哪些历史人物？,Nǐ rènshi nǎxiē lìshǐ rénwù?,What historical figures do you know about?以为 [yǐwéi]
-人物,rénwù,"figure, personage","to think, to believe, to consider",我以为你已经回家了。,Wǒ yǐwéi nǐ yǐjīng huíjiā le.
-人物,rénwù,"figure, personage",I thought you had already gone home.,我以为这不可能。,Wǒ yǐwéi zhè bù kěnéng.
-人物,rénwù,"figure, personage",I think this is impossible.,拍 [pāi],"to clap, to pat"
-人物,rénwù,"figure, personage",观众在热烈的拍手。,Guānzhòng zài rèliè de pāishǒu.,The audience is clapping enthusiastically.
-人物,rénwù,"figure, personage",他从后面拍了我一下。,Tā cóng hòumiàn pāile wǒ yíxià.,He gave me a pat on the back.
+人物,rénwù,"figure, personage",你认识哪些历史人物？,Nǐ rènshi nǎxiē lìshǐ rénwù?,What historical figures do you know about?
+以为,yǐwéi,"to think, to believe, to consider",我以为你已经回家了。,Wǒ yǐwéi nǐ yǐjīng huíjiā le.,I thought you had already gone home.
+以为,yǐwéi,"to think, to believe, to consider",我以为这不可能。,Wǒ yǐwéi zhè bù kěnéng.,I think this is impossible.
+拍,pāi,"to clap, to pat",观众在热烈的拍手。,Guānzhòng zài rèliè de pāishǒu.,The audience is clapping enthusiastically.
+拍,pāi,"to clap, to pat",他从后面拍了我一下。,Tā cóng hòumiàn pāile wǒ yíxià.,He gave me a pat on the back.
 满足,mǎnzú,"to be satisfied, to be contented, to satisfy, to fulfill",他对目前的生活很满足。,Tā duì mùqián de shēnghuó hěn mǎnzú.,He's very satisfied with his current life.
 满足,mǎnzú,"to be satisfied, to be contented, to satisfy, to fulfill",爸爸满足了他的要求。,Bàba mǎnzúle tā de yāoqiú.,His father satisfied his demands.
 分布,fēnbù,to be distributed; distribution,我的学生分布在全国各地。,Wǒ de xuésheng fēnbù zài quánguó gèdì.,My students are all over the country.
