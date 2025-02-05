@@ -1,4 +1,3 @@
-- Subdivide rare words that jieba is outputting
 - Correct word and definition for the i+1 word
 - Scrape audio
 - Reduce the n^2 dependence on i+1 bucket

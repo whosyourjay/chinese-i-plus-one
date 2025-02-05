@@ -1,14 +1,9 @@
 import pandas as pd
 from collections import defaultdict
 import jieba
-from chinese_segmenter import ChineseSegmenter
+from jieba_segmenter import ChineseSegmenter
 
 PUNCTUATION = {'。', '，', '？', '！', '、', '：', '；', '"', '"', ''', ''', '（', '）', '【', '】', '《', '》'}
-
-def load_sentences(filename):
-    """Load sentences and their metadata from iknow CSV file"""
-    df = pd.read_csv(filename)
-    return df
 
 def load_frequency_data():
     """Load word frequency data from CSV"""
@@ -119,8 +114,9 @@ def main():
     # Get top 10 most frequent words
     initial_words = {word for word, _ in sorted_words[:10]}
 
-    # Process sentences, starting with top 10 words as known
-    df = load_sentences('iknow_table.csv')
+    # Process sentences
+    df = pd.read_csv('SpoonFedChinese.tsv', sep='\t', index_col=False)
+    print(df[['Sentence Translation', 'Sentence Pinyin', 'Sentence']].head())
     organizer = SentenceOrganizer(df['Sentence'].tolist(), word_ranks, initial_words)
     
     print(f"Total unique words in corpus: {len(organizer.all_words)}")
@@ -151,7 +147,7 @@ def main():
     
     # Create and save new dataframe
     sequence_df = pd.DataFrame(sequence_data)
-    sequence_df.to_csv('iknow_sequence.csv', index=False)
+    sequence_df.to_csv('sentence_sequence.csv', index=False)
     
     # Count remaining sentences
     remaining = sum(len(bucket) for bucket in organizer.sentence_buckets.values())
