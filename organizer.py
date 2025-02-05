@@ -1,6 +1,7 @@
 import pandas as pd
 from collections import defaultdict
 import jieba
+from chinese_segmenter import ChineseSegmenter
 
 PUNCTUATION = {'。', '，', '？', '！', '、', '：', '；', '"', '"', ''', ''', '（', '）', '【', '】', '《', '》'}
 
@@ -20,21 +21,25 @@ class SentenceOrganizer:
         if initial_words:
             self.known_words.update(initial_words)
         self.word_ranks = word_ranks
-        self.sentence_buckets = defaultdict(list)  # key: number of unknown words
-        self.sentence_data = {}  # key: original sentence
+        self.sentence_buckets = defaultdict(list)
+        self.sentence_data = {}
         self.skipped_sentences = 0
-        self.n2_sentences_used = 0  # Track n+2 sentences
+        self.n2_sentences_used = 0
         
-        # Initialize buckets
+        # Initialize segmenter
+        self.segmenter = ChineseSegmenter(word_ranks, PUNCTUATION)
+        
+        # Count total unique words while initializing buckets
+        self.all_words = set()
         for sentence in sentences:
-            self._process_sentence(sentence)
+            words = self.segmenter.segment(sentence)
+            self.all_words.update(words)
+            self._process_sentence(sentence, words)  # Pass already segmented words
     
-    def _process_sentence(self, sentence):
-        """Process a sentence and add it to appropriate bucket"""
-        words = [w for w in jieba.cut(sentence) if w not in PUNCTUATION]
+    def _process_sentence(self, sentence, words=None):
         unknown = {w for w in words if w not in self.known_words}
         
-        if not unknown:  # Skip sentences with no unknown words
+        if not unknown:
             self.skipped_sentences += 1
             return
         
@@ -116,17 +121,10 @@ def main():
 
     # Process sentences, starting with top 10 words as known
     df = load_sentences('iknow_table.csv')
-    
-    # Count unique words across all sentences
-    all_words = set()
-    for sentence in df['Sentence']:
-        words = [w for w in jieba.cut(sentence) if w not in PUNCTUATION]
-        all_words.update(words)
-    
-    print(f"Total unique words in corpus: {len(all_words)}")
-    print(f"Initially known words: {len(initial_words)}")
-    
     organizer = SentenceOrganizer(df['Sentence'].tolist(), word_ranks, initial_words)
+    
+    print(f"Total unique words in corpus: {len(organizer.all_words)}")
+    print(f"Initially known words: {len(initial_words)}")
     
     # Create sequence data
     sequence_data = []
