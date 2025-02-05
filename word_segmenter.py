@@ -9,7 +9,7 @@ def load_word_list(filename):
 def load_sentences(filename):
     """Load sentences from iknow CSV file"""
     df = pd.read_csv(filename)
-    return df['sentence'].tolist()
+    return df['Sentence'].tolist()
 
 def segment_sentence(sentence, word_list, max_word_len):
     """Segment a sentence using greedy algorithm"""
@@ -35,7 +35,7 @@ def segment_sentence(sentence, word_list, max_word_len):
 
 def main():
     # Load data
-    word_list = load_word_list('hsk3_words')
+    word_list = load_word_list('words/hsk3_words')
     sentences = load_sentences('iknow_table.csv')
     
     # Calculate maximum word length from word list
