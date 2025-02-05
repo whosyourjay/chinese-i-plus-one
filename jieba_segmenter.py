@@ -22,6 +22,8 @@ class SentenceOrganizer:
         self.word_ranks = word_ranks
         self.sentence_buckets = defaultdict(list)  # key: number of unknown words
         self.sentence_data = {}  # key: original sentence
+        self.skipped_sentences = 0
+        self.n2_sentences_used = 0  # Track n+2 sentences
         
         # Initialize buckets
         for sentence in sentences:
@@ -33,6 +35,7 @@ class SentenceOrganizer:
         unknown = {w for w in words if w not in self.known_words}
         
         if not unknown:  # Skip sentences with no unknown words
+            self.skipped_sentences += 1
             return
         
         self.sentence_data[sentence] = {
@@ -54,13 +57,9 @@ class SentenceOrganizer:
             if not unknown:
                 # Remove sentences with no unknown words
                 del self.sentence_data[sentence]
+                self.skipped_sentences += 1
                 continue
                 
-            # Update max_rank with remaining unknown words
-            self.sentence_data[sentence]['max_rank'] = min(
-                (self.word_ranks.get(w, float('inf')) for w in unknown), 
-                default=float('inf')
-            )
             new_buckets[len(unknown)].append(sentence)
         
         self.sentence_buckets = new_buckets
@@ -75,10 +74,13 @@ class SentenceOrganizer:
                 key=lambda s: self.sentence_data[s]['max_rank']
             )
         
-        return min(
-            self.sentence_buckets[2],
-            key=lambda s: self.sentence_data[s]['max_rank']
-        )
+        # if self.sentence_buckets[2]:
+        #     return min(
+        #         self.sentence_buckets[2],
+        #         key=lambda s: self.sentence_data[s]['max_rank']
+        #     )
+        
+        return None
     
     def learn_sentence(self, sentence):
         """Learn all unknown words from a sentence"""
@@ -86,6 +88,10 @@ class SentenceOrganizer:
         sentence_info = self.sentence_data[sentence]
         new_words = sentence_info['unknown']
         segmented_words = sentence_info['words']
+        
+        # Track if this was an n+2 sentence
+        if len(new_words) == 2:
+            self.n2_sentences_used += 1
         
         # Update known words
         self.known_words.update(new_words)
@@ -110,13 +116,24 @@ def main():
 
     # Process sentences, starting with top 10 words as known
     df = load_sentences('iknow_table.csv')
+    
+    # Count unique words across all sentences
+    all_words = set()
+    for sentence in df['Sentence']:
+        words = [w for w in jieba.cut(sentence) if w not in PUNCTUATION]
+        all_words.update(words)
+    
+    print(f"Total unique words in corpus: {len(all_words)}")
+    print(f"Initially known words: {len(initial_words)}")
+    
     organizer = SentenceOrganizer(df['Sentence'].tolist(), word_ranks, initial_words)
     
     # Create sequence data
     sequence_data = []
     sequence_num = 1
     
-    for _ in range(1000):
+    print(f"Skipped {organizer.skipped_sentences} sentences")
+    while True:
         sentence = organizer.get_next_sentence()
         if not sentence:
             break
@@ -137,7 +154,19 @@ def main():
     # Create and save new dataframe
     sequence_df = pd.DataFrame(sequence_data)
     sequence_df.to_csv('iknow_sequence.csv', index=False)
+    
+    # Count remaining sentences
+    remaining = sum(len(bucket) for bucket in organizer.sentence_buckets.values())
+    
     print(f"Processed {len(sequence_data)} sentences")
+    print(f"Skipped {organizer.skipped_sentences} sentences")
+    print(f"Used {organizer.n2_sentences_used} n+2 sentences")
+    print(f"Remaining unprocessed: {remaining} sentences")
+    if remaining > 0:
+        print("\nSentences per bucket:")
+        for bucket_size, sentences in sorted(organizer.sentence_buckets.items()):
+            if sentences:
+                print(f"{bucket_size} unknown words: {len(sentences)} sentences")
 
 if __name__ == "__main__":
     main() 
