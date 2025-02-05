@@ -41,7 +41,7 @@ class SentenceOrganizer:
         self.sentence_data[sentence] = {
             'words': words,
             'unknown': unknown,
-            'max_rank': min((self.word_ranks.get(w, float('inf')) for w in unknown), default=float('inf'))
+            'max_rank': max((self.word_ranks.get(w, float('inf')) for w in unknown), default=float('inf'))
         }
         self.sentence_buckets[len(unknown)].append(sentence)
     
@@ -112,7 +112,8 @@ def main():
     sorted_words = sorted(word_ranks.items(), key=lambda x: x[1])
     
     # Get top 10 most frequent words
-    initial_words = {word for word, _ in sorted_words[:10]}
+    initial_words = {word for word, _ in sorted_words[:5]}
+    print(initial_words)
 
     # Process sentences
     df = pd.read_csv('SpoonFedChinese.tsv', sep='\t', index_col=False)

@@ -32,3 +32,5 @@ ENV/
 *.csv
 iknow2
 iknow_table2.csv
+rezero_v1-8.tsv
+sentence_sequence.csv
