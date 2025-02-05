@@ -197,12 +197,11 @@ Word,Pinyin,Translation,Sentence,Sentence Pinyin,Sentence Translation
 九,jiǔ,nine,飞机九点起飞。,Fēijī jiǔ diǎn qǐfēi.,The airplane departs at 9:00.
 九,jiǔ,nine,房间里有九个人。,Fángjiān li yǒu jiǔ gè rén.,There are nine people in the room.
 十,shí,ten,他今年十岁。,Tā jīnnián shí suì.,He will turn ten years old this year.
-十,shí,ten,我工作了十年。,Wǒ gōngzuòle shí nián.,I have been working for ten years.各 [gè]
-十,shí,ten,"each, every, different",他们各自工作。,Tāmen gèzì gōngzuò.
-十,shí,ten,Each of them is working.,我去过全国各地。,Wǒ qùguò quánguó gèdì.
-十,shí,ten,I went to every part of the country.,美 [měi],"beautiful, pretty, good"
-十,shí,ten,她长得真美。,Tā zhǎng de zhēn měi.,She's beautiful.
-十,shí,ten,这里的景色很美。,Zhèli de jǐngsè hěn měi.,The scenery here is beautiful.
+十,shí,ten,我工作了十年。,Wǒ gōngzuòle shí nián.,I have been working for ten years.
+各,gè,"each, every, different",他们各自工作。,Tāmen gèzì gōngzuò.,Each of them is working.
+各,gè,"each, every, different",我去过全国各地。,Wǒ qùguò quánguó gèdì.,I went to every part of the country.
+美,měi,"beautiful, pretty, good",她长得真美。,Tā zhǎng de zhēn měi.,She's beautiful.
+美,měi,"beautiful, pretty, good",这里的景色很美。,Zhèli de jǐngsè hěn měi.,The scenery here is beautiful.
 作,zuò,"to do, to make",我在作功课。,Wǒ zài zuò gōngkè.,I'm doing my homework.
 作,zuò,"to do, to make",他在给我作检查。,Tā zài gěi wǒ zuò jiǎnchá.,He examined me.
 真,zhēn,"true; really, truly",这个故事是真的。,Zhège gùshì shì zhēn de.,This story is true.
@@ -398,12 +397,11 @@ Word,Pinyin,Translation,Sentence,Sentence Pinyin,Sentence Translation
 会议,huìyì,"meeting, conference",会议几点开始？,Huìyì jǐ diǎn kāishǐ?,What time does the meeting start?
 会议,huìyì,"meeting, conference",我们都参加了这次会议。,Wǒmen dōu cānjiāle zhè cì huìyì.,We all attended the conference.
 住,zhù,"to live, to stay; verbal complement indicating a stop",我住在学校里。,Wǒ zhù zài xuéxiào li.,I live on campus.
-住,zhù,"to live, to stay; verbal complement indicating a stop",火车突然停住了。,Huǒchē tūrán tíngzhù le.,The train stopped suddenly.中 [zhōng]
-住,zhù,"to live, to stay; verbal complement indicating a stop","in, among, in the course of, China",这项课题还在研究中。,Zhè xiàng kètí hái zài yánjiū zhōng.
-住,zhù,"to live, to stay; verbal complement indicating a stop",The issue is still under review.,把美好的回忆留在心中。,Bǎ měihǎo de huíyì liú zài xīnzhōng.
-住,zhù,"to live, to stay; verbal complement indicating a stop",Hold your beautiful memories in your heart.,方面 [fāngmiàn],"aspect, side"
-住,zhù,"to live, to stay; verbal complement indicating a stop",在学习方面他的成绩很好。,Zài xuéxí fāngmiàn tā de chéngjì hěn hǎo.,"Regarding his studies, his grades are very good."
-住,zhù,"to live, to stay; verbal complement indicating a stop",他说了问题的两个方面。,Tā shuōle wèntí de liǎng gè fāngmiàn.,He talked about both sides of the problem.
+住,zhù,"to live, to stay; verbal complement indicating a stop",火车突然停住了。,Huǒchē tūrán tíngzhù le.,The train stopped suddenly.
+中,zhōng,"in, among, in the course of, China",这项课题还在研究中。,Zhè xiàng kètí hái zài yánjiū zhōng.,The issue is still under review.
+中,zhōng,"in, among, in the course of, China",把美好的回忆留在心中。,Bǎ měihǎo de huíyì liú zài xīnzhōng.,Hold your beautiful memories in your heart.
+方面,fāngmiàn,"aspect, side",在学习方面他的成绩很好。,Zài xuéxí fāngmiàn tā de chéngjì hěn hǎo.,"Regarding his studies, his grades are very good."
+方面,fāngmiàn,"aspect, side",他说了问题的两个方面。,Tā shuōle wèntí de liǎng gè fāngmiàn.,He talked about both sides of the problem.
 以上,yǐshàng,"more than, above, the above",今天的气温在35度以上。,Jīntiān de qìwēn zài sānshíwǔ dù yǐshàng.,Today's temperature is above 35 degrees.
 以上,yǐshàng,"more than, above, the above",以上的问题都明白了吗？,Yǐshàng de wèntí dōu míngbaile ma?,Do you understand all of the above questions?
 要求,yāoqiú,"to demand, to ask, to request; demand, request",老师要求学生交作业。,Lǎoshī yāoqiú xuésheng jiāo zuòyè.,The teacher asked that students hand in their homework.
@@ -599,12 +597,11 @@ Word,Pinyin,Translation,Sentence,Sentence Pinyin,Sentence Translation
 方式,fāngshì,"way, method, mode",我们的生活方式不同。,Wǒmen de shēnghuó fāngshì bù tóng.,Our ways of life are different.
 方式,fāngshì,"way, method, mode",他改变了工作方式。,Tā gǎibiànle gōngzuò fāngshì.,He changed his way of working.
 早上,zǎoshang,morning,他每天早上去跑步。,Tā měi tiān zǎoshang qù pǎobù.,He goes for a run every morning.
-早上,zǎoshang,morning,今天早上天气不错。,Jīntiān zǎoshang tiānqì búcuò.,It's sunny this morning.安静 [ānjìng]
-早上,zǎoshang,morning,"quiet, peaceful, calm",教室里很安静。,Jiāoshì li hěn ānjìng.
-早上,zǎoshang,morning,The classroom is quiet.,病人需要安静。,Bìngrén xūyào ānjìng.
-早上,zǎoshang,morning,Patients need a quiet environment.,洗澡 [xǐzǎo],to take a bath
-早上,zǎoshang,morning,他正在洗澡。,Tā zhèngzài xǐzǎo.,He's taking a bath.
-早上,zǎoshang,morning,我还没洗澡。,Wǒ hái méi xǐzǎo.,I haven't taken a bath yet.
+早上,zǎoshang,morning,今天早上天气不错。,Jīntiān zǎoshang tiānqì búcuò.,It's sunny this morning.
+安静,ānjìng,"quiet, peaceful, calm",教室里很安静。,Jiāoshì li hěn ānjìng.,The classroom is quiet.
+安静,ānjìng,"quiet, peaceful, calm",病人需要安静。,Bìngrén xūyào ānjìng.,Patients need a quiet environment.
+洗澡,xǐzǎo,to take a bath,他正在洗澡。,Tā zhèngzài xǐzǎo.,He's taking a bath.
+洗澡,xǐzǎo,to take a bath,我还没洗澡。,Wǒ hái méi xǐzǎo.,I haven't taken a bath yet.
 男子,nánzǐ,"man, male",这个男子很高。,Zhège nánzǐ hěn gāo.,This man is tall.
 男子,nánzǐ,"man, male",我喜欢看男子篮球赛。,Wǒ xǐhuan kàn nánzǐ lánqiú sài.,I like watching men's basketball games.
 饭店,fàndiàn,"hotel, restaurant",我们住在那家饭店。,Wǒmen zhù zài nà jiā fàndiàn.,We're staying at that hotel.
@@ -800,12 +797,11 @@ Word,Pinyin,Translation,Sentence,Sentence Pinyin,Sentence Translation
 怎样,zěnyàng,how,你最近怎样？,Nǐ zuìjìn zěnyàng?,How are you these days?
 怎样,zěnyàng,how,他怎样了？,Tā zěnyàng le?,What happened to him?
 医院,yīyuàn,hospital,他去医院看病。,Tā qù yīyuàn kànbìng.,He's going to the hospital to get examined.
-医院,yīyuàn,hospital,街角有一家医院。,Jiējiǎo yǒu yì jiā yīyuàn.,There is a hospital on the street corner.部 [bù]
-医院,yīyuàn,hospital,"department, section; counter for films, books etc.",部里的这些人中我最熟的莫过于他了。,Bù li de zhèxiē rén zhōng wǒ zuì shú de mòguòyú tā le.
-医院,yīyuàn,hospital,He's the person in this room that I know the best.,我看了几部电影。,Wǒ kànle jǐ bù diànyǐng.
-医院,yīyuàn,hospital,I watched several movies.,回答 [huídá],"answer, response; to answer, to respond"
-医院,yīyuàn,hospital,他的回答很正确。,Tā de huídá hěn zhèngquè.,His answer was correct.
-医院,yīyuàn,hospital,我还没有得到他的回答。,Wǒ hái méiyǒu dédào tā de huídá.,I haven't got an answer from him yet.
+医院,yīyuàn,hospital,街角有一家医院。,Jiējiǎo yǒu yì jiā yīyuàn.,There is a hospital on the street corner.
+部,bù,"department, section; counter for films, books etc.",部里的这些人中我最熟的莫过于他了。,Bù li de zhèxiē rén zhōng wǒ zuì shú de mòguòyú tā le.,He's the person in this room that I know the best.
+部,bù,"department, section; counter for films, books etc.",我看了几部电影。,Wǒ kànle jǐ bù diànyǐng.,I watched several movies.
+回答,huídá,"answer, response; to answer, to respond",他的回答很正确。,Tā de huídá hěn zhèngquè.,His answer was correct.
+回答,huídá,"answer, response; to answer, to respond",我还没有得到他的回答。,Wǒ hái méiyǒu dédào tā de huídá.,I haven't got an answer from him yet.
 机会,jīhuì,"chance, opportunity",你的机会来了。,Nǐ de jīhuì lái le.,Your chance has arrived.
 机会,jīhuì,"chance, opportunity",我放弃了出国的机会。,Wǒ fàngqìle chūguó de jīhuì.,I gave up the chance to leave the country.
 送,sòng,"to deliver, to send, to give as a present, to see off",我送你去车站。,Wǒ sòng nǐ qù chēzhàn.,I'll see you off at the station.
@@ -1400,12 +1396,11 @@ Word,Pinyin,Translation,Sentence,Sentence Pinyin,Sentence Translation
 回,huí,"to return, to go back, to reply",我明天回国。,Wǒ míngtiān huíguó.,I'll return to my country tomorrow.
 回,huí,"to return, to go back, to reply",我收到了他的回信。,Wǒ shōudàole tā de huíxìn.,I got his reply.
 收入,shōurù,"income, earning; to take in, to include",我的收入还不错。,Wǒ de shōurù hái búcuò.,My personal income is not bad.
-收入,shōurù,"income, earning; to take in, to include",公司收入一大笔资金。,Gōngsī shōurù yí dà bǐ zījīn.,The company received a large injection of capital.当 [dāng]
-收入,shōurù,"income, earning; to take in, to include","to be, to work as, to direct; when",我想当演员。,Wǒ xiǎng dāng yǎnyuán.
-收入,shōurù,"income, earning; to take in, to include",I want to be an actor.,当他来的时候，我不在家。,"Dāng tā lái de shíhou, wǒ bú zài jiā."
-收入,shōurù,"income, earning; to take in, to include","When he came, I was not at home.",坚持 [jiānchí],"to persist in, to insist on"
-收入,shōurù,"income, earning; to take in, to include",他坚持跑完全程。,Tā jiānchí pǎowán quánchéng.,He held out and ran to the end of the course.
-收入,shōurù,"income, earning; to take in, to include",他坚持他的观点。,Tā jiānchí tā de guāndiǎn.,He holds fast to his views.
+收入,shōurù,"income, earning; to take in, to include",公司收入一大笔资金。,Gōngsī shōurù yí dà bǐ zījīn.,The company received a large injection of capital.
+当,dāng,"to be, to work as, to direct; when",我想当演员。,Wǒ xiǎng dāng yǎnyuán.,I want to be an actor.
+当,dāng,"to be, to work as, to direct; when",当他来的时候，我不在家。,"Dāng tā lái de shíhou, wǒ bú zài jiā.","When he came, I was not at home."
+坚持,jiānchí,"to persist in, to insist on",他坚持跑完全程。,Tā jiānchí pǎowán quánchéng.,He held out and ran to the end of the course.
+坚持,jiānchí,"to persist in, to insist on",他坚持他的观点。,Tā jiānchí tā de guāndiǎn.,He holds fast to his views.
 人员,rényuán,"personnel, staff",公司需要更多的技术人员。,Gōngsī xūyào gèng duō de jìshù rényuán.,The company needs more technicians.
 人员,rényuán,"personnel, staff",全体人员出席了会议。,Quántǐ rényuán chūxí le huìyì.,All personnel attended the meeting.
 食品,shípǐn,"food, foodstuff",我去买点儿儿童食品。,Wǒ qù mǎi diǎnr értóng shípǐn.,I'm going to buy some baby food.
@@ -1601,12 +1596,11 @@ Word,Pinyin,Translation,Sentence,Sentence Pinyin,Sentence Translation
 另,lìng,"other, another; in addition, besides",酒店不另收服务费。,Jiǔdiàn bú lìng shōu fúwùfèi.,The hotel doesn't charge any other service fees.
 另,lìng,"other, another; in addition, besides",请从另一个门出去。,Qǐng cóng lìng yí gè mén chūqù.,Please exit from the other door.
 当地,dāngdì,locality,这是当地的风俗习惯。,Zhè shì dāngdì de fēngsú xíguàn.,This is one of the local customs.
-当地,dāngdì,locality,他不是当地人。,Tā bú shì dāngdì rén.,He's not a local.农民 [nóngmín]
-当地,dāngdì,locality,"peasant, peasantry",我们国家有10亿农民。,Wǒmen guójiā yǒu shí yì nóngmín.
-当地,dāngdì,locality,Our country has one billion peasants.,农民在地里干活。,Nóngmín zài dì li gànhuó.
-当地,dāngdì,locality,A farmer works in the fields.,优势 [yōushì],"superiority, advantage"
-当地,dāngdì,locality,我们要保持这个优势。,Wǒmen yào bǎochí zhège yōushì.,We must hold on to a dominant position.
-当地,dāngdì,locality,你的优势在哪儿？,Nǐ de yōushì zài nǎr?,What are your strengths?
+当地,dāngdì,locality,他不是当地人。,Tā bú shì dāngdì rén.,He's not a local.
+农民,nóngmín,"peasant, peasantry",我们国家有10亿农民。,Wǒmen guójiā yǒu shí yì nóngmín.,Our country has one billion peasants.
+农民,nóngmín,"peasant, peasantry",农民在地里干活。,Nóngmín zài dì li gànhuó.,A farmer works in the fields.
+优势,yōushì,"superiority, advantage",我们要保持这个优势。,Wǒmen yào bǎochí zhège yōushì.,We must hold on to a dominant position.
+优势,yōushì,"superiority, advantage",你的优势在哪儿？,Nǐ de yōushì zài nǎr?,What are your strengths?
 软件,ruǎnjiàn,software,免费的软件越来越多。,Miǎnfèi de ruǎnjiàn yuèláiyuèduō.,There is more and more free software.
 软件,ruǎnjiàn,software,我们开发了不少软件。,Wǒmen kāifāle bùshǎo ruǎnjiàn.,We have developed a lot of software.
 加强,jiāqiáng,"to strengthen, to enhance, to reinforce",公司需要加强管理。,Gōngsī xūyào jiāqiáng guǎnlǐ.,The company needs to strengthen its management team.
@@ -1802,12 +1796,11 @@ Word,Pinyin,Translation,Sentence,Sentence Pinyin,Sentence Translation
 目的,mùdì,"aim, purpose, goal",你有什么目的？,Nǐ yǒu shénme mùdì?,What's your goal?
 目的,mùdì,"aim, purpose, goal",我们达到了盈利的目的。,Wǒmen dádàole yínglì de mùdì.,We achieved our goal of making a profit.
 清楚,qīngchu,"clear, distinct",我听得很清楚。,Wǒ tīng de hěn qīngchu.,I can hear clearly.
-清楚,qīngchu,"clear, distinct",请解释清楚这个问题。,Qǐng jiěshì qīngchu zhège wèntí.,Please explain this problem clearly.维护 [wéihù]
-清楚,qīngchu,"clear, distinct","to safeguard, to defend",系统在维护中。,Xìtǒng zài wéihù zhōng.
-清楚,qīngchu,"clear, distinct",The system is under maintenance.,政府应该维护社会稳定。,Zhèngfǔ yīnggāi wéihù shèhuì wěndìng.
-清楚,qīngchu,"clear, distinct",The government should maintain social stability.,另外 [lìngwài],"other, another; specially; besides"
-清楚,qīngchu,"clear, distinct",我们另外找时间见面。,Wǒmen lìngwài zhǎo shíjiān jiànmiàn.,Let's find another time to meet.
-清楚,qīngchu,"clear, distinct",我买了衣服，另外还买了鞋子。,"Wǒ mǎile yīfu, lìngwài hái mǎile xiézi.","I bought clothes, and I also bought some shoes."
+清楚,qīngchu,"clear, distinct",请解释清楚这个问题。,Qǐng jiěshì qīngchu zhège wèntí.,Please explain this problem clearly.
+维护,wéihù,"to safeguard, to defend",系统在维护中。,Xìtǒng zài wéihù zhōng.,The system is under maintenance.
+维护,wéihù,"to safeguard, to defend",政府应该维护社会稳定。,Zhèngfǔ yīnggāi wéihù shèhuì wěndìng.,The government should maintain social stability.
+另外,lìngwài,"other, another; specially; besides",我们另外找时间见面。,Wǒmen lìngwài zhǎo shíjiān jiànmiàn.,Let's find another time to meet.
+另外,lìngwài,"other, another; specially; besides",我买了衣服，另外还买了鞋子。,"Wǒ mǎile yīfu, lìngwài hái mǎile xiézi.","I bought clothes, and I also bought some shoes."
 开展,kāizhǎn,"to develop, to carry out, to launch; open-minded",市里正在开展商业活动。,Shì li zhèngzài kāizhǎn shāngyè huódòng.,Business activities are being carried out in the city.
 开展,kāizhǎn,"to develop, to carry out, to launch; open-minded",学校开展了文化活动。,Xuéxiào kāizhǎnle wénhuà huódòng.,The school carried out cultural activities.
 明显,míngxiǎn,"obvious, clear, evident",我没有明显的优势。,Wǒ méiyǒu míngxiǎn de yōushì.,I don't have a clear advantage.
@@ -2003,12 +1996,11 @@ Word,Pinyin,Translation,Sentence,Sentence Pinyin,Sentence Translation
 幸福,xìngfú,happy,希望你们幸福。,Xīwàng nǐmen xìngfú.,I wish you happiness.
 幸福,xìngfú,happy,他有一个幸福的家。,Tā yǒu yí gè xìngfú de jiā.,He has a happy family.
 整体,zhěngtǐ,"whole, entirety, totality",个人要服从整体。,Gèrén yào fúcóng zhěngtǐ.,The individual should be subordinate to the group.
-整体,zhěngtǐ,"whole, entirety, totality",我们的团队是一个整体。,Wǒmen de tuánduì shì yí gè zhěngtǐ.,Our team is a whole.原来 [yuánlái]
-整体,zhěngtǐ,"whole, entirety, totality","original, former; originally, formerly",原来我们住在这里。,Yuánlái wǒmen zhù zài zhèlǐ.
-整体,zhěngtǐ,"whole, entirety, totality",We lived here in the past.,你原来的想法是什么？,Nǐ yuánlái de xiǎngfǎ shì shénme?
-整体,zhěngtǐ,"whole, entirety, totality",What was your original idea?,反映 [fǎnyìng],"to reflect, to report; comment, opinion, reflection"
-整体,zhěngtǐ,"whole, entirety, totality",他跟部长反映最新的情况。,Tā gēn bùzhǎng fǎnyìng zuì xīn de qíngkuàng.,He reported on the latest situation to the minister.
-整体,zhěngtǐ,"whole, entirety, totality",大家对他的反映都很好。,Dàjiā duì tā de fǎnyìng dōu hěn hǎo.,Everyone has a good opinion of him.
+整体,zhěngtǐ,"whole, entirety, totality",我们的团队是一个整体。,Wǒmen de tuánduì shì yí gè zhěngtǐ.,Our team is a whole.
+原来,yuánlái,"original, former; originally, formerly",原来我们住在这里。,Yuánlái wǒmen zhù zài zhèlǐ.,We lived here in the past.
+原来,yuánlái,"original, former; originally, formerly",你原来的想法是什么？,Nǐ yuánlái de xiǎngfǎ shì shénme?,What was your original idea?
+反映,fǎnyìng,"to reflect, to report; comment, opinion, reflection",他跟部长反映最新的情况。,Tā gēn bùzhǎng fǎnyìng zuì xīn de qíngkuàng.,He reported on the latest situation to the minister.
+反映,fǎnyìng,"to reflect, to report; comment, opinion, reflection",大家对他的反映都很好。,Dàjiā duì tā de fǎnyìng dōu hěn hǎo.,Everyone has a good opinion of him.
 基础,jīchǔ,"base, foundation, basis",基础知识很重要。,Jīchǔ zhīshi hěn zhòngyào.,Fundamental knowledge is very important.
 基础,jīchǔ,"base, foundation, basis",学习要打好基础。,Xuéxí yào dǎhǎo jīchǔ.,It is important for one's studies to build a solid foundation.
 系,xì,"department, faculty",他是哪个系的学生？,Tā shì nǎge xì de xuésheng?,What does he major in?
@@ -2202,12 +2194,11 @@ Word,Pinyin,Translation,Sentence,Sentence Pinyin,Sentence Translation
 啤酒,píjiǔ,beer,这里的啤酒很有名。,Zhèlǐ de píjiǔ hěn yǒumíng.,The beer here is well-known.
 啤酒,píjiǔ,beer,他很喜欢喝啤酒。,Tā hěn xǐhuan hē píjiǔ.,He really likes drinking beer.
 召开,zhàokāi,"to convene, to convoke",我们没有召开会议。,Wǒmen méiyǒu zhàokāi huìyì.,We didn't hold a meeting.
-召开,zhàokāi,"to convene, to convoke",这里要召开国际会议。,Zhèlǐ yào zhàokāi guójì huìyì.,The international conference is going to be held here.迅速 [xùnsù]
-召开,zhàokāi,"to convene, to convoke","rapid, speedy, prompt",他的反应很迅速。,Tā de fǎnyìng hěn xùnsù.
-召开,zhàokāi,"to convene, to convoke",His response was very quick.,消息迅速传开了。,Xiāoxi xùnsù chuánkāi le.
-召开,zhàokāi,"to convene, to convoke",The news spread quickly.,铅笔 [qiānbǐ],pencil
-召开,zhàokāi,"to convene, to convoke",请给我一支铅笔。,Qǐng gěi wǒ yì zhī qiānbǐ.,Please give me a pencil.
-召开,zhàokāi,"to convene, to convoke",谢谢你的铅笔。,Xièxie nǐ de qiānbǐ.,Thank you for the pencil.
+召开,zhàokāi,"to convene, to convoke",这里要召开国际会议。,Zhèlǐ yào zhàokāi guójì huìyì.,The international conference is going to be held here.
+迅速,xùnsù,"rapid, speedy, prompt",他的反应很迅速。,Tā de fǎnyìng hěn xùnsù.,His response was very quick.
+迅速,xùnsù,"rapid, speedy, prompt",消息迅速传开了。,Xiāoxi xùnsù chuánkāi le.,The news spread quickly.
+铅笔,qiānbǐ,pencil,请给我一支铅笔。,Qǐng gěi wǒ yì zhī qiānbǐ.,Please give me a pencil.
+铅笔,qiānbǐ,pencil,谢谢你的铅笔。,Xièxie nǐ de qiānbǐ.,Thank you for the pencil.
 主意,zhǔyi,"idea, view",这是谁的主意？,Zhè shì shuí de zhǔyi?,Whose idea is this?
 主意,zhǔyi,"idea, view",你的主意真不错。,Nǐ de zhǔyi zhēn búcuò.,Your idea is really good.
 饺子,jiǎozi,dumplings,我不会包饺子。,Wǒ bú huì bāo jiǎozi.,I don't know how to make dumplings.
@@ -2403,12 +2394,11 @@ Word,Pinyin,Translation,Sentence,Sentence Pinyin,Sentence Translation
 机构,jīgòu,"mechanism, organization, institution",这是一家金融机构。,Zhè shì yì jiā jīnróng jīgòu.,This is a financial institution.
 机构,jīgòu,"mechanism, organization, institution",他在政府机构工作。,Tā zài zhèngfǔ jīgòu gōngzuò.,He works in a government organization.
 真实,zhēnshí,"true, real",这是一个真实的故事。,Zhèi shì yígè zhēnshí de gùshi.,This is a true story.
-真实,zhēnshí,"true, real",我需要了解真实的情况。,Wǒ xūyào liǎojiě zhēnshí de qíngkuàng.,I need to know the facts.协议 [xiéyì]
-真实,zhēnshí,"true, real","to agree on, to discuss; agreement, protocol",他们协议解决了问题。,Tāmen xiéyì jiějué le wèntí.
-真实,zhēnshí,"true, real",They reached an agreement to solve the problem.,你必须遵守这个协议。,Nǐ bìxū zūnshǒu zhège xiéyì.
-真实,zhēnshí,"true, real",You must comply with this agreement.,系列 [xìliè],"series, set"
-真实,zhēnshí,"true, real",我很喜欢这个系列的产品。,Wǒ hěn xǐhuan zhège xìliè de chǎnpǐn.,I really like this series of products.
-真实,zhēnshí,"true, real",政府实施了一系列的新政策。,Zhèngfǔ shíshī le yí xìliè de xīn zhèngcè.,The government carried out a new set of policies.
+真实,zhēnshí,"true, real",我需要了解真实的情况。,Wǒ xūyào liǎojiě zhēnshí de qíngkuàng.,I need to know the facts.
+协议,xiéyì,"to agree on, to discuss; agreement, protocol",他们协议解决了问题。,Tāmen xiéyì jiějué le wèntí.,They reached an agreement to solve the problem.
+协议,xiéyì,"to agree on, to discuss; agreement, protocol",你必须遵守这个协议。,Nǐ bìxū zūnshǒu zhège xiéyì.,You must comply with this agreement.
+系列,xìliè,"series, set",我很喜欢这个系列的产品。,Wǒ hěn xǐhuan zhège xìliè de chǎnpǐn.,I really like this series of products.
+系列,xìliè,"series, set",政府实施了一系列的新政策。,Zhèngfǔ shíshī le yí xìliè de xīn zhèngcè.,The government carried out a new set of policies.
 改革,gǎigé,"to reform; reform, renovation",学校在改革教学方法。,Xuéxiào zài gǎigé jiàoxué fāngfǎ.,Schools are improving their teaching methods.
 改革,gǎigé,"to reform; reform, renovation",公司正在做全面改革。,Gōngsī zhèngzài zuò quánmiàn gǎigé.,Comprehensive reform is underway in the company.
 培训,péixùn,"to cultivate, to train; training",我参加公司的培训。,Wǒ cānjiā gōngsī de péixùn.,I received training from the company.
@@ -2604,12 +2594,11 @@ Word,Pinyin,Translation,Sentence,Sentence Pinyin,Sentence Translation
 顺利,shùnlì,"smooth, successful",今天的工作很顺利。,Jīntiān de gōngzuò hěn shùnlì.,Work is going smoothly today.
 顺利,shùnlì,"smooth, successful",事情顺利吗？,Shìqing shùnlì ma?,Are things going well?
 厂,chǎng,factory,这是一家汽车厂。,Zhè shì yì jiā qìchēchǎng.,This is a car factory.
-厂,chǎng,factory,他开了一家服装厂。,Tā kāile yì jiā fúzhuāngchǎng.,He opened a clothing factory.唯一 [wéiyī]
-厂,chǎng,factory,"only, sole, unique",你是我唯一的希望。,Nǐ shì wǒ wéiyī de xīwàng.
-厂,chǎng,factory,You're my only hope.,唯一的办法就是坚持下去。,Wéiyī de bànfǎ jiù shì jiānchí xiàqu.
-厂,chǎng,factory,There's only one way to continue.,内部 [nèibù],"internal, inside"
-厂,chǎng,factory,问题来自系统内部。,Wèntí láizì xìtǒng nèibù.,The problems comes from within the system.
-厂,chǎng,factory,公司内部竞争很激烈。,Gōngsī nèibù jìngzhēng hěn jīliè.,Internal competition within the company is fierce.
+厂,chǎng,factory,他开了一家服装厂。,Tā kāile yì jiā fúzhuāngchǎng.,He opened a clothing factory.
+唯一,wéiyī,"only, sole, unique",你是我唯一的希望。,Nǐ shì wǒ wéiyī de xīwàng.,You're my only hope.
+唯一,wéiyī,"only, sole, unique",唯一的办法就是坚持下去。,Wéiyī de bànfǎ jiù shì jiānchí xiàqu.,There's only one way to continue.
+内部,nèibù,"internal, inside",问题来自系统内部。,Wèntí láizì xìtǒng nèibù.,The problems comes from within the system.
+内部,nèibù,"internal, inside",公司内部竞争很激烈。,Gōngsī nèibù jìngzhēng hěn jīliè.,Internal competition within the company is fierce.
 打印,dǎyìn,"to print, to put a seal on, to stamp",请帮我打印这份文件。,Qǐng bāng wǒ dǎyìn zhè fèn wénjiàn.,Please help me print this document.
 打印,dǎyìn,"to print, to put a seal on, to stamp",我要打印这些资料。,Wǒ yào dǎyìn zhèxie zīliào.,I'll print out this data.
 记录,jìlù,"to take notes, to record; record",他的发言我都记录下来了。,Tā de fāyán wǒ dōu jìlù xiàlai le.,I have recorded all his statements.
@@ -3005,12 +2994,11 @@ Word,Pinyin,Translation,Sentence,Sentence Pinyin,Sentence Translation
 形势,xíngshì,"situation, circumstances, terrain",经济形势恶化了。,Jīngjì xíngshì èhuà le.,The economic situation deteriorated.
 形势,xíngshì,"situation, circumstances, terrain",这个国家的形势良好。,Zhège guójiā de xíngshì liánghǎo.,The country is in a good situation.
 损失,sǔnshī,"loss, damage; to lose, to damage",我损失了一笔钱。,Wǒ sǔnshīle yì bǐ qián.,I lost some money.
-损失,sǔnshī,"loss, damage; to lose, to damage",洪水造成了巨大的损失。,Hóngshuǐ zàochéngle jùdà de sǔnshī.,The flood caused great damage.流 [liú]
-损失,sǔnshī,"loss, damage; to lose, to damage",to flow,他流鼻涕了。,Tā liú bítì le.
-损失,sǔnshī,"loss, damage; to lose, to damage",He had a runny nose.,水流出来了。,Shuǐ liú chūlái le.
-损失,sǔnshī,"loss, damage; to lose, to damage",The water flowed out.,一旦 [yídàn],"once, whenever; in a single day"
-损失,sǔnshī,"loss, damage; to lose, to damage",他的努力毁于一旦。,Tā de nǔlì huǐyúyídàn.,His efforts were wiped out in a single day.
-损失,sǔnshī,"loss, damage; to lose, to damage",一旦失败，我就完了。,"Yídàn shībài, wǒ jiù wán le.",I'm finished if it fails.
+损失,sǔnshī,"loss, damage; to lose, to damage",洪水造成了巨大的损失。,Hóngshuǐ zàochéngle jùdà de sǔnshī.,The flood caused great damage.
+流,liú,to flow,他流鼻涕了。,Tā liú bítì le.,He had a runny nose.
+流,liú,to flow,水流出来了。,Shuǐ liú chūlái le.,The water flowed out.
+一旦,yídàn,"once, whenever; in a single day",他的努力毁于一旦。,Tā de nǔlì huǐyúyídàn.,His efforts were wiped out in a single day.
+一旦,yídàn,"once, whenever; in a single day",一旦失败，我就完了。,"Yídàn shībài, wǒ jiù wán le.",I'm finished if it fails.
 成就,chéngjiù,"achievement, success; to achieve, to accomplish",他取得了很大的成就。,Tā qǔdéle hěn dà de chéngjiù.,He has achieved great success.
 成就,chéngjiù,"achievement, success; to achieve, to accomplish",科学成就了健康。,Kēxué chéngjiùle jiànkāng.,Science makes being healthy possible.
 计算,jìsuàn,"to calculate, to count, to consider; calculation, planning",我在计算员工人数。,Wǒ zài jìsuàn yuángōng rénshù.,I'm counting the number of employees.
@@ -3206,12 +3194,11 @@ Word,Pinyin,Translation,Sentence,Sentence Pinyin,Sentence Translation
 加快,jiākuài,"to speed up, to accelerate",我们要加快速度！,Wǒmen yào jiākuài sùdù!,We have to speed up!
 加快,jiākuài,"to speed up, to accelerate",我的心跳加快了。,Wǒ de xīntiào jiākuài le.,My heart beats faster.
 骑,qí,"to ride, to sit astride",我骑自行车上班。,Wǒ qí zìxíngchē shàngbān.,I bike to work.
-骑,qí,"to ride, to sit astride",孩子骑在爸爸肩上。,Háizi qí zài bàba jiān shang.,The child is riding on his father's shoulders.届 [jiè]
-骑,qí,"to ride, to sit astride",counter for years or sessions,她在我们这一届之后就退休了。,Tā zài wǒmen zhè yí jiè zhīhòu jiù tuìxiū le.
-骑,qí,"to ride, to sit astride",She retired after our class graduated.,第十六届亚运会在广州召开。,Dì shíliù jiè Yàyùnhuì zài Guǎngzhōu zhàokāi.
-骑,qí,"to ride, to sit astride",The 16th Asian Games are being held in Guangzhou.,危机 [wēijī],"crisis, critical moment"
-骑,qí,"to ride, to sit astride",公司遇到了危机。,Gōngsī yùdàole wēijī.,The company is facing a crisis.
-骑,qí,"to ride, to sit astride",在危机时刻，警察出现了。,"Zài wēijī shíkè, jǐngchá chūxiàn le.",The police showed up at the critical moment.
+骑,qí,"to ride, to sit astride",孩子骑在爸爸肩上。,Háizi qí zài bàba jiān shang.,The child is riding on his father's shoulders.
+届,jiè,counter for years or sessions,她在我们这一届之后就退休了。,Tā zài wǒmen zhè yí jiè zhīhòu jiù tuìxiū le.,She retired after our class graduated.
+届,jiè,counter for years or sessions,第十六届亚运会在广州召开。,Dì shíliù jiè Yàyùnhuì zài Guǎngzhōu zhàokāi.,The 16th Asian Games are being held in Guangzhou.
+危机,wēijī,"crisis, critical moment",公司遇到了危机。,Gōngsī yùdàole wēijī.,The company is facing a crisis.
+危机,wēijī,"crisis, critical moment",在危机时刻，警察出现了。,"Zài wēijī shíkè, jǐngchá chūxiàn le.",The police showed up at the critical moment.
 运用,yùnyòng,"to utilize, to apply",运用你的智慧来找答案。,Yùnyòng nǐ de zhìhuì lái zhǎo dá'àn.,Use your wisdom to find the answer.
 运用,yùnyòng,"to utilize, to apply",我们把新技术运用到生产上。,Wǒmen bǎ xīn jìshù yùnyòng dào shēngchǎn shang.,We applied the new technology to production.
 诊断,zhěnduàn,to diagnose; diagnosis,医生正在诊断病人。,Yīshēng zhèngzài zhěnduàn bìngrén.,The doctor is diagnosing the patient.
@@ -3407,12 +3394,11 @@ Word,Pinyin,Translation,Sentence,Sentence Pinyin,Sentence Translation
 刚刚,gānggāng,"just, just now",我刚刚吃过午饭。,Wǒ gānggāng chīguò wǔfàn.,I've just had my lunch.
 刚刚,gānggāng,"just, just now",刚刚还下着雨。,Gānggāng hái xiàzhe yǔ.,It was raining until just now.
 包含,bāohán,"to contain, to embody, to include",包含路费一共一百元。,Bāohán lùfèi yígòng yìbǎi yuán.,"It's one hundred yuan in all, including travel expenses."
-包含,bāohán,"to contain, to embody, to include",包含我在内，这里一共十个人。,"Bāohán wǒ zài nèi, zhèlǐ yígòng shí gè rén.",There are ten people here including me.效率 [xiàolǜ]
-包含,bāohán,"to contain, to embody, to include",efficiency,他的学习效率很高。,Tā de xuéxí xiàolǜ hěn gāo.
-包含,bāohán,"to contain, to embody, to include",He learns quickly.,公司需要提高效率。,Gōngsī xūyào tígāo xiàolǜ.
-包含,bāohán,"to contain, to embody, to include",The company needs to improve its efficiency.,不如 [bùrú],would be better to; to be inferior to
-包含,bāohán,"to contain, to embody, to include",我的学习成绩不如他。,Wǒ de xuéxí chéngjì bùrú tā.,My school grades are not as good as his.
-包含,bāohán,"to contain, to embody, to include",不如我们去看电影吧。,Bùrú wǒmen qù kàn diànyǐng ba.,It would be better to go to the movies.
+包含,bāohán,"to contain, to embody, to include",包含我在内，这里一共十个人。,"Bāohán wǒ zài nèi, zhèlǐ yígòng shí gè rén.",There are ten people here including me.
+效率,xiàolǜ,efficiency,他的学习效率很高。,Tā de xuéxí xiàolǜ hěn gāo.,He learns quickly.
+效率,xiàolǜ,efficiency,公司需要提高效率。,Gōngsī xūyào tígāo xiàolǜ.,The company needs to improve its efficiency.
+不如,bùrú,would be better to; to be inferior to,我的学习成绩不如他。,Wǒ de xuéxí chéngjì bùrú tā.,My school grades are not as good as his.
+不如,bùrú,would be better to; to be inferior to,不如我们去看电影吧。,Bùrú wǒmen qù kàn diànyǐng ba.,It would be better to go to the movies.
 减肥,jiǎnféi,to lose weight,她正在减肥。,Tā zhèngzài jiǎnféi.,He's losing weight.
 减肥,jiǎnféi,to lose weight,你不需要减肥。,Nǐ bù xūyào jiǎnféi.,You don't need to lose weight.
 改进,gǎijìn,to improve,他改进了机器的结构。,Tā gǎijìnle jīqì de jiégòu.,He made improvements to the machine's construction.
@@ -3608,12 +3594,11 @@ Word,Pinyin,Translation,Sentence,Sentence Pinyin,Sentence Translation
 年级,niánjí,"grade, year",我今年3年级了。,Wǒ jīnnián sān niánjí le.,I'm in the third grade this year.
 年级,niánjí,"grade, year",他是6年级的学生。,Tā shì liù niánjí de xuésheng.,He is a sixth grader.
 手表,shǒubiǎo,wrist watch,这块手表很贵。,Zhè kuài shǒubiǎo hěn guì.,The watch is very expensive.
-手表,shǒubiǎo,wrist watch,我刚买了一块手表。,Wǒ gāng mǎile yī kuài shǒubiǎo.,I just bought a watch.怀疑 [huáiyí]
-手表,shǒubiǎo,wrist watch,"to doubt, to suspect, to guess; doubt, suspicion",我怀疑是他做的。,Wǒ huáiyí shì tā zuò de.
-手表,shǒubiǎo,wrist watch,I suspect that he did it.,他的行为令人怀疑。,Tā de xíngwéi lìngrén huáiyí.
-手表,shǒubiǎo,wrist watch,His behavior is questionable.,春节 [chūnjié],"Spring Festival, Chinese New Year"
-手表,shǒubiǎo,wrist watch,春节快到了。,Chūnjié kuài dào le.,The Spring Festival is coming.
-手表,shǒubiǎo,wrist watch,我今年回家过春节。,Wǒ jīnnián huíjiā guò chūnjié.,This year I will go home to celebrate the New Year.
+手表,shǒubiǎo,wrist watch,我刚买了一块手表。,Wǒ gāng mǎile yī kuài shǒubiǎo.,I just bought a watch.
+怀疑,huáiyí,"to doubt, to suspect, to guess; doubt, suspicion",我怀疑是他做的。,Wǒ huáiyí shì tā zuò de.,I suspect that he did it.
+怀疑,huáiyí,"to doubt, to suspect, to guess; doubt, suspicion",他的行为令人怀疑。,Tā de xíngwéi lìngrén huáiyí.,His behavior is questionable.
+春节,chūnjié,"Spring Festival, Chinese New Year",春节快到了。,Chūnjié kuài dào le.,The Spring Festival is coming.
+春节,chūnjié,"Spring Festival, Chinese New Year",我今年回家过春节。,Wǒ jīnnián huíjiā guò chūnjié.,This year I will go home to celebrate the New Year.
 凭,píng,"to lean against, to rely on; according to; no matter",他凭经验来判断。,Tā píng jīngyàn lái pànduàn.,He bases his judgments on experience.
 凭,píng,"to lean against, to rely on; according to; no matter",凭我们怎么说，他都不听。,"Píng wǒmen zěnme shuō, tā dōu bù tīng.",He won't listen to us no matter what we say.
 棒,bàng,"good, great, fantastic",你做得真棒！,Nǐ zuò de zhēn bàng!,You did a terrific job!
@@ -3809,12 +3794,11 @@ Word,Pinyin,Translation,Sentence,Sentence Pinyin,Sentence Translation
 接待,jiēdài,"to receive, to entertain; reception, entertainment",我负责接待客户。,Wǒ fùzé jiēdài kèhù.,I'm responsible for client reception.
 接待,jiēdài,"to receive, to entertain; reception, entertainment",谢谢您的接待。,Xièxie nín de jiēdài.,Thanks for your hospitality.
 角色,juésè,"role, part",你扮演哪个角色？,Nǐ bànyǎn nǎge juésè?,Which role do you play?
-角色,juésè,"role, part",他是公司里的重要角色。,Tā shì gōngsī li de zhòngyào juésè.,He's an important figure in the company.事实 [shìshí]
-角色,juésè,"role, part","fact, truth",请告诉我事实。,Qǐng gàosu wǒ shìshí.
-角色,juésè,"role, part",Please tell me the truth.,他对事实不了解。,Tā duì shìshí bù liǎojiě.
-角色,juésè,"role, part",He didn't know the facts.,航班 [hángbān],"flight, flight number"
-角色,juésè,"role, part",我要取消航班。,Wǒ yào qǔxiāo hángbān.,I want to cancel the flight.
-角色,juésè,"role, part",航班延误了。,Hángbān yánwù le.,The flight was delayed.
+角色,juésè,"role, part",他是公司里的重要角色。,Tā shì gōngsī li de zhòngyào juésè.,He's an important figure in the company.
+事实,shìshí,"fact, truth",请告诉我事实。,Qǐng gàosu wǒ shìshí.,Please tell me the truth.
+事实,shìshí,"fact, truth",他对事实不了解。,Tā duì shìshí bù liǎojiě.,He didn't know the facts.
+航班,hángbān,"flight, flight number",我要取消航班。,Wǒ yào qǔxiāo hángbān.,I want to cancel the flight.
+航班,hángbān,"flight, flight number",航班延误了。,Hángbān yánwù le.,The flight was delayed.
 批准,pīzhǔn,"to approve, to endorse, to ratify",老师批准学生请假。,Lǎoshī pīzhǔn xuésheng qǐngjià.,The teacher approved the student's request for leave.
 批准,pīzhǔn,"to approve, to endorse, to ratify",他的请求被批准了。,Tā de qǐngqiú bèi pīzhǔn le.,His request was approved.
 营养,yíngyǎng,"nutrient, nutrition; to nourish",牛奶很有营养。,Niúnǎi hěn yǒu yíngyǎng.,Milk is nutritious.
@@ -4010,12 +3994,11 @@ Word,Pinyin,Translation,Sentence,Sentence Pinyin,Sentence Translation
 请客,qǐngkè,"to treat somebody (to a dinner, movie, etc)",我请客。,Wǒ qǐngkè.,My treat.
 请客,qǐngkè,"to treat somebody (to a dinner, movie, etc)",他获奖了，我们叫他请客。,"Tā huòjiǎng le, wǒmen jiào tā qǐngkè.","He won a prize, so we told him to treat us to a meal."
 里面,lǐmiàn,"inside, interior",房子里面没有人。,Fángzi lǐmiàn méiyǒu rén.,There is no one in the house.
-里面,lǐmiàn,"inside, interior",屋子里面有两个人。,Wūzi lǐmiàn yǒu liǎng'ge rén.,Two people are in the room.一旦 [yídàn]
-里面,lǐmiàn,"inside, interior",in the event that ... ; in case ... ; if …,一旦发生问题，怎么办？,"Yídàn fāshēng wèntí, zěnme bàn?"
-里面,lǐmiàn,"inside, interior",What should be done if anything happens?,河水一旦污染，鱼儿就会死。,"Héshuǐ yídàn wūrǎn, yú'er jiù huì sǐ."
-里面,lǐmiàn,"inside, interior","If the river becomes polluted, the fish will die.",至于 [zhìyú],as to; regarding
-里面,lǐmiàn,"inside, interior",至于最后这个问题，我并不了解。,"Zhìyú zuìhòu zhèige wèntí, wǒ bìng bù liǎojiě.","As for this last issue, I just don't understand."
-里面,lǐmiàn,"inside, interior",至于他，我们明天再处理。,"Zhìyú tā, wǒmen míngtiān zài chǔlǐ.","Regarding him, we will deal with it again tomorrow."
+里面,lǐmiàn,"inside, interior",屋子里面有两个人。,Wūzi lǐmiàn yǒu liǎng'ge rén.,Two people are in the room.
+一旦,yídàn,in the event that ... ; in case ... ; if …,一旦发生问题，怎么办？,"Yídàn fāshēng wèntí, zěnme bàn?",What should be done if anything happens?
+一旦,yídàn,in the event that ... ; in case ... ; if …,河水一旦污染，鱼儿就会死。,"Héshuǐ yídàn wūrǎn, yú'er jiù huì sǐ.","If the river becomes polluted, the fish will die."
+至于,zhìyú,as to; regarding,至于最后这个问题，我并不了解。,"Zhìyú zuìhòu zhèige wèntí, wǒ bìng bù liǎojiě.","As for this last issue, I just don't understand."
+至于,zhìyú,as to; regarding,至于他，我们明天再处理。,"Zhìyú tā, wǒmen míngtiān zài chǔlǐ.","Regarding him, we will deal with it again tomorrow."
 搭车,dāchē,"travel by vehicle (car, train)",下班了，他搭车回家。,"Xià bān le, tā dāchē huí jiā.","After work, he went home by car."
 赔钱,péiqián,lose money; compensate; pay for damages,他打破了别人的眼镜，要赔钱了。,"Tā dǎpò le biéren de yǎnjìng, yào péiqián le.",He broke somebody else's glasses. He needs to pay for the damages.
 赔钱,péiqián,lose money; compensate; pay for damages,公司赔钱了。,Gōngsī péiqián le.,The company lost money.
@@ -4207,12 +4190,11 @@ Word,Pinyin,Translation,Sentence,Sentence Pinyin,Sentence Translation
 录音带,lùyīndài,"tape, cassette",他拷贝录音带。,Tā kǎobèi lùyīndài.,He copied the tape.
 录音带,lùyīndài,"tape, cassette",我买了三盒录音带。,Wǒ mǎi le sānhé lùyīndài.,I bought three boxes of recording tape.
 重罪,zhòngzuì,serious crime; felony,他不仅偷还抢，犯了重罪。,"Tā bùjǐn tōu hái qiǎng, fàn le zhòngzuì.","He not only stole and robbed, but also committed a felony."
-重罪,zhòngzuì,serious crime; felony,窃盗国家机密是重罪。,Qièdào guójiā jīmì shì zhòngzuì.,It is a serious crime to steal national secrets.青少年 [qīngshàonián]
-重罪,zhòngzuì,serious crime; felony,"young people, teenagers, adolescents",青少年是祖国的未来。,Qīngshàonián shì zǔguó de wèilái.
-重罪,zhòngzuì,serious crime; felony,The youth are the future of our nation.,青少年问题要特别注意。,Qīngshàonián wèntí yào tèbié zhùyì.
-重罪,zhòngzuì,serious crime; felony,Juvenile problems require special attention.,群众 [qúnzhòng],the masses; the people
-重罪,zhòngzuì,serious crime; felony,群众进行抗议活动。,Qúnzhòng jìnxíng kàngyì huódòng.,The masses conducted protest activities.
-重罪,zhòngzuì,serious crime; felony,群众选出了他们的市长。,Qúnzhòng xuǎnchū le tāmen de shìzhǎng.,People elected their mayor.
+重罪,zhòngzuì,serious crime; felony,窃盗国家机密是重罪。,Qièdào guójiā jīmì shì zhòngzuì.,It is a serious crime to steal national secrets.
+青少年,qīngshàonián,"young people, teenagers, adolescents",青少年是祖国的未来。,Qīngshàonián shì zǔguó de wèilái.,The youth are the future of our nation.
+青少年,qīngshàonián,"young people, teenagers, adolescents",青少年问题要特别注意。,Qīngshàonián wèntí yào tèbié zhùyì.,Juvenile problems require special attention.
+群众,qúnzhòng,the masses; the people,群众进行抗议活动。,Qúnzhòng jìnxíng kàngyì huódòng.,The masses conducted protest activities.
+群众,qúnzhòng,the masses; the people,群众选出了他们的市长。,Qúnzhòng xuǎnchū le tāmen de shìzhǎng.,People elected their mayor.
 侵略,qīnlüè,invade; invasion; aggression,1939年德国侵略了波兰。,Yī jiǔ sān jiǔ nián Déguó qīnlüè le Bōlán.,"In 1939, German invaded Poland."
 侵略,qīnlüè,invade; invasion; aggression,伊拉克侵略科威特。,Yīlākè qīnlüè Kēwēitè.,Iraq invaded Kuwait.
 威胁,wēixié,threat; threaten,他受到了威胁。,Tā shòu dào le wēixié.,He was threatened.
@@ -4406,12 +4388,11 @@ Word,Pinyin,Translation,Sentence,Sentence Pinyin,Sentence Translation
 岂,qǐ,rhetorical question particle,岂能这么做？,Qǐ néng zhème zuò?,How can you do this?
 岂,qǐ,rhetorical question particle,让他跳舞岂不是很难。,Ràng tā tiàowǔ qǐ bú shì hěn nán.,Getting him to dance is very difficult.
 在野党,zàiyědǎng,opposition party,在野党提出执政党的问题。,Zàiyědǎng tíchū zhízhèng dǎng de wènti.,The opposition party pointed out the problems of the ruling party.
-在野党,zàiyědǎng,opposition party,民主党竞选失败，成了在野党。,"Mínzhǔ dǎng jìngxuǎn shībài, chéng le zàiyědǎng.",The Democratic Party failed in the election and became the opposition party.执政党 [zhízhèngdǎng]
-在野党,zàiyědǎng,opposition party,ruling party,在中国，执政党是中国共产党。,"Zài Zhōngguó, zhízhèngdǎng shì Zhōngguó gòngchǎn dǎng."
-在野党,zàiyědǎng,opposition party,"In China, the party in power is the CPC.",执政党做得不好。,Zhízhèngdǎng zuòde bù hǎo.
-在野党,zàiyědǎng,opposition party,The ruling party is not governing well.,殖民地 [zhímíndì],colony
-在野党,zàiyědǎng,opposition party,澳门曾经是葡萄牙的殖民地。,Àomén céngjīng shì Pútáoyá de zhímíndì.,Macau was once a colony of Portugal.
-在野党,zàiyědǎng,opposition party,香港曾经是英国的殖民地。,Xiānggǎng céngjīng shì Yīngguó de zhímíndì.,HK was once the UK's colony.
+在野党,zàiyědǎng,opposition party,民主党竞选失败，成了在野党。,"Mínzhǔ dǎng jìngxuǎn shībài, chéng le zàiyědǎng.",The Democratic Party failed in the election and became the opposition party.
+执政党,zhízhèngdǎng,ruling party,在中国，执政党是中国共产党。,"Zài Zhōngguó, zhízhèngdǎng shì Zhōngguó gòngchǎn dǎng.","In China, the party in power is the CPC."
+执政党,zhízhèngdǎng,ruling party,执政党做得不好。,Zhízhèngdǎng zuòde bù hǎo.,The ruling party is not governing well.
+殖民地,zhímíndì,colony,澳门曾经是葡萄牙的殖民地。,Àomén céngjīng shì Pútáoyá de zhímíndì.,Macau was once a colony of Portugal.
+殖民地,zhímíndì,colony,香港曾经是英国的殖民地。,Xiānggǎng céngjīng shì Yīngguó de zhímíndì.,HK was once the UK's colony.
 灾民,zāimín,disaster victim,很多灾民的房子都倒了。,Hěn duō zāimín de fángzi dōu dǎo le.,Many houses of the disaster victims collapsed.
 灾民,zāimín,disaster victim,联合国关注灾民问题。,Liánhéguó guānzhù zāimín wènti.,The UN pays close attention to the disaster victim problem.
 端午节,duānwǔjié,the Dragon Boat Festival,五月五号是端午节。,Wǔ yuè wǔ hào shì duānwǔjié.,May 5th the Dragon Boat Festival.
@@ -4603,11 +4584,10 @@ Word,Pinyin,Translation,Sentence,Sentence Pinyin,Sentence Translation
 药师,yàoshī,pharmacist,我的父亲是药师。,Wǒde fùqin shì yàoshī.,My father is a pharmacist.
 药师,yàoshī,pharmacist,孙思邈是中国着名的药师。,Sūn Sīmiǎo shì Zhōngguó zhùmíng de yàoshī.,Sun Simiao was a famous pharmacist in China.
 政治人物,zhèngzhì rénwù,political figure,坏的政治人物是政客。,Huài de zhèngzhì rénwù shì zhèngkè.,Bad political figures are called politicians.
-政治人物,zhèngzhì rénwù,political figure,周恩来是杰出的政治人物。,Zhōu Ēnlái shì jiéchū de zhèngzhì rénwù.,Zhou Enlai is an outstanding political figure.政治庇护 [zhèngzhì bìhù]
-政治人物,zhèngzhì rénwù,political figure,political asylum,他寻求政治庇护。,Tā xúnqiú zhèngzhì bìhù.
-政治人物,zhèngzhì rénwù,political figure,He seeks political asylum.,反毒 [fǎndú],counter-narcotics
-政治人物,zhèngzhì rénwù,political figure,政府决定大力反毒。,Zhèngfǔ juédìng dàlì fǎndú.,The government decided to strongly crack down on drug dealing.
-政治人物,zhèngzhì rénwù,political figure,他儿子吸毒而死，他决心反毒。,"Tā érzi xīdú ér sǐ, tā juéxīn fǎndú.",His son died from taking drugs. So he resolved to fight against drugs.
+政治人物,zhèngzhì rénwù,political figure,周恩来是杰出的政治人物。,Zhōu Ēnlái shì jiéchū de zhèngzhì rénwù.,Zhou Enlai is an outstanding political figure.
+政治庇护,zhèngzhì bìhù,political asylum,他寻求政治庇护。,Tā xúnqiú zhèngzhì bìhù.,He seeks political asylum.
+反毒,fǎndú,counter-narcotics,政府决定大力反毒。,Zhèngfǔ juédìng dàlì fǎndú.,The government decided to strongly crack down on drug dealing.
+反毒,fǎndú,counter-narcotics,他儿子吸毒而死，他决心反毒。,"Tā érzi xīdú ér sǐ, tā juéxīn fǎndú.",His son died from taking drugs. So he resolved to fight against drugs.
 国界,guójiè,national boundaries,环保是跨国界的问题。,Huánbǎo shì kuà guójiè de wènti.,Environmental protection is a cross-border issue.
 国界,guójiè,national boundaries,音乐不分国界。,Yīnyuè bù fēn guójiè.,Music is not divided by national boundaries.
 重工业,zhònggōngyè,heavy industry,这家企业是重工业企业。,Zhè jiā qǐyè shì zhònggōngyè qǐyè.,This is a heavy industry enterprise.
@@ -4796,12 +4776,11 @@ Word,Pinyin,Translation,Sentence,Sentence Pinyin,Sentence Translation
 任期,rènqī,"term of office, tenure",美国总统的一届任期是四年。,Měiguó zǒngtǒng de yíjiè rènqī shì sì nián.,One term of office for US Presidents is 4 years.
 任期,rènqī,"term of office, tenure",美国总统的任期即将届满。,Měiguó zǒngtǒng de rènqī jíjiāng jièmǎn.,The US President is going to serve to the end of his term.
 试爆,shìbào,test explosion,该国进行了核子试爆。,Gāi guó jìnxíng le hézi shìbào.,That nation conducted a nuclear explosion test.
-试爆,shìbào,test explosion,1964年中国试爆了第一颗原子弹。,Yī jiǔ liù sì nián Zhōngguó shìbào le dìyīkē yuánzǐdàn.,"In 1964, China tested its first atomic bomb.毒瘾 [dúyǐn]"
-试爆,shìbào,test explosion,drug addiction,他的毒瘾来了。,Tāde dúyǐn lái le.
-试爆,shìbào,test explosion,He's struggling with his drug addiction.,他吸毒了，毒瘾很大。,"Tā xīdú le, dúyǐn hěn dà."
-试爆,shìbào,test explosion,He takes drugs. His addiction is very strong.,破洞 [pòdòng],"crack, hole"
-试爆,shìbào,test explosion,这条牛仔裤上有两个破洞。,Zhètiáo niúzǎikù shàng yǒu liǎngge pòdòng.,This pair of jeans has two holes.
-试爆,shìbào,test explosion,臭氧层已经有了一个大破洞。,Chòuyǎng céng yǐjīng yǒu le yígè dà pòdòng.,The ozone layer already has a big hole.
+试爆,shìbào,test explosion,1964年中国试爆了第一颗原子弹。,Yī jiǔ liù sì nián Zhōngguó shìbào le dìyīkē yuánzǐdàn.,"In 1964, China tested its first atomic bomb."
+毒瘾,dúyǐn,drug addiction,他的毒瘾来了。,Tāde dúyǐn lái le.,He's struggling with his drug addiction.
+毒瘾,dúyǐn,drug addiction,他吸毒了，毒瘾很大。,"Tā xīdú le, dúyǐn hěn dà.",He takes drugs. His addiction is very strong.
+破洞,pòdòng,"crack, hole",这条牛仔裤上有两个破洞。,Zhètiáo niúzǎikù shàng yǒu liǎngge pòdòng.,This pair of jeans has two holes.
+破洞,pòdòng,"crack, hole",臭氧层已经有了一个大破洞。,Chòuyǎng céng yǐjīng yǒu le yígè dà pòdòng.,The ozone layer already has a big hole.
 删掉,shāndiào,"delete, cut out",不合适的地方，就要删掉。,"Bù héshì de dìfāng, jiù yào shāndiào.",Improper items should be deleted.
 删掉,shāndiào,"delete, cut out",他删掉了电脑里的文件。,Tā shāndiào le diànnǎo lǐ de wénjiàn.,He deleted the files in his computer.
 拆,chāi,demolish; tear down,我拆了旧房子，建起新房子。,"Wǒ chāi le jiù fángzi, jiàn qǐ xīn fángzi.",I tore down the old house and built a new house.
@@ -5004,12 +4983,11 @@ Word,Pinyin,Translation,Sentence,Sentence Pinyin,Sentence Translation
 海平面,hǎipíngmiàn,sea level,海平面上升了一公尺。,Hǎipíngmiàn shàngshēng le yī gōngchǐ.,The sea level has risen by one meter.
 海平面,hǎipíngmiàn,sea level,太阳从海平面升起。,Tàiyáng cóng hǎipíngmiàn shēngqǐ.,The sun rises from the sea horizon.
 前瞻性,qiánzhānxìng,"foresight, farsightedness",政治决策要有前瞻性。,Zhèngzhì juécè yào yǒu qiánzhānxìng.,Political decisions should be farsighted.
-前瞻性,qiánzhānxìng,"foresight, farsightedness",处理国家大事应该要有前瞻性。,Chǔlǐ guójiā dàshì yīnggāi yào yǒu qiánzhānxìng.,Handling major issues of state require forward thinking.代表 [dàibiǎo]
-前瞻性,qiánzhānxìng,"foresight, farsightedness","delegate, representative; represent",龙是中国的代表。,Lóng shì Zhōngguó de dàibiǎo.
-前瞻性,qiánzhānxìng,"foresight, farsightedness",The dragon is a representation of China.,有时候，黄色代表色情。,"Yǒushíhou, huángsè dàibiǎo sèqíng."
-前瞻性,qiánzhānxìng,"foresight, farsightedness","Sometimes, the color yellow represents pornography.",世界 [shìjiè],world; realm
-前瞻性,qiánzhānxìng,"foresight, farsightedness",我国加入世界贸易组织。,Wǒguó jiārù shìjiè màoyì zǔzhī.,Our country has joined the WTO.
-前瞻性,qiánzhānxìng,"foresight, farsightedness",我们生活在同一个世界。,Wǒmen shēnghuó zài tóng yígè shìjiè.,We live in one common world.
+前瞻性,qiánzhānxìng,"foresight, farsightedness",处理国家大事应该要有前瞻性。,Chǔlǐ guójiā dàshì yīnggāi yào yǒu qiánzhānxìng.,Handling major issues of state require forward thinking.
+代表,dàibiǎo,"delegate, representative; represent",龙是中国的代表。,Lóng shì Zhōngguó de dàibiǎo.,The dragon is a representation of China.
+代表,dàibiǎo,"delegate, representative; represent",有时候，黄色代表色情。,"Yǒushíhou, huángsè dàibiǎo sèqíng.","Sometimes, the color yellow represents pornography."
+世界,shìjiè,world; realm,我国加入世界贸易组织。,Wǒguó jiārù shìjiè màoyì zǔzhī.,Our country has joined the WTO.
+世界,shìjiè,world; realm,我们生活在同一个世界。,Wǒmen shēnghuó zài tóng yígè shìjiè.,We live in one common world.
 报道,bàodào,report; news report,他在报道新闻。,Tā zài bàodào xīnwén.,He's reporting the news.
 报道,bàodào,report; news report,报纸报道了那个消息。,Bàozhǐ bàodào le nèige xiāoxi.,The newspaper reported that piece of news.
 市场,shìchǎng,"market, marketplace",沃而玛是很大的超级市场。,Wòérmǎ shì hěn dà de chāojí shìchǎng.,Wal-Mart is a very big supermarket.
@@ -5222,13 +5200,12 @@ Word,Pinyin,Translation,Sentence,Sentence Pinyin,Sentence Translation
 学习,xuéxí,"study, learn",学习遇到了瓶颈。,Xuéxí yùdào le píngjǐng.,My studies have hit a wall.
 学习,xuéxí,"study, learn",他来中国学习汉语。,Tā lái Zhōngguó xuéxí hànyǔ.,He came to China to learn Chinese.
 接受,jiēshòu,accept,小海接受了小琴的礼物。,Xiǎo Hǎi jiēshòu le Xiǎo Qín de lǐwù.,Xiao Hai accepted Xiao Qin's gift.
-接受,jiēshòu,accept,我接受任何批评。,Wǒ jiēshòu rènhé pīpíng.,I'm open to any criticism.责任 [zérèn]
-接受,jiēshòu,accept,"duty, responsibility",每天清洁地面是她的责任。,Měitiān qīngjié dìmiàn shì tāde zérèn.
-接受,jiēshòu,accept,Cleaning the floor every day is her duty.,别推诿责任。,Bié tuīwěi zérèn.
-接受,jiēshòu,accept,Don't shirk your responsibilities.,严重 [yánzhòng],"serious, critical, grave"
-接受,jiēshòu,accept,他病得很严重。,Tā bìngde hěn yánzhòng.,He is seriously ill.
-接受,jiēshòu,accept,工厂的污染很严重。,Gōngchǎng de wūrǎn hěn yánzhòng.,Pollution from the factory is severe.
-接受,jiēshòu,accept,出车祸了，他伤得很严重。,"Chū chēhuò le, tā shāngde hěn yánzhòng.",There was a car accident and he was badly injured.
+接受,jiēshòu,accept,我接受任何批评。,Wǒ jiēshòu rènhé pīpíng.,I'm open to any criticism.
+责任,zérèn,"duty, responsibility",每天清洁地面是她的责任。,Měitiān qīngjié dìmiàn shì tāde zérèn.,Cleaning the floor every day is her duty.
+责任,zérèn,"duty, responsibility",别推诿责任。,Bié tuīwěi zérèn.,Don't shirk your responsibilities.
+严重,yánzhòng,"serious, critical, grave",他病得很严重。,Tā bìngde hěn yánzhòng.,He is seriously ill.
+严重,yánzhòng,"serious, critical, grave",工厂的污染很严重。,Gōngchǎng de wūrǎn hěn yánzhòng.,Pollution from the factory is severe.
+严重,yánzhòng,"serious, critical, grave",出车祸了，他伤得很严重。,"Chū chēhuò le, tā shāngde hěn yánzhòng.",There was a car accident and he was badly injured.
 成功,chénggōng,succeed; success,他成功地完成了这项任务。,Tā chénggōng de wánchéng le zhèixiàng rènwù.,He successfully completed this task.
 成功,chénggōng,succeed; success,他成功了。,Tā chénggōng le.,He succeeded.
 银行,yínháng,bank,银行九点上班。,Yínháng jiǔdiǎn shàngbān.,The bank opens at 9.
@@ -5436,12 +5413,11 @@ Word,Pinyin,Translation,Sentence,Sentence Pinyin,Sentence Translation
 非洲,fēizhōu,Africa,南非是非洲的一个国家。,Nánfēi shì Fēizhōu de yígè guójiā.,South Africa is a country in Africa.
 非洲,fēizhōu,Africa,非洲发生了大饥荒。,Fēizhōu fāshēng le dà jīhuāng.,A big famine occurred in Africa.
 联合国,Liánhéguó,United Nations,联合国救济受难者。,Liánhéguó jiùjì shòunànzhě.,The UN relieves refugees.
-联合国,Liánhéguó,United Nations,联合国总部在美国。,Liánhéguó zǒngbù zài Měiguó.,The headquarter of the UN is in the US.德国 [déguó]
-联合国,Liánhéguó,United Nations,Germany,德国是欧洲的一个国家。,Déguó shì Ōuzhōu de yígè guójiā.
-联合国,Liánhéguó,United Nations,Germany is a nation in Europe.,德国已经统一了。,Déguó yǐjīng tǒngyī le.
-联合国,Liánhéguó,United Nations,Germany has reunified.,军人 [jūnrén],"soldier, military person"
-联合国,Liánhéguó,United Nations,军人保护国家。,Jūnrén bǎohù guójiā.,Soldiers protect their nations.
-联合国,Liánhéguó,United Nations,军人保卫着我们的国家。,Jūnrén bǎowèi zhe wǒmen de guójiā.,Soldiers protect our nation.
+联合国,Liánhéguó,United Nations,联合国总部在美国。,Liánhéguó zǒngbù zài Měiguó.,The headquarter of the UN is in the US.
+德国,déguó,Germany,德国是欧洲的一个国家。,Déguó shì Ōuzhōu de yígè guójiā.,Germany is a nation in Europe.
+德国,déguó,Germany,德国已经统一了。,Déguó yǐjīng tǒngyī le.,Germany has reunified.
+军人,jūnrén,"soldier, military person",军人保护国家。,Jūnrén bǎohù guójiā.,Soldiers protect their nations.
+军人,jūnrén,"soldier, military person",军人保卫着我们的国家。,Jūnrén bǎowèi zhe wǒmen de guójiā.,Soldiers protect our nation.
 不安,bù'ān,"unstable; disturbed, worried",很晚了，女儿还没回家，妈妈很不安。,"Hěn wǎn le, nǚér hái méi huíjiā, māma hěn bù'ān.","Since it's very late and her daughter has not yet returned home, she's very worried."
 不安,bù'ān,"unstable; disturbed, worried",社会动荡不安。,Shèhuì dòngdàng bù'ān.,The society is in a state of restlessness.
 安定,āndìng,"stable, calm; stabilize",中国是个比较安定的国家。,Zhōngguó shì ge bǐjiào āndìng de guójiā.,China is a rather stable country.
@@ -5651,12 +5627,11 @@ Word,Pinyin,Translation,Sentence,Sentence Pinyin,Sentence Translation
 穿,chuān,"wear, put on (clothing)",我今天穿西装。,Wǒ jīntiān chuān xīzhuāng.,I will wear a suit today.
 穿,chuān,"wear, put on (clothing)",他穿了一套漂亮的衣服。,Tā chuān le yítào piàoliang de yīfu.,He wore nice clothes.
 租,zū,"rent, hire; rent out",我租房子。,Wǒ zū fángzi.,I rent my house.
-租,zū,"rent, hire; rent out",他租了一间屋子。,Tā zū le yìjiān wūzi.,He rented a room.店 [diàn]
-租,zū,"rent, hire; rent out","shop, store",他开了一家早餐店。,Tā kāi le yìjiā zǎocān diàn.
-租,zū,"rent, hire; rent out",He opened a breakfast restaurant.,他想开一家汽车修理店。,Tā xiǎng kāi yìjiā qìchē xiūlǐ diàn.
-租,zū,"rent, hire; rent out",He wants to open an automobile repair shop.,慢 [màn],slow
-租,zū,"rent, hire; rent out",小强跑步很慢。,Xiǎo Qiáng pǎobù hěn màn.,Xiao Qiang is a slow jogger.
-租,zū,"rent, hire; rent out",他做事很慢。,Tā zuò shì hěn màn.,He is slow in doing things.
+租,zū,"rent, hire; rent out",他租了一间屋子。,Tā zū le yìjiān wūzi.,He rented a room.
+店,diàn,"shop, store",他开了一家早餐店。,Tā kāi le yìjiā zǎocān diàn.,He opened a breakfast restaurant.
+店,diàn,"shop, store",他想开一家汽车修理店。,Tā xiǎng kāi yìjiā qìchē xiūlǐ diàn.,He wants to open an automobile repair shop.
+慢,màn,slow,小强跑步很慢。,Xiǎo Qiáng pǎobù hěn màn.,Xiao Qiang is a slow jogger.
+慢,màn,slow,他做事很慢。,Tā zuò shì hěn màn.,He is slow in doing things.
 观念,guānniàn,"idea, concept, thinking",他们有同样的观念。,Tāmen yǒu tóngyàng de guānniàn.,They share the same way of thinking.
 观念,guānniàn,"idea, concept, thinking",美国还有阶级观念吗？,Měiguó hái yǒu jiējí guānniàn ma?,Does the concept of class still exist in America?
 观念,guānniàn,"idea, concept, thinking",这个年轻人的观念很时尚。,Zhège niánqīng rén de guānniàn hěn shíshàng.,The thinking of this young person is very fashionable.
@@ -5858,11 +5833,10 @@ Word,Pinyin,Translation,Sentence,Sentence Pinyin,Sentence Translation
 吸烟,xīyān,to smoke,禁止吸烟。,Jìnzhǐ xīyān.,Smoking is prohibited here.
 吸烟,xīyān,to smoke,吸烟对身体有害。,Xīyān duì shēntǐ yǒu hài.,Smoking is bad for one's health.
 竹子,zhúzi,bamboo,大熊猫喜欢吃竹子。,Dà xióngmāo xǐhuan chī zhúzi.,Giant pandas love to eat bamboos.
-竹子,zhúzi,bamboo,有的筷子是用竹子做的。,Yǒu de kuàizi shì yòng zhúzi zuò de.,Some chopsticks are made of bamboo.打扰 [dǎrǎo]
-竹子,zhúzi,bamboo,"disturb, trouble, bother",他在写作业，不要打扰他。,"Tā zài xiě zuòyè, búyào dǎrǎo tā."
-竹子,zhúzi,bamboo,He's doing his homework. Don't disturb him.,对不起，打扰了。,"Duìbuqǐ, dǎrǎo le."
-竹子,zhúzi,bamboo,Sorry to interrupt.,暖气 [nuǎnqì],"heating, heater; warm air"
-竹子,zhúzi,bamboo,暖气坏了。,Nuǎnqì huài le.,The heater doesn't work.
+竹子,zhúzi,bamboo,有的筷子是用竹子做的。,Yǒu de kuàizi shì yòng zhúzi zuò de.,Some chopsticks are made of bamboo.
+打扰,dǎrǎo,"disturb, trouble, bother",他在写作业，不要打扰他。,"Tā zài xiě zuòyè, búyào dǎrǎo tā.",He's doing his homework. Don't disturb him.
+打扰,dǎrǎo,"disturb, trouble, bother",对不起，打扰了。,"Duìbuqǐ, dǎrǎo le.",Sorry to interrupt.
+暖气,nuǎnqì,"heating, heater; warm air",暖气坏了。,Nuǎnqì huài le.,The heater doesn't work.
 塞车,sāichē,a traffic jam; there is a traffic jam,路上车很多，塞车了。,"Lù shàng chē hěn duō, sāichē le.",A lot of cars are on the road. There's a traffic jam.
 塞车,sāichē,a traffic jam; there is a traffic jam,上下班时间，常常塞车。,"Shàng xià bān shíjiān, chángcháng sāichē.",Traffic jams are common during morning and evening rush hour.
 在乎,zàihu,"care about, mind",我不在乎。,Wǒ bú zàihu.,I don't care.
@@ -6058,12 +6032,11 @@ Word,Pinyin,Translation,Sentence,Sentence Pinyin,Sentence Translation
 合约,héyuē,a contract; treaty,这两家公司签定了合约。,Zhè liǎng jiā gōngsī qiāndìng le héyuē.,These two companies signed a contract.
 合约,héyuē,a contract; treaty,美国总统在合约上签字。,Měiguó zǒngtǒng zài héyuē shàng qiānzì.,The President of the United States signed the treaty.
 转机,zhuǎnjī,change planes; hit a turning point,在香港转机。,Zài Xiānggǎng zhuǎnjī.,You should change planes in Hong Kong.
-转机,zhuǎnjī,change planes; hit a turning point,公司在经济上有了转机。,Gōngsī zài jīngjì shàng yǒu le zhuǎnjī.,The company turned around economically.尽力 [jìnlì]
-转机,zhuǎnjī,change planes; hit a turning point,"do one's utmost, do one's best",我们要尽力赢得比赛。,Wǒmen yào jìnlì yíngdé bǐsài.
-转机,zhuǎnjī,change planes; hit a turning point,We must do our utmost to win the match.,我尽力去做。,Wǒ jìnlì qù zuò.
-转机,zhuǎnjī,change planes; hit a turning point,I'll do my best to do it.,忽略 [hūlüè],"neglect, overlook"
-转机,zhuǎnjī,change planes; hit a turning point,政府忽略了老百姓的想法。,Zhèngfǔ hūlüè le lǎobǎixìng de xiǎngfa.,The government neglected the people's opinions.
-转机,zhuǎnjī,change planes; hit a turning point,他忙于工作，忽略了对孩子的教育。,"Tā mángyú gōngzuò, hūlüè le duì háizi de jiàoyù.",He is busy with work and neglected his children's education.
+转机,zhuǎnjī,change planes; hit a turning point,公司在经济上有了转机。,Gōngsī zài jīngjì shàng yǒu le zhuǎnjī.,The company turned around economically.
+尽力,jìnlì,"do one's utmost, do one's best",我们要尽力赢得比赛。,Wǒmen yào jìnlì yíngdé bǐsài.,We must do our utmost to win the match.
+尽力,jìnlì,"do one's utmost, do one's best",我尽力去做。,Wǒ jìnlì qù zuò.,I'll do my best to do it.
+忽略,hūlüè,"neglect, overlook",政府忽略了老百姓的想法。,Zhèngfǔ hūlüè le lǎobǎixìng de xiǎngfa.,The government neglected the people's opinions.
+忽略,hūlüè,"neglect, overlook",他忙于工作，忽略了对孩子的教育。,"Tā mángyú gōngzuò, hūlüè le duì háizi de jiàoyù.",He is busy with work and neglected his children's education.
 便利,biànlì,"convenient; help, facilitate",这座城市交通很便利。,Zhèi zuò chéngshì jiāotōng hěn biànlì.,Transportation in this city is very convenient.
 便利,biànlì,"convenient; help, facilitate",我要到便利商店买东西。,Wǒ yào dào biànlì shāngdiàn mǎi dōngxi.,I'm going to the convenience store to buy something.
 嗜好,shìhào,hobby; addiction,我的嗜好是看电影。,Wǒde shìhào shì kàn diànyǐng.,My hobby is watching movies.
@@ -6264,11 +6237,10 @@ Word,Pinyin,Translation,Sentence,Sentence Pinyin,Sentence Translation
 设施,shèshī,"facilities, installation",这间房间的设施很齐全。,Zhèjiān fángjiān de shèshī hěn qíquán.,The facilities in this room are very useful.
 设施,shèshī,"facilities, installation",恐怖分子破坏各种设施。,Kǒngbù fènzǐ pòhuài gèzhǒng shèshī.,Terrorists destroy all kinds of facilities.
 购买,gòumǎi,"buy, purchase",叔叔购买了一辆新车。,Shūshu gòumǎi le yíliàng xīnchē.,Uncle bought a new car.
-购买,gòumǎi,"buy, purchase",该国向法国购买军事武器。,Gāi guó xiàng Fǎguó gòumǎi jūnshì wǔqì.,That nation bought weapons from France.大麻 [dàmá]
-购买,gòumǎi,"buy, purchase",hemp; marijuana; cannabis,大麻是一种毒品。,Dàmá shì yìzhǒng dúpǐn.
-购买,gòumǎi,"buy, purchase",Marijuana is a type of drug.,假装 [jiǎzhuāng],pretend
-购买,gòumǎi,"buy, purchase",女朋友生气了，假装不理我。,"Nǚ péngyou shēngqì le, jiǎzhuāng bùlǐ wǒ.",My girlfriend is angry and is pretending to ignore me.
-购买,gòumǎi,"buy, purchase",我假装不知道。,Wǒ jiǎzhuāng bù zhīdào.,I pretended to be unaware of it.
+购买,gòumǎi,"buy, purchase",该国向法国购买军事武器。,Gāi guó xiàng Fǎguó gòumǎi jūnshì wǔqì.,That nation bought weapons from France.
+大麻,dàmá,hemp; marijuana; cannabis,大麻是一种毒品。,Dàmá shì yìzhǒng dúpǐn.,Marijuana is a type of drug.
+假装,jiǎzhuāng,pretend,女朋友生气了，假装不理我。,"Nǚ péngyou shēngqì le, jiǎzhuāng bùlǐ wǒ.",My girlfriend is angry and is pretending to ignore me.
+假装,jiǎzhuāng,pretend,我假装不知道。,Wǒ jiǎzhuāng bù zhīdào.,I pretended to be unaware of it.
 急,jí,"anxious, impatient; urgent",这件事情很急。,Zhèijiàn shìqing hěn jí.,This is an urgent matter.
 急,jí,"anxious, impatient; urgent",孩子还是没找到，父母急死了。,"Háizi háishì méi zhǎodào, fùmǔ jí sǐ le.",The child had not yet been found. The parents are extremely worried.
 教科书,jiàokēshū,Textbook,有人盗刷教科书。,Yǒu rén dào shuā jiàokēshū.,There are people pirating textbooks.

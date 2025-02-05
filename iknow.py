@@ -3,30 +3,16 @@ import csv
 
 # Change this to the path of your input file
 input_file = 'iknow2'
-output_file = 'iknow_table2.csv'
+output_file = 'iknow_table.csv'
 
 # Regular expression to capture the headword and its pinyin (e.g. "一旦 [yídàn]")
 headword_re = re.compile(r'^(.*?)\s*\[(.*?)\]$')
-# Regular expression to find Chinese+pinyin at end of English line - now includes punctuation in English part
-mixed_line_re = re.compile(r'^(.+?[.!?])\s*(\S+\s*\[\S+\])$')
 
 entries = []
 
 # Read the file and strip blank lines
 with open(input_file, 'r', encoding='utf-8') as f:
-    raw_lines = [line.strip() for line in f if line.strip()]
-
-# Preprocess lines to split mixed English/Chinese lines
-lines = []
-for line in raw_lines:
-    mixed_match = mixed_line_re.match(line)
-    if mixed_match:
-        # Split into English and Chinese parts, keeping punctuation with English
-        english, chinese = mixed_match.groups()
-        lines.append(english)  # Include the period/punctuation with English
-        lines.append(chinese)
-    else:
-        lines.append(line)
+    lines = [line.strip() for line in f if line.strip()]
 
 i = 0
 while i < len(lines):
@@ -55,7 +41,7 @@ while i < len(lines):
             sentence_pinyin = lines[i+1]  # Sentence pinyin
             sentence_translation = lines[i+2]  # Sentence translation
             entries.append([word, word_pinyin, word_translation,
-                            sentence, sentence_pinyin, sentence_translation])
+                          sentence, sentence_pinyin, sentence_translation])
             i += 3
         else:
             # If not enough lines remain for a complete block, break out.
@@ -65,7 +51,7 @@ while i < len(lines):
 with open(output_file, 'w', encoding='utf-8', newline='') as csvfile:
     writer = csv.writer(csvfile)
     writer.writerow(['Word', 'Pinyin', 'Translation',
-                     'Sentence', 'Sentence Pinyin', 'Sentence Translation'])
+                    'Sentence', 'Sentence Pinyin', 'Sentence Translation'])
     writer.writerows(entries)
 
 print(f"Extraction complete. {len(entries)} rows written to '{output_file}'.")

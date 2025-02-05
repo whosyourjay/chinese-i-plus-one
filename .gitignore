@@ -30,4 +30,5 @@ ENV/
 
 # Data files
 *.csv
-iknow2/ 
+iknow2
+iknow_table2.csv
