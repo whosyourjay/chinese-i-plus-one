@@ -16,6 +16,11 @@ class SentenceOrganizer:
         self.update_buckets_time = 0
         self.collect_sentences_time = 0
         self.process_sentences_time = 0
+        self.bucket_remove_time = 0
+        self.bucket_add_time = 0
+        self.unknown_update_time = 0
+        
+        start_time = time.time()
         
         self.known_words = PUNCTUATION.copy()
         if initial_words:
@@ -31,12 +36,24 @@ class SentenceOrganizer:
         self.n2_sentences_used = 0
         self.all_words = set()
         
-        # Initialize sentences
+        # Initialize segmenter
+        t1 = time.time()
         self.segmenter = ChineseSegmenter(word_ranks, PUNCTUATION)
+        segmenter_time = time.time() - t1
+        
+        # Process all sentences
+        t2 = time.time()
         for sentence in sentences:
             words = self.segmenter.segment(sentence)
             self.all_words.update(words)
             self._process_sentence(sentence, words)
+        process_time = time.time() - t2
+        
+        total_time = time.time() - start_time
+        print(f"\nInitialization timing:")
+        print(f"  Segmenter setup: {segmenter_time:.2f} seconds")
+        print(f"  Process sentences: {process_time:.2f} seconds")
+        print(f"  Total: {total_time:.2f} seconds")
     
     def _process_sentence(self, sentence, words):
         unknown = {w for w in words if w not in self.known_words}
@@ -140,18 +157,22 @@ class SentenceOrganizer:
                 continue
                 
             # Remove from old bucket
+            t3 = time.time()
             old_count = len(self.sentence_data[sentence]['unknown'])
-            if old_count == 1:
-                try:
-                    self.sentence_buckets[1].remove(sentence)
-                except ValueError:
-                    pass  # Sentence might have been already removed
-            else:
+            # if old_count == 1:
+            #     try:
+            #         self.sentence_buckets[1].remove(sentence)
+            #     except ValueError:
+            #         pass  # Sentence might have been already removed
+            if old_count > 1:
                 self.sentence_buckets[old_count].discard(sentence)
+            self.bucket_remove_time += time.time() - t3
             
             # Update unknown words
+            t4 = time.time()
             self.sentence_data[sentence]['unknown'] -= new_words
             unknown = self.sentence_data[sentence]['unknown']
+            self.unknown_update_time += time.time() - t4
             
             if not unknown:
                 # Remove sentences with no unknown words
@@ -160,10 +181,12 @@ class SentenceOrganizer:
                 continue
             
             # Add to new bucket
+            t5 = time.time()
             if len(unknown) == 1:
                 self.sentence_buckets[1].append(sentence)
             else:
                 self.sentence_buckets[len(unknown)].add(sentence)
+            self.bucket_add_time += time.time() - t5
+        
         self.process_sentences_time += time.time() - t2
-                
         self.update_buckets_time += time.time() - start_time

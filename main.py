@@ -8,25 +8,34 @@ def load_frequency_data():
     return {row['Vocab']: row['Rank'] for _, row in df.iterrows()}
 
 def main():
-    # Load frequency data
+    # Load and process frequency data
+    start_time = time.time()
     word_ranks = load_frequency_data()
     sorted_words = sorted(word_ranks.items(), key=lambda x: x[1])
-    
+    freq_time = time.time() - start_time
+    print(f"Loading frequency data: {freq_time:.2f} seconds")
+
     # Get top 5 most frequent words
     initial_words = {word for word, _ in sorted_words[:5]}
-    print(initial_words)
+    print(f"Initial words: {initial_words}")
 
-    # Process sentences
-    start_time = time.time()
-    
+    # Load sentences
+    t1 = time.time()
     df = pd.read_csv('rezero_v1-8.tsv', sep='\t', index_col=False)
+    load_time = time.time() - t1
+
     # Create sentence lookup index
+    t2 = time.time()
     sentence_to_row = {row['Sentence']: row for _, row in df.iterrows()}
-    
+    index_time = time.time() - t2
+
+    print(f"Loading sentences: {load_time:.2f} seconds")
+    print(f"Creating index: {index_time:.2f} seconds")
+
+    # Initialize organizer
+    t3 = time.time()
     organizer = SentenceOrganizer(df['Sentence'].tolist(), word_ranks, initial_words)
-    
-    processing_time = time.time() - start_time
-    print(f"\nInitial sentence processing took {processing_time:.2f} seconds")
+    print(f"Initial sentence processing took {time.time() - t3:.2f} seconds")
     
     print(f"Total unique words in corpus: {len(organizer.all_words)}")
     print(f"Initially known words: {len(initial_words)}")
@@ -60,7 +69,7 @@ def main():
     
     # Create and save new dataframe
     sequence_df = pd.DataFrame(sequence_data)
-    sequence_df.to_csv('sentence_sequence.csv', index=False)
+    sequence_df.to_csv('sentence_sequence.csv', index=False, sep='\t')
     
     # Count remaining sentences
     remaining = sum(len(bucket) for bucket in organizer.sentence_buckets.values())
@@ -72,6 +81,9 @@ def main():
     print(f"Time spent in update_buckets: {organizer.update_buckets_time:.2f} seconds")
     print(f"  Collecting sentences: {organizer.collect_sentences_time:.2f} seconds")
     print(f"  Processing sentences: {organizer.process_sentences_time:.2f} seconds")
+    print(f"    Bucket removal: {organizer.bucket_remove_time:.2f} seconds")
+    print(f"    Unknown word updates: {organizer.unknown_update_time:.2f} seconds")
+    print(f"    Bucket addition: {organizer.bucket_add_time:.2f} seconds")
     print(f"Remaining unprocessed: {remaining} sentences")
     if remaining > 0:
         print("\nSentences per bucket:")
