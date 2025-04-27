@@ -1,12 +1,14 @@
 import pandas as pd
 from organizer import SentenceOrganizer
 import time
+from line_profiler import profile
 
 def load_frequency_data():
     """Load word frequency data from CSV"""
     df = pd.read_csv('words/frequency.csv')
     return {row['Vocab']: row['Rank'] for _, row in df.iterrows()}
 
+@profile
 def main():
     # Load and process frequency data
     start_time = time.time()
@@ -16,7 +18,7 @@ def main():
     print(f"Loading frequency data: {freq_time:.2f} seconds")
 
     # Get top 5 most frequent words
-    initial_words = {word for word, _ in sorted_words[:5]}
+    initial_words = {word for word, _ in sorted_words[:6]}
     print(f"Initial words: {initial_words}")
 
     # Load sentences

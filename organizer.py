@@ -3,8 +3,32 @@ from collections import defaultdict
 import jieba
 from jieba_segmenter import ChineseSegmenter
 import time
+from line_profiler import profile
+import string
 
-PUNCTUATION = {'。', '，', '？', '！', '、', '：', '；', '"', '"', ''', ''', '（', '）', '【', '】', '《', '》'}
+def is_chinese(char):
+    """Check if character is in Chinese unicode ranges"""
+    # CJK Unified Ideographs (4E00-9FFF)
+    # CJK Unified Ideographs Extension A (3400-4DBF)
+    # CJK Unified Ideographs Extension B (20000-2A6DF)
+    # CJK Unified Ideographs Extension C (2A700-2B73F)
+    # CJK Unified Ideographs Extension D (2B740-2B81F)
+    # CJK Unified Ideographs Extension E (2B820-2CEAF)
+    code = ord(char)
+    ranges = [
+        (0x4E00, 0x9FFF),   # CJK Unified
+        (0x3400, 0x4DBF),   # Extension A
+        (0x20000, 0x2A6DF), # Extension B
+        (0x2A700, 0x2B73F), # Extension C
+        (0x2B740, 0x2B81F), # Extension D
+        (0x2B820, 0x2CEAF), # Extension E
+    ]
+    return any(start <= code <= end for start, end in ranges)
+
+PUNCTUATION = {'。', '，', '？', '！', '、', '：', '；', '"', '"', ''', ''', '（', '）', '【', '】', '《', '》',
+               '—', '…', '＊', '」', '「', '』', '『', '·', '～'}
+# Add all English letters (both cases)
+PUNCTUATION.update(string.ascii_letters)
 
 def load_frequency_data():
     """Load word frequency data from CSV"""
@@ -12,6 +36,7 @@ def load_frequency_data():
     return {row['Vocab']: row['Rank'] for _, row in df.iterrows()}
 
 class SentenceOrganizer:
+    @profile
     def __init__(self, sentences, word_ranks, initial_words=None):
         self.update_buckets_time = 0
         self.collect_sentences_time = 0
@@ -55,8 +80,16 @@ class SentenceOrganizer:
         print(f"  Process sentences: {process_time:.2f} seconds")
         print(f"  Total: {total_time:.2f} seconds")
     
+    @profile
     def _process_sentence(self, sentence, words):
-        unknown = {w for w in words if w not in self.known_words}
+        # Skip sentences with fewer than 3 or more than 20 Chinese characters
+        chinese_chars = sum(1 for w in ''.join(words) if is_chinese(w))
+        if chinese_chars < 3 or chinese_chars > 20:
+            self.skipped_sentences += 1
+            return
+
+        # Only treat Chinese words as unknown
+        unknown = {w for w in words if any(is_chinese(c) for c in w) and w not in self.known_words}
         
         if not unknown:
             self.skipped_sentences += 1
@@ -78,6 +111,7 @@ class SentenceOrganizer:
         for word in words:
             self.word_to_sentences[word].add(sentence)
     
+    @profile
     def get_next_sentence(self):
         """Get the next best sentence to learn"""
         if self.sentence_buckets[1]:
@@ -140,6 +174,7 @@ class SentenceOrganizer:
         
         return new_words, segmented_words
     
+    @profile
     def _update_buckets(self, new_words):
         start_time = time.time()
         
