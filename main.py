@@ -24,8 +24,9 @@ def main():
     # Load sentences
     t1 = time.time()
     df = pd.read_csv('iknow_table.csv', sep=',', index_col=False)
-    # Strip <b> and </b> tags from all sentences
+    # Strip <b> and </b> tags from all sentences and sentence pinyin
     df['Sentence'] = df['Sentence'].str.replace('<b>', '', regex=False).str.replace('</b>', '', regex=False)
+    df['Sentence pinyin'] = df['Sentence pinyin'].str.replace('<b>', '', regex=False).str.replace('</b>', '', regex=False)
     load_time = time.time() - t1
 
     # Create sentence lookup index
