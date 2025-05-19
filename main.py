@@ -23,7 +23,9 @@ def main():
 
     # Load sentences
     t1 = time.time()
-    df = pd.read_csv('rezero_v1-8.tsv', sep='\t', index_col=False)
+    df = pd.read_csv('iknow_table.csv', sep=',', index_col=False)
+    # Strip <b> and </b> tags from all sentences
+    df['Sentence'] = df['Sentence'].str.replace('<b>', '', regex=False).str.replace('</b>', '', regex=False)
     load_time = time.time() - t1
 
     # Create sentence lookup index
@@ -34,9 +36,9 @@ def main():
     print(f"Loading sentences: {load_time:.2f} seconds")
     print(f"Creating index: {index_time:.2f} seconds")
 
-    # Initialize organizer
+    # Initialize organizer with known words flag
     t3 = time.time()
-    organizer = SentenceOrganizer(df['Sentence'].tolist(), word_ranks, initial_words)
+    organizer = SentenceOrganizer(df['Sentence'].tolist(), word_ranks, initial_words, use_known_file=True)
     print(f"Initial sentence processing took {time.time() - t3:.2f} seconds")
     
     print(f"Total unique words in corpus: {len(organizer.all_words)}")
@@ -48,7 +50,7 @@ def main():
     get_next_time = 0
     
     print(f"Skipped {organizer.skipped_sentences} sentences")
-    for _ in range(11092):
+    for _ in range(11092 - 3111):
         start_time = time.time()
         sentence = organizer.get_next_sentence()
         get_next_time += time.time() - start_time

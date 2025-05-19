@@ -4,3 +4,4 @@
 - Reduce the n^2 dependence on i+1 bucket
 - Use a larger sentence list
 - Skip sentences where i+1 word isn't Chinese
+- Strip or add bold tags

@@ -37,7 +37,7 @@ def load_frequency_data():
 
 class SentenceOrganizer:
     @profile
-    def __init__(self, sentences, word_ranks, initial_words=None):
+    def __init__(self, sentences, word_ranks, initial_words=None, use_known_file=False):
         self.update_buckets_time = 0
         self.collect_sentences_time = 0
         self.process_sentences_time = 0
@@ -50,6 +50,16 @@ class SentenceOrganizer:
         self.known_words = PUNCTUATION.copy()
         if initial_words:
             self.known_words.update(initial_words)
+            
+        # Load additional known words if flag is set
+        if use_known_file:
+            try:
+                with open('known', 'r', encoding='utf-8') as f:
+                    known_words = {line.strip() for line in f if line.strip()}
+                self.known_words.update(known_words)
+                print(f"Loaded {len(known_words)} words from known file")
+            except FileNotFoundError:
+                print("Warning: 'known' file not found")
             
         self.word_ranks = word_ranks
         self.sentence_buckets = defaultdict(set)  # Most buckets are sets
@@ -82,7 +92,7 @@ class SentenceOrganizer:
     
     @profile
     def _process_sentence(self, sentence, words):
-        # Skip sentences with fewer than 3 or more than 20 Chinese characters
+        # Skip sentences with fewer than 3 Chinese characters
         chinese_chars = sum(1 for w in ''.join(words) if is_chinese(w))
         if chinese_chars < 3 or chinese_chars > 20:
             self.skipped_sentences += 1
