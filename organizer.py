@@ -26,14 +26,9 @@ def is_chinese(char):
     return any(start <= code <= end for start, end in ranges)
 
 PUNCTUATION = {'。', '，', '？', '！', '、', '：', '；', '"', '"', ''', ''', '（', '）', '【', '】', '《', '》',
-               '—', '…', '＊', '」', '「', '』', '『', '·', '～'}
+               '—', '…', '＊', '」', '「', '』', '『', '·', '～', '“', '”'}
 # Add all English letters (both cases)
 PUNCTUATION.update(string.ascii_letters)
-
-def load_frequency_data():
-    """Load word frequency data from CSV"""
-    df = pd.read_csv('words/frequency.csv')
-    return {row['Vocab']: row['Rank'] for _, row in df.iterrows()}
 
 class SentenceOrganizer:
     @profile

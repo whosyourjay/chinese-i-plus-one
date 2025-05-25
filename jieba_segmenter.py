@@ -23,7 +23,7 @@ class ChineseSegmenter:
         initial_segments = [w for w in jieba.cut(text, HMM=False) 
                           if w not in self.punctuation]
         
-        # Further split any segments not in our word list
+        #Further split any segments not in our word list
         final_segments = []
         for segment in initial_segments:
             if segment in self.word_ranks or len(segment) == 1:
@@ -33,3 +33,4 @@ class ChineseSegmenter:
                 final_segments.extend(list(segment))
         
         return final_segments 
+        # return initial_segments

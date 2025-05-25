@@ -4,9 +4,12 @@ import time
 from line_profiler import profile
 
 def load_frequency_data():
-    """Load word frequency data from CSV"""
-    df = pd.read_csv('words/frequency.csv')
-    return {row['Vocab']: row['Rank'] for _, row in df.iterrows()}
+    """Load word frequency data from TSV"""
+    df = pd.read_csv('words/100k', sep='\t')
+    # Convert count to rank (higher count = lower rank)
+    sorted_df = df.sort_values('Count', ascending=False)
+    sorted_df['Rank'] = range(1, len(sorted_df) + 1)
+    return {row['Vocab']: row['Rank'] for _, row in sorted_df.iterrows()}
 
 @profile
 def main():
@@ -23,7 +26,7 @@ def main():
 
     # Load sentences
     t1 = time.time()
-    df = pd.read_csv('iknow_table.csv', sep=',', index_col=False)
+    df = pd.read_csv('SpoonFedChinese.tsv', sep='\t', index_col=False)
     # Strip <b> and </b> tags from all sentences and sentence pinyin
     df['Sentence'] = df['Sentence'].str.replace('<b>', '', regex=False).str.replace('</b>', '', regex=False)
     df['Sentence pinyin'] = df['Sentence pinyin'].str.replace('<b>', '', regex=False).str.replace('</b>', '', regex=False)
@@ -95,6 +98,9 @@ def main():
         for bucket_size, sentences in sorted(organizer.sentence_buckets.items())[:5]:
             if sentences:
                 print(f"{bucket_size} unknown words: {len(sentences)} sentences")
+                sentence = list(sentences)[0]
+                print(f"example sentence {sentence}")
+                print(f"example sentence {organizer.sentence_data[sentence]}")
 
 if __name__ == "__main__":
     main()
