@@ -27,11 +27,12 @@ ENV/
 # IDE
 .idea/
 .vscode/
+*.swp
+*~
+*.lprof
 
 # Data files
 *.csv
+*.tsv
+words/
 iknow2
-iknow_table2.csv
-rezero_v1-8.tsv
-sentence_sequence.csv
-iknow_table.csv
