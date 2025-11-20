@@ -1,0 +1,159 @@
+# Agent Instructions for Chinese Incremental Learning Project
+
+## Project Overview
+
+This project implements an incremental sentence learning system for Chinese language learners. It organizes Chinese sentences from a corpus into an optimal learning sequence based on word frequency and unknown word counts, following the principle of learning sentences with progressively more unknown words.
+
+## Core Architecture
+
+### Main Components
+
+1. **`main.py`** - Entry point that orchestrates the learning sequence generation
+   - Loads word frequency data from `words/100k` (TSV format with columns: Vocab, Count)
+   - Loads sentences from `SpoonFedChinese.tsv` (strips `<b>` and `</b>` tags)
+   - Initializes `SentenceOrganizer` with initial known words
+   - Generates learning sequence and outputs to `sentence_sequence.csv`
+
+2. **`organizer.py`** - Core sentence organization logic (`SentenceOrganizer` class)
+   - **Purpose**: Organizes sentences into buckets based on number of unknown words
+   - **Key Data Structures**:
+     - `sentence_buckets`: Dict mapping unknown word count → set/list of sentences
+     - `sentence_data`: Dict mapping sentence → {words, unknown, max_rank}
+     - `word_to_sentences`: Reverse index mapping words → sentences containing them
+     - `known_words`: Set of words the learner already knows
+   - **Key Methods**:
+     - `__init__()`: Processes all sentences, segments them, and buckets by unknown word count
+     - `get_next_sentence()`: Returns next best sentence (prefers n+1 sentences, sorted by word frequency rank)
+     - `learn_sentence()`: Marks words as known and updates all affected sentences
+     - `_update_buckets()`: Efficiently updates sentence buckets when words are learned
+   - **Special Handling**: n+1 bucket (1 unknown word) is a sorted list for efficient access
+   - **Performance Tracking**: Tracks timing for bucket operations, sentence processing, etc.
+
+3. **`jieba_segmenter.py`** - Chinese text segmentation (`ChineseSegmenter` class)
+   - Uses jieba library for initial segmentation
+   - Aggressively splits segments not in the word frequency dictionary
+   - Filters out punctuation and non-Chinese characters
+   - Adds known words to jieba's dictionary for better segmentation
+
+4. **`greedy_segmenter.py`** - Alternative greedy segmentation algorithm
+   - Greedy longest-match segmentation
+   - Not currently used in main pipeline
+
+5. **`lac_segmenter.py`** - LAC (Lexical Analysis of Chinese) segmenter
+   - Alternative segmentation using Baidu's LAC library
+   - Not currently used in main pipeline
+
+6. **`parse_hsk3.py`** - Utility to parse HSK 3.0 word lists
+   - Cleans and processes HSK word data
+   - Removes part-of-speech annotations
+   - Handles multiple word variants separated by `｜`
+
+7. **`iknow.py`** - Utility to parse iKnow format files
+   - Converts structured iKnow text format to CSV
+   - Extracts word, pinyin, translation, and example sentences
+
+## Data Files
+
+### Input Files
+
+- **`SpoonFedChinese.tsv`**: Main sentence corpus (TSV format)
+  - Contains columns: Sentence, Sentence pinyin, and other metadata
+  - Sentences may contain `<b>` and `</b>` tags that are stripped during processing
+
+- **`words/100k`**: Word frequency data (TSV format)
+  - Columns: `Vocab` (word), `Count` (frequency count)
+  - Used to rank words by frequency (higher count = lower rank = more common)
+
+- **`known`**: Plain text file with one word per line
+  - Contains words the learner already knows
+  - Loaded when `use_known_file=True` in `SentenceOrganizer`
+
+- **`words/` directory**: Contains various word lists
+  - `hsk1_words`, `hsk2_words`, `hsk3_words`: HSK level word lists
+  - `all_words`: Combined word list
+  - `frequency.csv`: Alternative frequency data
+  - `BLCU_1m`, `tocfl_old_words`: Additional word lists
+
+### Output Files
+
+- **`sentence_sequence.csv`**: Generated learning sequence (TSV format)
+  - Columns: Sequence, Sentence, New_Words, Word_Rank, plus all columns from input TSV
+  - Ordered by optimal learning progression
+
+## Key Algorithms and Logic
+
+### Sentence Bucketing Strategy
+
+1. **Initial Processing**: All sentences are segmented and bucketed by unknown word count
+   - Sentences with 1 unknown word → n+1 bucket (special sorted list)
+   - Sentences with N unknown words → bucket[N] (set)
+   - Sentences with 0 unknown words or <3 Chinese characters are skipped
+
+2. **Sentence Selection**: 
+   - Always prefer n+1 sentences (1 unknown word)
+   - Within n+1 bucket, sort by `max_rank` (lowest rank = most frequent unknown word)
+   - Uses a counter to process half the n+1 bucket before re-sorting
+
+3. **Learning Process**:
+   - When a sentence is learned, all unknown words become known
+   - All sentences containing those words are re-evaluated
+   - Sentences move to lower-numbered buckets or are removed if fully known
+
+### Segmentation Strategy
+
+- Uses jieba with HMM=False for aggressive splitting
+- Any segment not in the word frequency dictionary is split into individual characters
+- Only Chinese characters are considered for unknown word detection
+- Punctuation and English letters are filtered out
+
+### Performance Optimizations
+
+- Reverse index (`word_to_sentences`) for efficient sentence updates
+- Only processes sentences containing newly learned words
+- Special handling for n+1 bucket (list instead of set) for efficient sorting
+- Timing instrumentation for profiling bottlenecks
+
+## Development Guidelines
+
+### When Modifying Code
+
+1. **Segmentation**: If changing segmentation logic, update `jieba_segmenter.py` or switch segmenter in `organizer.py`
+2. **Bucket Strategy**: Modify `get_next_sentence()` and `_update_buckets()` in `organizer.py`
+3. **Initial Words**: Change initial word selection in `main.py` (currently top 6 most frequent)
+4. **Sentence Filtering**: Modify `_process_sentence()` in `organizer.py` for skip conditions
+
+### Common Tasks
+
+- **Add new word list**: Add file to `words/` directory, update loading logic if needed
+- **Change learning strategy**: Modify `get_next_sentence()` selection logic
+- **Adjust sentence filtering**: Change character count limits in `_process_sentence()`
+- **Profile performance**: Use `@profile` decorator and `line_profiler` (already in use)
+
+### Code Style Notes
+
+- Uses type hints where present
+- Performance-critical sections are profiled with `@profile` decorator
+- Timing information is tracked and printed for optimization
+- Chinese text handling uses UTF-8 encoding throughout
+
+## Dependencies
+
+- `pandas`: Data loading and manipulation
+- `jieba`: Chinese text segmentation
+- `line_profiler`: Performance profiling (optional, for development)
+
+## Current Configuration
+
+- Initial known words: Top 6 most frequent words from frequency data
+- Sentence range: Processes sentences 3111-11092 (hardcoded in main.py line 57)
+- Known words file: Loaded from `known` file when `use_known_file=True`
+- Output: TSV format with tab separator
+
+## Important Notes
+
+- The system assumes Chinese text is properly encoded in UTF-8
+- Word frequency ranking: Lower rank number = more frequent word
+- Sentences are filtered to have 3-20 Chinese characters
+- The n+1 bucket uses a list for sorting efficiency, other buckets use sets
+- Performance metrics are tracked and printed for optimization purposes
+
