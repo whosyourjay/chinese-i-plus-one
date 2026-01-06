@@ -1,10 +1,12 @@
-import pandas as pd
-from collections import defaultdict
-import jieba
-from jieba_segmenter import ChineseSegmenter
-import time
-from line_profiler import profile
 import string
+import time
+from collections import defaultdict
+
+import pandas as pd
+# from line_profiler import profile
+
+from pkuseg_segmenter import ChineseSegmenter
+
 
 def is_chinese(char):
     """Check if character is in Chinese unicode ranges"""
@@ -31,7 +33,7 @@ PUNCTUATION = {'。', '，', '？', '！', '、', '：', '；', '"', '"', ''', '
 PUNCTUATION.update(string.ascii_letters)
 
 class SentenceOrganizer:
-    @profile
+    # @profile
     def __init__(self, sentences, word_ranks, initial_words=None, use_known_file=False):
         self.update_buckets_time = 0
         self.collect_sentences_time = 0
@@ -85,7 +87,7 @@ class SentenceOrganizer:
         print(f"  Process sentences: {process_time:.2f} seconds")
         print(f"  Total: {total_time:.2f} seconds")
     
-    @profile
+    # @profile
     def _process_sentence(self, sentence, words):
         # Skip sentences with fewer than 3 Chinese characters
         chinese_chars = sum(1 for w in ''.join(words) if is_chinese(w))
@@ -116,7 +118,7 @@ class SentenceOrganizer:
         for word in words:
             self.word_to_sentences[word].add(sentence)
     
-    @profile
+    # @profile
     def get_next_sentence(self):
         """Get the next best sentence to learn"""
         if self.sentence_buckets[1]:
@@ -179,7 +181,7 @@ class SentenceOrganizer:
         
         return new_words, segmented_words
     
-    @profile
+    # @profile
     def _update_buckets(self, new_words):
         start_time = time.time()
         

@@ -1,7 +1,10 @@
-import pandas as pd
-from organizer import SentenceOrganizer
 import time
-from line_profiler import profile
+
+import pandas as pd
+# from line_profiler import profile
+
+from organizer import SentenceOrganizer
+
 
 def load_frequency_data():
     """Load word frequency data from TSV"""
@@ -11,7 +14,7 @@ def load_frequency_data():
     sorted_df['Rank'] = range(1, len(sorted_df) + 1)
     return {row['Vocab']: row['Rank'] for _, row in sorted_df.iterrows()}
 
-@profile
+# @profile
 def main():
     # Load and process frequency data
     start_time = time.time()
@@ -26,10 +29,10 @@ def main():
 
     # Load sentences
     t1 = time.time()
-    df = pd.read_csv('SpoonFedChinese.tsv', sep='\t', index_col=False)
+    df = pd.read_csv('rezero_v1-2.tsv', sep='\t', index_col=False)
     # Strip <b> and </b> tags from all sentences and sentence pinyin
     df['Sentence'] = df['Sentence'].str.replace('<b>', '', regex=False).str.replace('</b>', '', regex=False)
-    df['Sentence pinyin'] = df['Sentence pinyin'].str.replace('<b>', '', regex=False).str.replace('</b>', '', regex=False)
+    # df['Sentence pinyin'] = df['Sentence pinyin'].str.replace('<b>', '', regex=False).str.replace('</b>', '', regex=False)
     load_time = time.time() - t1
 
     # Create sentence lookup index
@@ -54,7 +57,7 @@ def main():
     get_next_time = 0
     
     print(f"Skipped {organizer.skipped_sentences} sentences")
-    for _ in range(11092 - 3111):
+    for _ in range(11092 - 6128):
         start_time = time.time()
         sentence = organizer.get_next_sentence()
         get_next_time += time.time() - start_time
