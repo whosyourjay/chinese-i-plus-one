@@ -1,7 +1,13 @@
+Better segmenting
+- Master word list from https://www.mdbg.net/chinese/dictionary
+- If segmenter initially creates an inf rank word, pass the segmenting to AI with flagged words
+
 - Define word in context
-- Use word dataset to get definition, pinyin, and audio for the i+1 word
+- Use word dataset to get definition and audio for the i+1 word
   - generate if missing
 - Better frequency list. Why are we missing common characters like 一, 三, 多?
+  
+Low priority
 - Import list and venvs to enable more segmenters
 - Reduce the n^2 dependence on i+1 bucket. Maybe already done?
 

@@ -6,6 +6,7 @@ import pandas as pd
 from prepare_vtt_data import process_video as prepare_vtt_data
 from enhance_csv import enhance_csv_with_segmentation
 from selection import run_i_plus_1_selection
+from generate_audio import generate_audio_for_selected_sentences
 
 
 def time_function(func, *args, **kwargs):
@@ -51,7 +52,13 @@ def process_video(video_url, num, total):
                                "data_files/sentence_sequence.csv", 6, True)
     print(f"Time: {elapsed:.1f}s")
 
-    print("Step 5: Appending results...")
+    print("Step 5: Generating audio files for selected sentences...")
+    _, elapsed = time_function(generate_audio_for_selected_sentences,
+                               "data_files/sentence_sequence.csv",
+                               "data_files/video.mp3")
+    print(f"Time: {elapsed:.1f}s")
+
+    print("Step 6: Appending results...")
     seq_csv = "data_files/sentence_sequence.csv"
     all_csv = "data_files/all_sentences.csv"
 
@@ -62,7 +69,7 @@ def process_video(video_url, num, total):
     df.to_csv(all_csv, mode='a', header=not os.path.exists(all_csv), index=False)
     print(f"Appended {len(df)} sentences")
 
-    print("Step 6: Updating known words...")
+    print("Step 7: Updating known words...")
     append_new_words_to_known(seq_csv)
 
     return True
