@@ -11,7 +11,7 @@ def parse_vtt_file(vtt_path):
         vtt_path: Path to the .zh.vtt file
 
     Returns:
-        List of dictionaries with 'text' for each subtitle
+        List of dictionaries with 'Sentence' for each subtitle
     """
     subtitles = []
 
@@ -28,7 +28,7 @@ def parse_vtt_file(vtt_path):
             if i + 1 < len(lines):
                 text = lines[i + 1].strip()
                 if text:  # Only add non-empty subtitles
-                    subtitles.append({'text': text})
+                    subtitles.append({'Sentence': text})
             i += 2
         else:
             i += 1
@@ -63,7 +63,7 @@ def process_subtitle(idx, text):
 
         return {
             'idx': idx,
-            'text': text,
+            'Sentence': text,
             'audio': audio_ref,
             'translation': translation,
             'segmented_words': segmented_words_str,
@@ -73,7 +73,7 @@ def process_subtitle(idx, text):
         print(f"  Error processing subtitle {idx}: {e}")
         return {
             'idx': idx,
-            'text': text,
+            'Sentence': text,
             'audio': audio_ref,
             'translation': "",
             'segmented_words': "",
@@ -101,7 +101,7 @@ def create_csv_from_vtt(vtt_path, output_csv_path, max_workers=5):
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
         # Submit all tasks
         future_to_idx = {
-            executor.submit(process_subtitle, idx, subtitle['text']): idx
+            executor.submit(process_subtitle, idx, subtitle['Sentence']): idx
             for idx, subtitle in enumerate(subtitles, start=1)
         }
 
@@ -112,12 +112,12 @@ def create_csv_from_vtt(vtt_path, output_csv_path, max_workers=5):
             results[result['idx']] = result
             completed += 1
             status = "✓" if result['success'] else "✗"
-            print(f"[{completed}/{len(subtitles)}] {status} {result['text']}")
+            print(f"[{completed}/{len(subtitles)}] {status} {result['Sentence']}")
 
     print("\nWriting CSV file...")
     # Write results to CSV in order
     with open(output_csv_path, 'w', encoding='utf-8', newline='') as csvfile:
-        fieldnames = ['text', 'audio', 'translation', 'segmented_words']
+        fieldnames = ['Sentence', 'audio', 'translation', 'segmented_words']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
         writer.writeheader()
@@ -125,7 +125,7 @@ def create_csv_from_vtt(vtt_path, output_csv_path, max_workers=5):
         for idx in sorted(results.keys()):
             result = results[idx]
             writer.writerow({
-                'text': result['text'],
+                'Sentence': result['Sentence'],
                 'audio': result['audio'],
                 'translation': result['translation'],
                 'segmented_words': result['segmented_words']

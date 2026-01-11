@@ -1,5 +1,6 @@
 from openai import OpenAI
 import json
+from typing import List, Set, Union, Dict
 
 endpoint = "https://segmentor-resource.cognitiveservices.azure.com/openai/v1/"
 model_name = "gpt-5-nano"
@@ -92,6 +93,37 @@ def translate_word_in_context(word: str, sentence: str) -> str:
     )
 
     return response.choices[0].message.content
+
+
+class ChineseSegmenter:
+    """
+    Segmenter that uses OpenAI API for word segmentation and optional translation.
+    Compatible with the standard segmenter API used by organizer.py.
+    """
+    def __init__(self, word_ranks: dict = None, punctuation: Set[str] = None):
+        """Initialize segmenter (word_ranks and punctuation kept for API compatibility)"""
+        self.word_ranks = word_ranks
+        self.punctuation = punctuation or set()
+
+    def segment(self, text: str, include_translation: bool = False) -> Union[List[str], Dict[str, any]]:
+        """
+        Segment text using OpenAI API, optionally including translation.
+
+        Args:
+            text: The Chinese sentence to segment
+            include_translation: If True, return dict with 'words' and 'translation'.
+                               If False, return just the list of words.
+
+        Returns:
+            If include_translation is False: list of segmented Chinese words
+            If include_translation is True: dict with keys 'words' and 'translation'
+        """
+        if include_translation:
+            return segment_and_translate(text)
+        else:
+            # Just get segmentation without translation
+            result = segment_and_translate(text)
+            return result['words']
 
 
 # Example usage
