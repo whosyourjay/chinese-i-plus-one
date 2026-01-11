@@ -10,12 +10,6 @@ from chinese_translator import ChineseSegmenter
 
 def is_chinese(char):
     """Check if character is in Chinese unicode ranges"""
-    # CJK Unified Ideographs (4E00-9FFF)
-    # CJK Unified Ideographs Extension A (3400-4DBF)
-    # CJK Unified Ideographs Extension B (20000-2A6DF)
-    # CJK Unified Ideographs Extension C (2A700-2B73F)
-    # CJK Unified Ideographs Extension D (2B740-2B81F)
-    # CJK Unified Ideographs Extension E (2B820-2CEAF)
     code = ord(char)
     ranges = [
         (0x4E00, 0x9FFF),   # CJK Unified
