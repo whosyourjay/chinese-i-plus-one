@@ -2,20 +2,21 @@ import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import pandas as pd
+import pkuseg
 
-from segmenters.openai import segment_and_translate
+# Initialize pkuseg once at module level for efficiency
+seg = pkuseg.pkuseg()
 
 
 def process_sentence(idx, sentence):
-    """Process a single sentence: translate and segment."""
+    """Process a single sentence: segment with pkuseg."""
     try:
-        result = segment_and_translate(sentence)
-        segmented_words = result['words']
+        segmented_words = seg.cut(sentence)
         if isinstance(segmented_words, list):
             segmented_words = ', '.join(segmented_words)
         return {
             'idx': idx,
-            'translation': result['translation'],
+            'translation': '',
             'segmented_words': segmented_words,
             'success': True
         }
@@ -94,4 +95,4 @@ if __name__ == "__main__":
     BASIC_CSV = "data_files/sentences_basic.csv"
     ENHANCED_CSV = "data_files/sentences_enhanced.csv"
 
-   enhance_csv_with_segmentation(BASIC_CSV, ENHANCED_CSV, max_workers=5)
+    enhance_csv_with_segmentation(BASIC_CSV, ENHANCED_CSV, max_workers=5)

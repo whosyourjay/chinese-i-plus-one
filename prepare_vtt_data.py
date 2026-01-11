@@ -19,7 +19,7 @@ def download_youtube_video(video_url: str, output_base: str = "data_files/video"
         '-x',
         '--audio-format', 'mp3',
         '--write-subs',
-        '--sub-langs', 'zh',
+        '--sub-langs', 'zh,zh-CN',
         '-o', output_base,
         video_url
     ]
@@ -202,13 +202,32 @@ if __name__ == "__main__":
     # Configuration
     OUTPUT_BASE = "data_files/video"
     AUDIO_FILE = f"{OUTPUT_BASE}.mp3"
-    VTT_FILE = f"{OUTPUT_BASE}.zh.vtt"
     OUTPUT_CSV = "data_files/sentences_basic.csv"
     AUDIO_OUTPUT_DIR = "audio_segments"
     PADDING_SECONDS = 0.2
 
+    # Remove old VTT files to avoid using stale data
+    vtt_file_zh = f"{OUTPUT_BASE}.zh.vtt"
+    vtt_file_zh_cn = f"{OUTPUT_BASE}.zh-CN.vtt"
+    for old_vtt in [vtt_file_zh, vtt_file_zh_cn]:
+        if os.path.exists(old_vtt):
+            os.remove(old_vtt)
+            print(f"Removed old subtitle file: {old_vtt}")
+
     # Download video and subtitles
     download_youtube_video(video_url, OUTPUT_BASE)
+
+    # Find which VTT file was created (zh or zh-CN)
+    vtt_file_zh = f"{OUTPUT_BASE}.zh.vtt"
+    vtt_file_zh_cn = f"{OUTPUT_BASE}.zh-CN.vtt"
+
+    if os.path.exists(vtt_file_zh):
+        VTT_FILE = vtt_file_zh
+    elif os.path.exists(vtt_file_zh_cn):
+        VTT_FILE = vtt_file_zh_cn
+    else:
+        print("Error: No Chinese subtitle file found (tried .zh.vtt and .zh-CN.vtt)")
+        sys.exit(1)
 
     # Parse VTT file
     print(f"Parsing VTT file: {VTT_FILE}")
