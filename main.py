@@ -128,19 +128,30 @@ def run_i_plus_1_selection(
     df['Sentence'] = df['Sentence'].str.replace('<b>', '', regex=False).str.replace('</b>', '', regex=False)
     load_time = time.time() - t1
 
-    # Create sentence lookup index
+    # Create sentence lookup index and pre-segmented data
     t2 = time.time()
     sentence_to_row = {row['Sentence']: row for _, row in df.iterrows()}
+
+    # Parse segmented_words column (comma-separated) into lists
+    pre_segmented_data = {}
+    for _, row in df.iterrows():
+        sentence = row['Sentence']
+        segmented_str = row['segmented_words']
+        # Split by comma and strip whitespace
+        words = [w.strip() for w in segmented_str.split(',') if w.strip()]
+        pre_segmented_data[sentence] = words
+
     index_time = time.time() - t2
 
     print(f"Loading sentences: {load_time:.2f} seconds")
-    print(f"Creating index: {index_time:.2f} seconds")
+    print(f"Creating index and segmented data: {index_time:.2f} seconds")
 
-    # Initialize organizer with known words flag
+    # Initialize organizer with pre-segmented data
     t3 = time.time()
     organizer = SentenceOrganizer(
         df['Sentence'].tolist(),
         word_ranks,
+        pre_segmented_data,
         initial_words,
         use_known_file=use_known_file
     )

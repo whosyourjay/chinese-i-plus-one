@@ -5,8 +5,6 @@ from collections import defaultdict
 import pandas as pd
 # from line_profiler import profile
 
-from segmenters.openai import ChineseSegmenter
-
 
 def is_chinese(char):
     """Check if character is in Chinese unicode ranges"""
@@ -28,20 +26,30 @@ PUNCTUATION.update(string.ascii_letters)
 
 class SentenceOrganizer:
     # @profile
-    def __init__(self, sentences, word_ranks, initial_words=None, use_known_file=False):
+    def __init__(self, sentences, word_ranks, pre_segmented_data, initial_words=None, use_known_file=False):
+        """
+        Initialize the SentenceOrganizer.
+
+        Args:
+            sentences: List of sentences to organize
+            word_ranks: Dictionary mapping words to their frequency ranks
+            pre_segmented_data: Dict mapping sentences to their segmented words list
+            initial_words: Set of initially known words
+            use_known_file: Whether to load additional known words from 'known' file
+        """
         self.update_buckets_time = 0
         self.collect_sentences_time = 0
         self.process_sentences_time = 0
         self.bucket_remove_time = 0
         self.bucket_add_time = 0
         self.unknown_update_time = 0
-        
+
         start_time = time.time()
-        
+
         self.known_words = PUNCTUATION.copy()
         if initial_words:
             self.known_words.update(initial_words)
-            
+
         # Load additional known words if flag is set
         if use_known_file:
             try:
@@ -51,33 +59,27 @@ class SentenceOrganizer:
                 print(f"Loaded {len(known_words)} words from known file")
             except FileNotFoundError:
                 print("Warning: 'known' file not found")
-            
+
         self.word_ranks = word_ranks
         self.sentence_buckets = defaultdict(set)  # Most buckets are sets
         self.sentence_buckets[1] = []  # Special n+1 bucket as list for sorting
         self.sentence_data = {}
         self.word_to_sentences = defaultdict(set)
-        
+
         self.skipped_sentences = 0
         self.n2_sentences_used = 0
         self.all_words = set()
-        
-        # Initialize segmenter
-        t1 = time.time()
-        self.segmenter = ChineseSegmenter(word_ranks, PUNCTUATION)
-        segmenter_time = time.time() - t1
-        
-        # Process all sentences
+
+        # Process all sentences with pre-segmented data
         t2 = time.time()
         for sentence in sentences:
-            words = self.segmenter.segment(sentence)
+            words = pre_segmented_data.get(sentence, [])
             self.all_words.update(words)
             self._process_sentence(sentence, words)
         process_time = time.time() - t2
-        
+
         total_time = time.time() - start_time
         print(f"\nInitialization timing:")
-        print(f"  Segmenter setup: {segmenter_time:.2f} seconds")
         print(f"  Process sentences: {process_time:.2f} seconds")
         print(f"  Total: {total_time:.2f} seconds")
     
