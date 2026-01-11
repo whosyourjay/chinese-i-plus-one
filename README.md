@@ -40,7 +40,7 @@ python main.py
 
 This will:
 1. Read basic CSV from `data_files/sentences_basic.csv`
-2. Add segmentation and translation using `chinese_translator.py`
+2. Add segmentation and translation using `segmenters/openai.py`
 3. Save enhanced CSV to `data_files/sentences_enhanced.csv`
 4. Run i+1 sentence selection algorithm
 5. Save ordered sequence to `data_files/sentence_sequence.csv`
@@ -72,11 +72,11 @@ Optionally create a `known` file with one word per line to mark words as already
 - `prepare_vtt_data.py` - VTT processing and audio splitting
 - `main.py` - Main pipeline orchestration
 - `organizer.py` - i+1 sentence selection algorithm
-- `chinese_translator.py` - Segmentation and translation using AI
+- `segmenters/openai.py` - Segmentation and translation using AI
 - `segmenters/` - Alternative segmentation implementations
-  - `pkuseg_segmenter.py`
-  - `jieba_segmenter.py`
-  - `greedy_segmenter.py`
+  - `pkuseg.py`
+  - `jieba.py`
+  - `greedy.py`
   - And more...
 
 ## Old Files (for reference)

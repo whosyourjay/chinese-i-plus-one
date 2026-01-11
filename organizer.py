@@ -5,7 +5,7 @@ from collections import defaultdict
 import pandas as pd
 # from line_profiler import profile
 
-from chinese_translator import ChineseSegmenter
+from segmenters.openai import ChineseSegmenter
 
 
 def is_chinese(char):

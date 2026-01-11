@@ -84,7 +84,7 @@ class TestSegmenters(unittest.TestCase):
         Generic test function for segmenters with __init__() and segment() API.
 
         Args:
-            module_name: Name of the module to import (e.g., 'jieba_segmenter')
+            module_name: Name of the module to import (e.g., 'jieba')
             display_name: Display name for the segmenter (e.g., 'Jieba Segmenter')
         """
         try:
@@ -123,33 +123,33 @@ class TestSegmenters(unittest.TestCase):
             raise
 
     # def test_jieba_segmenter(self):
-    #     """Test that jieba_segmenter can segment text"""
-    #     self._test_segmenter_with_api("jieba_segmenter", "Jieba Segmenter")
+    #     """Test that jieba can segment text"""
+    #     self._test_segmenter_with_api("jieba", "Jieba Segmenter")
 
     # def test_lac_segmenter(self):
-    #     """Test that lac_segmenter can segment text"""
-    #     self._test_segmenter_with_api("lac_segmenter", "LAC Segmenter")
+    #     """Test that lac can segment text"""
+    #     self._test_segmenter_with_api("lac", "LAC Segmenter")
 
     # def test_stanza_segmenter(self):
-    #     """Test that stanza_segmenter can segment text"""
-    #     self._test_segmenter_with_api("stanza_segmenter", "Stanza Segmenter")
+    #     """Test that stanza can segment text"""
+    #     self._test_segmenter_with_api("stanza", "Stanza Segmenter")
 
     # def test_snownlp_segmenter(self):
-    #     """Test that snownlp_segmenter can segment text"""
-    #     self._test_segmenter_with_api("snownlp_segmenter", "SnowNLP Segmenter")
+    #     """Test that snownlp can segment text"""
+    #     self._test_segmenter_with_api("snownlp", "SnowNLP Segmenter")
 
     # def test_pkuseg_segmenter(self):
-    #     """Test that pkuseg_segmenter can segment text"""
-    #     self._test_segmenter_with_api("pkuseg_segmenter", "pkuseg Segmenter")
+    #     """Test that pkuseg can segment text"""
+    #     self._test_segmenter_with_api("pkuseg", "pkuseg Segmenter")
 
     # def test_thulac_segmenter(self):
-    #     """Test that thulac_segmenter can segment text"""
-    #     self._test_segmenter_with_api("thulac_segmenter", "THULAC Segmenter")
+    #     """Test that thulac can segment text"""
+    #     self._test_segmenter_with_api("thulac", "THULAC Segmenter")
 
     def test_greedy_segmenter(self):
-        """Test that greedy_segmenter can segment text"""
+        """Test that greedy can segment text"""
         try:
-            from greedy_segmenter import segment_sentence
+            from greedy import segment_sentence
 
             # Create a working copy of word_list (as the function modifies it)
             word_list = set(self.test_word_ranks.keys())
@@ -206,7 +206,7 @@ class TestSegmenters(unittest.TestCase):
 
         # Test greedy (has different API)
         try:
-            from greedy_segmenter import segment_sentence
+            from greedy import segment_sentence
             word_list = set(self.test_word_ranks.keys())
             max_word_len = max(len(word) for word in word_list)
             greedy_result, _ = segment_sentence(

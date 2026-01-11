@@ -4,7 +4,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import pandas as pd
 
 from organizer import SentenceOrganizer
-from chinese_translator import segment_and_translate
+from segmenters.openai import segment_and_translate
 
 
 def load_frequency_data():
