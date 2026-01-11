@@ -1,10 +1,8 @@
 # YouTube Video URLs - one per line
 # Lines starting with # are treated as comments
 
-https://www.youtube.com/watch?v=k1O3qCVBFyg
-https://www.youtube.com/watch?v=nw7c9zWduRo
-https://www.youtube.com/watch?v=hk4zvlXAk8c
-https://www.youtube.com/watch?v=wtyEp-eXELk
+# https://www.youtube.com/watch?v=nw7c9zWduRo
+# https://www.youtube.com/watch?v=hk4zvlXAk8c
 https://www.youtube.com/watch?v=DCo0C5znFx4
 https://www.youtube.com/watch?v=Rq6i-yX_RiQ
 https://www.youtube.com/watch?v=E5aAAnL8ONI
@@ -13,8 +11,8 @@ https://www.youtube.com/watch?v=QibRQJ42ngQ
 https://www.youtube.com/watch?v=xfE2o3oRIhk
 https://www.youtube.com/watch?v=Ey9OpFXlMNo
 https://www.youtube.com/watch?v=Ggk8tTpIfnQ
-https://www.youtube.com/watch?v=LXo-H7IYKeI
 https://www.youtube.com/watch?v=5s_Z4ACi4TI
+#
 https://www.youtube.com/watch?v=POUe273XQsE
 https://www.youtube.com/watch?v=lsTcDjnnv-k
 https://www.youtube.com/watch?v=VdlWTc7qU9A

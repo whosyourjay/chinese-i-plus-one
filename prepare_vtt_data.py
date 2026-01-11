@@ -109,6 +109,10 @@ def process_audio_segment(args):
     output_filename = f"{idx:04d}_{safe_text}.mp3"
     output_file = output_path / output_filename
 
+    # Remove old file if exists
+    if output_file.exists():
+        output_file.unlink()
+
     # Build ffmpeg command
     cmd = [
         'ffmpeg',
@@ -224,14 +228,24 @@ def process_video(video_url, output_base="data_files/video",
                   audio_output_dir="audio_segments",
                   padding_seconds=0.2, max_workers=8):
     """Process a YouTube video: download, parse subtitles, split audio, create CSV."""
+    import shutil
     audio_file = f"{output_base}.mp3"
     subtitle_langs = ['zh', 'zh-CN', 'zh-Hans']
 
-    # Remove old VTT files
+    # Remove old files to ensure fresh download
+    if os.path.exists(audio_file):
+        os.remove(audio_file)
+        print(f"Removed old audio file: {audio_file}")
+
     for lang in subtitle_langs:
         old_vtt = f"{output_base}.{lang}.vtt"
         if os.path.exists(old_vtt):
             os.remove(old_vtt)
+
+    # Clear audio segments directory
+    if os.path.exists(audio_output_dir):
+        shutil.rmtree(audio_output_dir)
+        print(f"Cleared old audio segments: {audio_output_dir}")
 
     # Download video and subtitles
     download_youtube_video(video_url, output_base)
