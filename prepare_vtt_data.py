@@ -10,6 +10,7 @@ import subprocess
 import os
 from pathlib import Path
 from typing import List, Tuple, Optional
+from concurrent.futures import ProcessPoolExecutor, as_completed
 
 
 def download_youtube_video(video_url: str, output_base: str = "data_files/video"):
@@ -92,20 +93,63 @@ def sanitize_filename(text: str, max_length: int = 50) -> str:
     return sanitized
 
 
+def process_audio_segment(args):
+    """Process a single audio segment with ffmpeg."""
+    idx, start_time, end_time, text, audio_file, output_dir, padding = args
+
+    output_path = Path(output_dir)
+
+    # Apply padding
+    start_with_padding = max(0, start_time - padding)
+    end_with_padding = end_time + padding
+    duration = end_with_padding - start_with_padding
+
+    # Create filename
+    safe_text = sanitize_filename(text)
+    output_filename = f"{idx:04d}_{safe_text}.mp3"
+    output_file = output_path / output_filename
+
+    # Build ffmpeg command
+    cmd = [
+        'ffmpeg',
+        '-ss', str(start_with_padding),
+        '-t', str(duration),
+        '-i', audio_file,
+        '-acodec', 'copy',
+        '-y',
+        str(output_file)
+    ]
+
+    try:
+        subprocess.run(
+            cmd,
+            check=True,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
+        )
+        return {'idx': idx, 'filename': output_filename, 'success': True}
+    except subprocess.CalledProcessError as e:
+        return {'idx': idx, 'filename': output_filename, 'success': False, 'error': str(e)}
+    except Exception as e:
+        return {'idx': idx, 'filename': output_filename, 'success': False, 'error': str(e)}
+
+
 def split_audio(
     audio_file: str,
     segments: List[Tuple[float, float, str]],
     output_dir: str,
-    padding: float = 0.0
+    padding: float = 0.0,
+    max_workers: int = 8
 ) -> List[str]:
     """
-    Split audio file based on VTT segments.
+    Split audio file based on VTT segments using parallel processing.
 
     Args:
         audio_file: Path to input audio file
         segments: List of (start_time, end_time, text) tuples
         output_dir: Directory to save output files
         padding: Extra time (in seconds) to add before and after each segment
+        max_workers: Number of parallel ffmpeg processes to run
 
     Returns:
         List of output filenames created
@@ -114,47 +158,32 @@ def split_audio(
     output_path = Path(output_dir)
     output_path.mkdir(exist_ok=True)
 
-    output_files = []
+    # Prepare arguments for parallel processing
+    args_list = [
+        (idx, start_time, end_time, text, audio_file, output_dir, padding)
+        for idx, (start_time, end_time, text) in enumerate(segments, start=1)
+    ]
 
-    # Process each segment
-    for idx, (start_time, end_time, text) in enumerate(segments, start=1):
-        # Apply padding
-        start_with_padding = max(0, start_time - padding)
-        end_with_padding = end_time + padding
-        duration = end_with_padding - start_with_padding
+    output_files = [''] * len(segments)  # Pre-allocate list
+    completed = 0
 
-        # Create filename
-        safe_text = sanitize_filename(text)
-        output_filename = f"{idx:04d}_{safe_text}.mp3"
-        output_file = output_path / output_filename
-        output_files.append(output_filename)
+    with ProcessPoolExecutor(max_workers=max_workers) as executor:
+        future_to_idx = {
+            executor.submit(process_audio_segment, args): args[0]
+            for args in args_list
+        }
 
-        # Build ffmpeg command
-        cmd = [
-            'ffmpeg',
-            '-ss', str(start_with_padding),
-            '-t', str(duration),
-            '-i', audio_file,
-            '-acodec', 'copy',
-            '-y',
-            str(output_file)
-        ]
+        for future in as_completed(future_to_idx):
+            result = future.result()
+            output_files[result['idx'] - 1] = result['filename']
+            completed += 1
 
-        if idx % 100 == 0:
-            print(f"Processing segment {idx}/{len(segments)}: {text[:30]}...")
+            if completed % 100 == 0:
+                status = "✓" if result['success'] else "✗"
+                print(f"[{completed}/{len(segments)}] {status}")
 
-        try:
-            subprocess.run(
-                cmd,
-                check=True,
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL
-            )
-            #print(f"  ✓ Created: {output_filename}")
-        except subprocess.CalledProcessError as e:
-            print(f"  ✗ Error processing segment {idx}: {e}")
-        except Exception as e:
-            print(f"  ✗ Unexpected error: {e}")
+            if not result['success']:
+                print(f"  ✗ Error processing segment {result['idx']}: {result.get('error', 'Unknown error')}")
 
     return output_files
 
@@ -207,6 +236,7 @@ if __name__ == "__main__":
     AUDIO_OUTPUT_DIR = "audio_segments"
     PADDING_SECONDS = 0.2
     SUBTITLE_LANGS = ['zh', 'zh-CN', 'zh-Hans']
+    MAX_WORKERS = 8  # Number of parallel ffmpeg processes
 
     # Remove old VTT files to avoid using stale data
     for lang in SUBTITLE_LANGS:
@@ -236,8 +266,8 @@ if __name__ == "__main__":
     print(f"Found {len(segments)} segments")
 
     # Split audio
-    print(f"\nSplitting audio into segments...")
-    audio_filenames = split_audio(AUDIO_FILE, segments, AUDIO_OUTPUT_DIR, PADDING_SECONDS)
+    print(f"\nSplitting audio into segments with {MAX_WORKERS} workers...")
+    audio_filenames = split_audio(AUDIO_FILE, segments, AUDIO_OUTPUT_DIR, PADDING_SECONDS, MAX_WORKERS)
 
     # Create basic CSV
     create_basic_csv(segments, audio_filenames, OUTPUT_CSV)
