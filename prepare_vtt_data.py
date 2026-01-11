@@ -9,7 +9,21 @@ import re
 import subprocess
 import os
 from pathlib import Path
-from typing import List, Tuple
+from typing import List, Tuple, Optional
+
+
+def download_youtube_video(video_url: str, output_base: str = "data_files/video"):
+    """Download YouTube video with audio and Chinese subtitles."""
+    cmd = [
+        'yt-dlp',
+        '-x',
+        '--audio-format', 'mp3',
+        '--write-subs',
+        '--sub-langs', 'zh',
+        '-o', output_base,
+        video_url
+    ]
+    subprocess.run(cmd, check=True)
 
 
 def parse_timestamp(timestamp: str) -> float:
@@ -175,55 +189,38 @@ def create_basic_csv(
     print(f"CSV file created: {output_csv_path}")
 
 
-def process_vtt(
-    audio_file: str,
-    vtt_file: str,
-    output_csv: str,
-    audio_output_dir: str = "audio_segments",
-    padding: float = 0.2
-):
-    """
-    Main function to process VTT: split audio and create basic CSV.
-
-    Args:
-        audio_file: Path to input audio file (in data_files)
-        vtt_file: Path to VTT subtitle file (in data_files)
-        output_csv: Path for output CSV (will be saved in data_files)
-        audio_output_dir: Directory to save audio segments
-        padding: Extra time (in seconds) to add before and after each segment
-    """
-    # Check if files exist
-    if not os.path.exists(audio_file):
-        print(f"Error: Audio file not found: {audio_file}")
-        return
-
-    if not os.path.exists(vtt_file):
-        print(f"Error: VTT file not found: {vtt_file}")
-        return
-
-    # Parse VTT file
-    print(f"Parsing VTT file: {vtt_file}")
-    segments = parse_vtt_file(vtt_file)
-    print(f"Found {len(segments)} segments")
-
-    # Split audio
-    print(f"\nSplitting audio into segments...")
-    audio_filenames = split_audio(audio_file, segments, audio_output_dir, padding)
-
-    # Create basic CSV
-    create_basic_csv(segments, audio_filenames, output_csv)
-
-    print(f"\nDone! Audio segments saved to: {audio_output_dir}")
-    print(f"Basic CSV saved to: {output_csv}")
-
-
 if __name__ == "__main__":
-    # Example usage
-    # You can modify these paths as needed
-    AUDIO_FILE = "data_files/The Best Chinese.mp3"
-    VTT_FILE = "data_files/The Best Chinese.vtt"
+    import sys
+
+    # Get video URL from command line argument
+    if len(sys.argv) < 2:
+        print("Usage: python prepare_vtt_data.py <youtube_url>")
+        sys.exit(1)
+
+    video_url = sys.argv[1]
+
+    # Configuration
+    OUTPUT_BASE = "data_files/video"
+    AUDIO_FILE = f"{OUTPUT_BASE}.mp3"
+    VTT_FILE = f"{OUTPUT_BASE}.zh.vtt"
     OUTPUT_CSV = "data_files/sentences_basic.csv"
     AUDIO_OUTPUT_DIR = "audio_segments"
     PADDING_SECONDS = 0.2
 
-    process_vtt(AUDIO_FILE, VTT_FILE, OUTPUT_CSV, AUDIO_OUTPUT_DIR, PADDING_SECONDS)
+    # Download video and subtitles
+    download_youtube_video(video_url, OUTPUT_BASE)
+
+    # Parse VTT file
+    print(f"Parsing VTT file: {VTT_FILE}")
+    segments = parse_vtt_file(VTT_FILE)
+    print(f"Found {len(segments)} segments")
+
+    # Split audio
+    print(f"\nSplitting audio into segments...")
+    audio_filenames = split_audio(AUDIO_FILE, segments, AUDIO_OUTPUT_DIR, PADDING_SECONDS)
+
+    # Create basic CSV
+    create_basic_csv(segments, audio_filenames, OUTPUT_CSV)
+
+    print(f"\nDone! Audio segments saved to: {AUDIO_OUTPUT_DIR}")
+    print(f"Basic CSV saved to: {OUTPUT_CSV}")

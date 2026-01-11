@@ -23,16 +23,36 @@ def enhance_csv_with_segmentation(
 ):
     """
     Read basic CSV and add segmentation and translation columns.
+    Appends new sentences to existing output CSV if it exists.
 
     Args:
         input_csv: Path to basic CSV with Sentence and audio columns
         output_csv: Path to save enhanced CSV
         max_workers: Number of concurrent workers for API calls
     """
+    import os
+
     print(f"Loading basic CSV: {input_csv}")
     df = pd.read_csv(input_csv)
 
-    print(f"Found {len(df)} sentences")
+    # Check if output CSV already exists and filter out already processed sentences
+    already_processed = set()
+    if os.path.exists(output_csv):
+        print(f"Output CSV exists, loading to check for already processed sentences...")
+        existing_df = pd.read_csv(output_csv)
+        already_processed = set(existing_df['Sentence'].tolist())
+        print(f"Found {len(already_processed)} already processed sentences")
+
+        # Filter to only new sentences
+        df = df[~df['Sentence'].isin(already_processed)]
+        print(f"Filtered to {len(df)} new sentences to process")
+
+    print(f"Found {len(df)} sentences to process")
+
+    if len(df) == 0:
+        print("No new sentences to process!")
+        return pd.read_csv(output_csv) if os.path.exists(output_csv) else pd.DataFrame()
+
     print(f"Processing with {max_workers} concurrent workers...\n")
 
     # Process all sentences concurrently
@@ -87,12 +107,21 @@ def enhance_csv_with_segmentation(
     df['translation'] = df.index.map(lambda idx: results[idx]['translation'])
     df['segmented_words'] = df.index.map(lambda idx: results[idx]['segmented_words'])
 
-    # Save enhanced CSV
+    # Append to existing CSV or create new one
     print(f"\nSaving enhanced CSV to: {output_csv}")
-    df.to_csv(output_csv, index=False)
-    print("Done!")
+    if os.path.exists(output_csv) and len(already_processed) > 0:
+        # Append to existing file
+        df.to_csv(output_csv, mode='a', header=False, index=False)
+        print(f"Appended {len(df)} new sentences to existing CSV")
+        # Return combined dataframe
+        return pd.concat([existing_df, df], ignore_index=True)
+    else:
+        # Create new file
+        df.to_csv(output_csv, index=False)
+        print(f"Created new CSV with {len(df)} sentences")
+        return df
 
-    return df
+    print("Done!")
 
 
 def run_i_plus_1_selection(
