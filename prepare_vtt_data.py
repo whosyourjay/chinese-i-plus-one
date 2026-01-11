@@ -219,58 +219,52 @@ def create_basic_csv(
     print(f"CSV file created: {output_csv_path}")
 
 
+def process_video(video_url, output_base="data_files/video",
+                  output_csv="data_files/sentences_basic.csv",
+                  audio_output_dir="audio_segments",
+                  padding_seconds=0.2, max_workers=8):
+    """Process a YouTube video: download, parse subtitles, split audio, create CSV."""
+    audio_file = f"{output_base}.mp3"
+    subtitle_langs = ['zh', 'zh-CN', 'zh-Hans']
+
+    # Remove old VTT files
+    for lang in subtitle_langs:
+        old_vtt = f"{output_base}.{lang}.vtt"
+        if os.path.exists(old_vtt):
+            os.remove(old_vtt)
+
+    # Download video and subtitles
+    download_youtube_video(video_url, output_base)
+
+    # Find VTT file
+    vtt_file = None
+    for lang in subtitle_langs:
+        candidate = f"{output_base}.{lang}.vtt"
+        if os.path.exists(candidate):
+            vtt_file = candidate
+            break
+
+    if not vtt_file:
+        raise FileNotFoundError(f"No Chinese subtitle file found")
+
+    # Parse VTT file
+    print(f"Parsing VTT file: {vtt_file}")
+    segments = parse_vtt_file(vtt_file)
+    print(f"Found {len(segments)} segments")
+
+    # Split audio
+    print(f"\nSplitting audio with {max_workers} workers...")
+    audio_filenames = split_audio(audio_file, segments, audio_output_dir, padding_seconds, max_workers)
+
+    # Create CSV
+    create_basic_csv(segments, audio_filenames, output_csv)
+    print(f"Basic CSV saved to: {output_csv}")
+
+
 if __name__ == "__main__":
     import sys
-
-    # Get video URL from command line argument
     if len(sys.argv) < 2:
         print("Usage: python prepare_vtt_data.py <youtube_url>")
         sys.exit(1)
 
-    video_url = sys.argv[1]
-
-    # Configuration
-    OUTPUT_BASE = "data_files/video"
-    AUDIO_FILE = f"{OUTPUT_BASE}.mp3"
-    OUTPUT_CSV = "data_files/sentences_basic.csv"
-    AUDIO_OUTPUT_DIR = "audio_segments"
-    PADDING_SECONDS = 0.2
-    SUBTITLE_LANGS = ['zh', 'zh-CN', 'zh-Hans']
-    MAX_WORKERS = 8  # Number of parallel ffmpeg processes
-
-    # Remove old VTT files to avoid using stale data
-    for lang in SUBTITLE_LANGS:
-        old_vtt = f"{OUTPUT_BASE}.{lang}.vtt"
-        if os.path.exists(old_vtt):
-            os.remove(old_vtt)
-            print(f"Removed old subtitle file: {old_vtt}")
-
-    # Download video and subtitles
-    download_youtube_video(video_url, OUTPUT_BASE)
-
-    # Find which VTT file was created
-    VTT_FILE = None
-    for lang in SUBTITLE_LANGS:
-        candidate = f"{OUTPUT_BASE}.{lang}.vtt"
-        if os.path.exists(candidate):
-            VTT_FILE = candidate
-            break
-
-    if not VTT_FILE:
-        print(f"Error: No Chinese subtitle file found (tried {', '.join(f'.{lang}.vtt' for lang in SUBTITLE_LANGS)})")
-        sys.exit(1)
-
-    # Parse VTT file
-    print(f"Parsing VTT file: {VTT_FILE}")
-    segments = parse_vtt_file(VTT_FILE)
-    print(f"Found {len(segments)} segments")
-
-    # Split audio
-    print(f"\nSplitting audio into segments with {MAX_WORKERS} workers...")
-    audio_filenames = split_audio(AUDIO_FILE, segments, AUDIO_OUTPUT_DIR, PADDING_SECONDS, MAX_WORKERS)
-
-    # Create basic CSV
-    create_basic_csv(segments, audio_filenames, OUTPUT_CSV)
-
-    print(f"\nDone! Audio segments saved to: {AUDIO_OUTPUT_DIR}")
-    print(f"Basic CSV saved to: {OUTPUT_CSV}")
+    process_video(sys.argv[1])
