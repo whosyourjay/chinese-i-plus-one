@@ -5,7 +5,8 @@ endpoint = "https://segmentor-resource.cognitiveservices.azure.com/openai/v1/"
 model_name = "gpt-5-nano"
 deployment_name = "gpt-5-nano-segmentor"
 
-api_key = ""
+with open('api.key', 'r') as f:
+    api_key = f.read().strip()
 
 client = OpenAI(
     base_url=f"{endpoint}",
