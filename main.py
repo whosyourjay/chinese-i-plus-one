@@ -2,6 +2,7 @@ import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import pandas as pd
+from pinyin_jyutping_sentence import pinyin
 
 from organizer import SentenceOrganizer
 from segmenters.openai import segment_and_translate
@@ -218,8 +219,17 @@ def run_i_plus_1_selection(
         })
         sequence_num += 1
 
-    # Create and save new dataframe
+    # Create dataframe
     sequence_df = pd.DataFrame(sequence_data)
+
+    # Add pinyin columns
+    print("\nAdding pinyin...")
+    sequence_df['sentence_pinyin'] = sequence_df['Sentence'].apply(lambda x: pinyin(x))
+    sequence_df['new_words_pinyin'] = sequence_df['New_Words'].apply(
+        lambda x: ', '.join([pinyin(word.strip()) for word in x.split(',') if word.strip()])
+    )
+
+    # Save dataframe
     sequence_df.to_csv(output_csv, index=False)
 
     # Count remaining sentences
