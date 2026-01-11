@@ -55,7 +55,8 @@ def process_sentences_concurrent(df, max_workers):
             results[result['idx']] = result
             completed += 1
             status = "✓" if result['success'] else "✗"
-            print(f"[{completed}/{len(df)}] {status} {df.loc[result['idx'], 'Sentence']}")
+            if completed % 100 == 0:
+                print(f"[{completed}/{len(df)}] {status} {df.loc[result['idx'], 'Sentence']}")
 
     return results
 

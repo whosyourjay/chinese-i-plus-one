@@ -140,7 +140,8 @@ def split_audio(
             str(output_file)
         ]
 
-        print(f"Processing segment {idx}/{len(segments)}: {text[:30]}...")
+        if idx % 100 == 0:
+            print(f"Processing segment {idx}/{len(segments)}: {text[:30]}...")
 
         try:
             subprocess.run(
@@ -149,7 +150,7 @@ def split_audio(
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL
             )
-            print(f"  ✓ Created: {output_filename}")
+            #print(f"  ✓ Created: {output_filename}")
         except subprocess.CalledProcessError as e:
             print(f"  ✗ Error processing segment {idx}: {e}")
         except Exception as e:
