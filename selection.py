@@ -9,7 +9,7 @@ from organizer import SentenceOrganizer
 
 def load_frequency_data():
     """Load word frequency data from CSV"""
-    df = pd.read_csv('words/100k', sep=',')
+    df = pd.read_csv('words/100k', sep='\t')
     sorted_df = df.sort_values('Count', ascending=False)
     sorted_df['Rank'] = range(1, len(sorted_df) + 1)
     return {row['Vocab']: row['Rank'] for _, row in sorted_df.iterrows()}
@@ -28,6 +28,7 @@ def load_and_prepare_data(enhanced_csv, initial_words_count):
     pre_segmented_data = {
         row['Sentence']: [w.strip() for w in row['segmented_words'].split(',') if w.strip()]
         for _, row in df.iterrows()
+        if isinstance(row['segmented_words'], str)
     }
 
     return word_ranks, initial_words, df, sentence_to_row, pre_segmented_data
