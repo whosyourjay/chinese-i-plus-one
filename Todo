@@ -1,9 +1,11 @@
-- More accurate text from audio
-  - Whisper on each segment
-  - TurboScribe
-- Best split among segmenters
-- Meaning of word in context
-  - GPT 3 usd per million tokens input
+- Script takes split as parameter
+- Define word in context
+- Give Youtube url and do full pipeline
+  - Run yt-dlp and save reasonably short filename
+  - Split by SRT
+  - Segment each sub and package in csv
+  - Run sentence picker against unknown words
+  - Define each word in context
 - Better frequency list. Why are we missing common characters like 一, 三, 多?
 - Use word dataset to get definition, pinyin, and audio for the i+1 word
   - generate if missing

@@ -36,3 +36,6 @@ ENV/
 *.tsv
 words/
 iknow2
+
+# Keys
+api.key
