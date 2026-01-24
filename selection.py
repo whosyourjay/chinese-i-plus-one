@@ -2,7 +2,6 @@ import os
 import time
 
 import pandas as pd
-from pinyin_jyutping_sentence import pinyin
 
 from organizer import SentenceOrganizer
 
@@ -59,14 +58,6 @@ def generate_sequence(organizer, sentence_to_row):
     return sequence_data
 
 
-def add_pinyin_columns(df):
-    """Add pinyin columns for sentences and target word."""
-    print("\nAdding pinyin...")
-    df['sentence_pinyin'] = df['Sentence'].apply(pinyin)
-    df['new_words_pinyin'] = df['New_Words'].apply(lambda x: pinyin(str(x)))
-    return df
-
-
 def print_summary(organizer, sequence_data):
     """Print summary statistics."""
     remaining = sum(len(bucket) for bucket in organizer.sentence_buckets.values())
@@ -76,7 +67,7 @@ def print_summary(organizer, sequence_data):
 
 
 def run_i_plus_1_selection(enhanced_csv, output_csv, initial_words_count=6, use_known_file=True):
-    """Run i+1 sentence selection algorithm and add pinyin."""
+    """Run i+1 sentence selection algorithm."""
     word_ranks, initial_words, df, sentence_to_row, pre_segmented_data = load_and_prepare_data(
         enhanced_csv, initial_words_count
     )
@@ -91,7 +82,6 @@ def run_i_plus_1_selection(enhanced_csv, output_csv, initial_words_count=6, use_
 
     sequence_data = generate_sequence(organizer, sentence_to_row)
     sequence_df = pd.DataFrame(sequence_data)
-    sequence_df = add_pinyin_columns(sequence_df)
     sequence_df.to_csv(output_csv, index=False)
 
     print_summary(organizer, sequence_data)
@@ -99,7 +89,7 @@ def run_i_plus_1_selection(enhanced_csv, output_csv, initial_words_count=6, use_
 
 
 if __name__ == "__main__":
-    """Run i+1 sentence selection and add pinyin."""
+    """Run i+1 sentence selection."""
     ENHANCED_CSV = "data_files/sentences_enhanced.csv"
     SEQUENCE_CSV = "data_files/sentence_sequence.csv"
 
