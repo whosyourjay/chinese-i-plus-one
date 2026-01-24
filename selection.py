@@ -45,12 +45,13 @@ def generate_sequence(organizer, sentence_to_row):
             break
 
         new_words, _ = organizer.learn_sentence(sentence)
+        new_word = list(new_words)[0]  # Always exactly one word in i+1 selection
         row = sentence_to_row[sentence]
         sequence_data.append({
             'Sequence': sequence_num,
             'Sentence': sentence,
-            'New_Words': ', '.join(new_words),
-            'Word_Rank': min(organizer.word_ranks.get(w, float('inf')) for w in new_words),
+            'New_Words': new_word,
+            'Word_Rank': organizer.word_ranks.get(new_word, float('inf')),
             **row.to_dict()
         })
         sequence_num += 1
@@ -59,12 +60,10 @@ def generate_sequence(organizer, sentence_to_row):
 
 
 def add_pinyin_columns(df):
-    """Add pinyin columns for sentences and new words."""
+    """Add pinyin columns for sentences and target word."""
     print("\nAdding pinyin...")
     df['sentence_pinyin'] = df['Sentence'].apply(pinyin)
-    df['new_words_pinyin'] = df['New_Words'].apply(
-        lambda x: ', '.join([pinyin(w.strip()) for w in x.split(',') if w.strip()])
-    )
+    df['new_words_pinyin'] = df['New_Words'].apply(lambda x: pinyin(str(x)))
     return df
 
 

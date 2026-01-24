@@ -2,6 +2,7 @@
 """
 Generate audio files for selected sentences after the selection step.
 Reads timing info from basic CSV and creates audio files only for selected sentences.
+Also generates TTS audio for target words using Edge TTS.
 """
 
 import re
@@ -10,27 +11,54 @@ import pandas as pd
 from pathlib import Path
 from typing import List, Tuple
 from concurrent.futures import ProcessPoolExecutor, as_completed
+import asyncio
+import edge_tts
 
 
 def sanitize_filename(text: str, max_length: int = 50) -> str:
-    """
-    Sanitize text to create a valid filename.
-
-    Args:
-        text: Original text
-        max_length: Maximum length for the filename
-
-    Returns:
-        Sanitized filename
-    """
-    # Remove or replace invalid characters
+    """Sanitize text to create a valid filename."""
     sanitized = re.sub(r'[<>:"/\\|?*]', '', text)
-    # Replace spaces and other whitespace with underscores
     sanitized = re.sub(r'\s+', '_', sanitized)
-    # Truncate to max length
-    if len(sanitized) > max_length:
-        sanitized = sanitized[:max_length]
-    return sanitized
+    return sanitized[:max_length] if len(sanitized) > max_length else sanitized
+
+
+async def generate_word_tts_async(word: str, output_file: Path) -> str:
+    """Generate TTS audio for a word using Edge TTS."""
+    communicate = edge_tts.Communicate(word, "zh-CN-XiaoxiaoNeural", rate="-20%")
+    await communicate.save(str(output_file))
+    return output_file.name
+
+
+def generate_word_audio(sequence_df: pd.DataFrame, output_dir: str) -> pd.DataFrame:
+    """Add word_audio column with TTS for the target word."""
+    print("\nGenerating Edge TTS for target words...")
+    output_path = Path(output_dir)
+    output_path.mkdir(exist_ok=True)
+
+    word_audio_list = []
+    for idx, row in sequence_df.iterrows():
+        word = str(row.get('New_Words', '')).strip()
+
+        if not word:
+            word_audio_list.append('')
+            continue
+
+        filename = f"word_{sanitize_filename(word, 30)}.mp3"
+        filepath = output_path / filename
+
+        if not filepath.exists():
+            try:
+                asyncio.run(generate_word_tts_async(word, filepath))
+            except Exception as e:
+                print(f"  ✗ Error for '{word}': {e}")
+                word_audio_list.append('')
+                continue
+
+        word_audio_list.append(f"[sound:{filename}]")
+
+    sequence_df['word_audio'] = word_audio_list
+    print(f"  ✓ Generated audio for {len(sequence_df)} sentences")
+    return sequence_df
 
 
 def process_audio_segment(args):
@@ -139,47 +167,34 @@ def generate_audio_for_selected_sentences(
     padding_seconds: float = 0.2,
     max_workers: int = 8
 ):
-    """
-    Generate audio files for sentences in the sequence CSV.
-
-    Args:
-        sequence_csv: Path to sentence_sequence.csv (selected sentences with timing info)
-        audio_file: Path to the source audio file
-        output_dir: Directory to save audio segments
-        padding_seconds: Padding to add before/after each segment
-        max_workers: Number of parallel workers for audio processing
-    """
+    """Generate audio files for sentences and TTS for target words."""
     print(f"Loading selected sentences from: {sequence_csv}")
     sequence_df = pd.read_csv(sequence_csv)
 
-    # Build segments list from selected sentences with their timing info
+    # Generate sentence audio clips
     segments = [
         (row['start_time'], row['end_time'], row['Sentence'])
         for _, row in sequence_df.iterrows()
     ]
 
     print(f"\nCreating audio files for {len(segments)} selected sentences...")
-    audio_filenames = split_audio(
-        audio_file,
-        segments,
-        output_dir,
-        padding_seconds,
-        max_workers
-    )
+    audio_filenames = split_audio(audio_file, segments, output_dir, padding_seconds, max_workers)
 
-    # Add audio column to sequence dataframe
-    sentence_to_audio = {
-        segments[i][2]: f"[sound:{audio_filenames[i]}]"
-        for i in range(len(segments))
-    }
+    sentence_to_audio = {segments[i][2]: f"[sound:{audio_filenames[i]}]" for i in range(len(segments))}
+    sequence_df['audio'] = sequence_df['Sentence'].map(lambda s: sentence_to_audio.get(s, ''))
 
-    sequence_df['audio'] = sequence_df['Sentence'].map(
-        lambda s: sentence_to_audio.get(s, '')
+    # Generate word TTS audio and add pinyin
+    sequence_df = generate_word_audio(sequence_df, output_dir)
+
+    # Add pinyin for the target word
+    from pinyin_jyutping_sentence import pinyin
+    sequence_df['word_pinyin'] = sequence_df['New_Words'].apply(
+        lambda x: pinyin(str(x).strip()) if str(x).strip() else ''
     )
 
     # Save updated sequence CSV
     sequence_df.to_csv(sequence_csv, index=False)
-    print(f"\nUpdated {sequence_csv} with audio references")
+    print(f"\nUpdated {sequence_csv} with audio and pinyin")
     print(f"Audio files saved to: {output_dir}")
 
 

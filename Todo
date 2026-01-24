@@ -5,7 +5,6 @@ Better segmenting
 - Define word in context
 - Use word dataset to get definition and audio for the i+1 word
   - generate if missing
-- Better frequency list. Why are we missing common characters like 一, 三, 多?
   
 Low priority
 - Import list and venvs to enable more segmenters
@@ -18,3 +17,6 @@ Low priority
 
 Not sure these are good
 - Add bold tags back at the end?
+
+
+enhance_csv.py uses pkuseg to cut sentences into words. However many of the words do not appear in cedict_ts.u8 . What are some options for getting a final sentence where every word is in this list?

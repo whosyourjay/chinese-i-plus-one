@@ -20,9 +20,7 @@ def append_new_words_to_known(csv_path, known_file='known'):
     if 'New_Words' not in df.columns:
         return
 
-    words = []
-    for words_str in df['New_Words'].dropna():
-        words.extend([w.strip() for w in str(words_str).split(',') if w.strip()])
+    words = [str(w).strip() for w in df['New_Words'].dropna() if str(w).strip()]
 
     if words:
         with open(known_file, 'a', encoding='utf-8') as f:

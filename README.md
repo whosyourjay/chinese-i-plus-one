@@ -1,85 +1,69 @@
 # Chinese Incremental Learning System
 
-A system for organizing Chinese learning materials using i+1 sentence selection.
+A system for organizing Chinese learning materials using i+1 sentence selection across multiple videos.
+
+## Overview
+
+The system processes YouTube videos with Chinese subtitles to create an optimal learning sequence. It selects sentences that introduce exactly the right amount of new vocabulary based on what you already know, then incrementally builds your vocabulary across multiple videos.
+
+## Quick Start
+
+```bash
+# Process a single video
+python prepare_vtt_data.py  # Configure video URL in the file first
+python main.py
+
+# Process multiple videos in sequence
+python process_videos.py video_urls.txt
+```
+
+## Processing Multiple Videos
+
+`process_videos.py` is the main entry point for building a learning path across multiple videos:
+
+1. **Input**: A text file with one YouTube URL per line (lines starting with `#` are ignored)
+2. **Loop**: For each video, it:
+   - Downloads subtitles and splits audio into sentence segments
+   - Adds word segmentation and English translations
+   - Runs i+1 selection to pick the best sentences (typically 6 sentences per video)
+   - Generates audio files for the selected sentences
+   - Appends results to `data_files/all_sentences.csv`
+   - **Adds new words to the `known` file** so the next video builds on this vocabulary
+3. **Output**: A cumulative CSV with the optimal sentence learning sequence across all videos
+
+This creates an incremental learning path where each video introduces new vocabulary while reinforcing what you've already learned.
+
+## Pipeline Steps (per video)
+
+1. **VTT Processing** (`prepare_vtt_data.py`): Downloads subtitles, splits audio by sentence
+2. **Enhancement** (`enhance_csv.py`): Adds word segmentation and translations via OpenAI API
+3. **Selection** (`selection.py`): Picks sentences using i+1 algorithm (new words + known words)
+4. **Audio Generation** (`generate_audio.py`): Creates audio clips for sentences, generates TTS for target words, adds pinyin
 
 ## Directory Structure
 
-- `data_files/` - Contains all input data and generated CSVs
-  - Audio files (.mp3)
-  - VTT subtitle files (.vtt)
-  - TSV data files (.tsv)
-  - Generated CSV files
+- `data_files/` - All CSVs, audio files, and VTT subtitles
 - `audio_segments/` - Individual audio clips for each sentence
-- `segmenters/` - Different Chinese segmentation implementations
-- `words/` - Word frequency data
-
-## Workflow
-
-### Step 1: Prepare VTT Data
-Use `prepare_vtt_data.py` to process VTT files:
-- Splits audio into individual sentence segments
-- Creates basic CSV with `Sentence` and `audio` columns
-- Saves CSV to `data_files/`
-
-```bash
-python prepare_vtt_data.py
-```
-
-Edit the file to configure:
-- `AUDIO_FILE` - Path to audio file in data_files
-- `VTT_FILE` - Path to VTT subtitle file in data_files
-- `OUTPUT_CSV` - Output path for basic CSV
-- `AUDIO_OUTPUT_DIR` - Where to save audio segments (default: audio_segments)
-
-### Step 2: Run Main Pipeline
-Use `main.py` to enhance data and run i+1 selection:
-
-```bash
-python main.py
-```
-
-This will:
-1. Read basic CSV from `data_files/sentences_basic.csv`
-2. Add segmentation and translation using `segmenters/openai.py`
-3. Save enhanced CSV to `data_files/sentences_enhanced.csv`
-4. Run i+1 sentence selection algorithm
-5. Save ordered sequence to `data_files/sentence_sequence.csv`
-
-The enhanced CSV will include:
-- `Sentence` - Chinese sentence
-- `audio` - Anki-style audio reference
-- `translation` - English translation
-- `segmented_words` - Comma-separated Chinese words
-
-The sequence CSV additionally includes:
-- `Sequence` - Learning order
-- `New_Words` - Words to learn in this sentence
-- `Word_Rank` - Frequency rank of new words
+- `words/100k` - Word frequency data (TSV with `Vocab` and `Count` columns)
+- `known` - List of known words (one per line), automatically updated after each video
 
 ## Configuration
 
-### API Key
-The system requires an OpenAI-compatible API key in `api.key` file.
+- **API Key**: Create `api.key` file with OpenAI-compatible API key
+- **Known Words**: Optional `known` file with pre-existing vocabulary
+- **Video URLs**: Create a text file listing YouTube URLs (see `video_urls.txt`)
 
-### Word Frequency
-Word frequency data should be in `words/100k` (TSV format with `Vocab` and `Count` columns).
+## Key Components
 
-### Known Words
-Optionally create a `known` file with one word per line to mark words as already known.
+- `process_videos.py` - Main loop for processing multiple videos
+- `prepare_vtt_data.py` - Downloads and processes subtitles
+- `enhance_csv.py` - Adds segmentation and translations
+- `selection.py` - i+1 sentence selection algorithm (formerly `organizer.py`)
+- `generate_audio.py` - Creates audio clips for selected sentences
+- `segmenters/` - Various Chinese segmentation implementations (OpenAI, jieba, pkuseg, etc.)
 
-## Components
+## Output Files
 
-- `prepare_vtt_data.py` - VTT processing and audio splitting
-- `main.py` - Main pipeline orchestration
-- `organizer.py` - i+1 sentence selection algorithm
-- `segmenters/openai.py` - Segmentation and translation using AI
-- `segmenters/` - Alternative segmentation implementations
-  - `pkuseg.py`
-  - `jieba.py`
-  - `greedy.py`
-  - And more...
-
-## Old Files (for reference)
-
-- `process_vtt_to_csv.py` - Old combined approach (now split into prepare + main)
-- `split_audio_by_vtt.py` - Old audio splitting only (functionality now in prepare_vtt_data.py)
+- `data_files/all_sentences.csv` - Cumulative learning sequence from all videos
+- `data_files/sentence_sequence.csv` - Results from the most recent video
+- Columns: `Sentence`, `audio`, `translation`, `segmented_words`, `Sequence`, `New_Words`, `Word_Rank`, `word_audio`, `word_pinyin`
