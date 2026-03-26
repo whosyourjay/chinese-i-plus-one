@@ -39,7 +39,6 @@ def load_and_prepare_data(enhanced_csv, initial_words_count):
 def generate_sequence(organizer, sentence_to_row):
     """Generate sentence sequence using i+1 algorithm."""
     sequence_data = []
-    sequence_num = 1
 
     while True:
         sentence = organizer.get_next_sentence()
@@ -47,16 +46,16 @@ def generate_sequence(organizer, sentence_to_row):
             break
 
         new_words, _ = organizer.learn_sentence(sentence)
-        new_word = list(new_words)[0]  # Always exactly one word in i+1 selection
+        new_word = list(new_words)[0]
         row = sentence_to_row[sentence]
         sequence_data.append({
-            'Sequence': sequence_num,
+            'Sequence': len(organizer.known_words),
             'Sentence': sentence,
             'New_Words': new_word,
             'Word_Rank': organizer.word_ranks.get(new_word, float('inf')),
             **row.to_dict()
         })
-        sequence_num += 1
+
 
     return sequence_data
 

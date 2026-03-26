@@ -226,6 +226,18 @@ def generate_audio_for_selected_sentences(
         lambda x: definitions.get(str(x).strip(), '')
     )
 
+    # Translate sentences
+    from deep_translator import GoogleTranslator
+    print("\nTranslating sentences...")
+    translator = GoogleTranslator(source='zh-CN', target='en')
+    sentences = sequence_df['Sentence'].tolist()
+    BATCH_SIZE = 50
+    translations = []
+    for i in range(0, len(sentences), BATCH_SIZE):
+        batch = sentences[i:i + BATCH_SIZE]
+        translations.extend(translator.translate_batch(batch))
+    sequence_df['translation'] = translations
+
     # Save updated sequence CSV
     sequence_df.to_csv(sequence_csv, index=False)
     print(f"\nUpdated {sequence_csv} with audio and pinyin")

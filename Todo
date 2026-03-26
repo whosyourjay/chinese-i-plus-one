@@ -1,21 +1,17 @@
-Better segmenting
-  - Master word list from https://www.mdbg.net/chinese/dictionary
-  - If segmenter initially creates an inf rank word, pass the segmenting to AI with flagged words
-
-Define word
-  - In context with AI?
-  - Just use CC-CEDICT?
-
 Improve workflow for importing to Anki
   - Run the script
   - Translate sentence (upload to sheet, google translate)
   - Delete "new" cards in Anki
   - Load the new sentences as cards. Match fields
   - Copy audio files for sentence and word into Anki data folder
+  - Delete the card generated from the header row
   
 Low priority
+  - Current segmenting approach may be discarding too many sentences
   - Reduce the n^2 dependence on i+1 bucket. Maybe already done?
   - Better word TTS using some obscure model
+  - Define word in context
+  - Bigger dictionary e.g. someone's Pleco PLC file
 
 Cleanup test_segmenters
   - Import list and venvs to enable more segmenters
