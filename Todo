@@ -1,15 +1,19 @@
 Better segmenting
-- Master word list from https://www.mdbg.net/chinese/dictionary
-- If segmenter initially creates an inf rank word, pass the segmenting to AI with flagged words
+  - Master word list from https://www.mdbg.net/chinese/dictionary
+  - If segmenter initially creates an inf rank word, pass the segmenting to AI with flagged words
 
 Define word
   - In context with AI?
   - Just use CC-CEDICT?
 
 Improve workflow for importing to Anki
+  - Export word cards and use non-new cards as known words
+  - Run the script
+  - Delete "new" cards in Anki
+  - Load the new sentences as cards. Match fields
+  - Copy audio files for sentence and word into Anki data folder
   
 Low priority
-  - 
   - Reduce the n^2 dependence on i+1 bucket. Maybe already done?
   - Better word TTS using some obscure model
 
@@ -20,7 +24,8 @@ Cleanup test_segmenters
   - show test sentence output
 
 Not sure these are good
-- Add bold tags back at the end?
+  - Add bold tags back at the end?
+  - Add images
 
 
 enhance_csv.py uses pkuseg to cut sentences into words. However many of the words do not appear in cedict_ts.u8 . What are some options for getting a final sentence where every word is in this list?

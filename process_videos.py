@@ -64,6 +64,7 @@ def process_video(video_url, num, total):
         return False
 
     df = pd.read_csv(seq_csv)
+    df['video_url'] = video_url
     df.to_csv(all_csv, mode='a', header=not os.path.exists(all_csv), index=False)
     print(f"Appended {len(df)} sentences")
 
