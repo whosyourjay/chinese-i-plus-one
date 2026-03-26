@@ -3,6 +3,7 @@ import time
 
 import pandas as pd
 
+from cedict import load_cedict_vocab
 from organizer import SentenceOrganizer
 
 
@@ -17,6 +18,7 @@ def load_frequency_data():
 def load_and_prepare_data(enhanced_csv, initial_words_count):
     """Load frequency data, sentences, and prepare segmented data."""
     word_ranks = load_frequency_data()
+    cedict_vocab = load_cedict_vocab()
     initial_words = {word for word, _ in sorted(word_ranks.items(), key=lambda x: x[1])[:initial_words_count]}
     print(f"Initial words: {initial_words}")
 
@@ -30,7 +32,8 @@ def load_and_prepare_data(enhanced_csv, initial_words_count):
         if isinstance(row['segmented_words'], str)
     }
 
-    return word_ranks, initial_words, df, sentence_to_row, pre_segmented_data
+    return (word_ranks, initial_words, df,
+            sentence_to_row, pre_segmented_data, cedict_vocab)
 
 
 def generate_sequence(organizer, sentence_to_row):
@@ -68,7 +71,9 @@ def print_summary(organizer, sequence_data):
 
 def run_i_plus_1_selection(enhanced_csv, output_csv, initial_words_count=6, use_known_file=True):
     """Run i+1 sentence selection algorithm."""
-    word_ranks, initial_words, df, sentence_to_row, pre_segmented_data = load_and_prepare_data(
+    (word_ranks, initial_words, df,
+     sentence_to_row, pre_segmented_data,
+     cedict_vocab) = load_and_prepare_data(
         enhanced_csv, initial_words_count
     )
 
@@ -77,7 +82,8 @@ def run_i_plus_1_selection(enhanced_csv, output_csv, initial_words_count=6, use_
         word_ranks,
         pre_segmented_data,
         initial_words,
-        use_known_file=use_known_file
+        use_known_file=use_known_file,
+        cedict_vocab=cedict_vocab,
     )
 
     sequence_data = generate_sequence(organizer, sentence_to_row)

@@ -30,12 +30,16 @@ ENV/
 *.swp
 *~
 *.lprof
+claude.md
 
 # Data files
 *.csv
 *.tsv
 words/
 iknow2
+data_files/
+known
+audio_segments/
 
 # Keys
 api.key

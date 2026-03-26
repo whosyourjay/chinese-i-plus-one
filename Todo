@@ -2,15 +2,19 @@ Better segmenting
 - Master word list from https://www.mdbg.net/chinese/dictionary
 - If segmenter initially creates an inf rank word, pass the segmenting to AI with flagged words
 
-- Define word in context
-- Use word dataset to get definition and audio for the i+1 word
-  - generate if missing
+Define word
+  - In context with AI?
+  - Just use CC-CEDICT?
+
+Improve workflow for importing to Anki
   
 Low priority
-- Import list and venvs to enable more segmenters
-- Reduce the n^2 dependence on i+1 bucket. Maybe already done?
+  - 
+  - Reduce the n^2 dependence on i+1 bucket. Maybe already done?
+  - Better word TTS using some obscure model
 
-- Cleanup test_segmenters
+Cleanup test_segmenters
+  - Import list and venvs to enable more segmenters
   - greedy_segmenter to match other formats
   - catch errors and warnings better
   - show test sentence output

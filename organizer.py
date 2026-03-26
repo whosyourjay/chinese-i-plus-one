@@ -26,7 +26,9 @@ PUNCTUATION.update(string.ascii_letters)
 
 class SentenceOrganizer:
     # @profile
-    def __init__(self, sentences, word_ranks, pre_segmented_data, initial_words=None, use_known_file=False):
+    def __init__(self, sentences, word_ranks, pre_segmented_data,
+                 initial_words=None, use_known_file=False,
+                 cedict_vocab=None):
         """
         Initialize the SentenceOrganizer.
 
@@ -61,6 +63,7 @@ class SentenceOrganizer:
                 print("Warning: 'known' file not found")
 
         self.word_ranks = word_ranks
+        self.cedict_vocab = cedict_vocab or set()
         self.sentence_buckets = defaultdict(set)  # Most buckets are sets
         self.sentence_buckets[1] = []  # Special n+1 bucket as list for sorting
         self.sentence_data = {}
@@ -83,16 +86,51 @@ class SentenceOrganizer:
         print(f"  Process sentences: {process_time:.2f} seconds")
         print(f"  Total: {total_time:.2f} seconds")
     
+    def _resegment_word(self, word):
+        """Split a word not in cedict via greedy longest-match."""
+        result = []
+        i = 0
+        while i < len(word):
+            best = None
+            for end in range(len(word), i, -1):
+                candidate = word[i:end]
+                if candidate in self.cedict_vocab:
+                    best = candidate
+                    break
+            if best:
+                result.append(best)
+                i += len(best)
+            else:
+                result.append(word[i])
+                i += 1
+        return result
+
     # @profile
     def _process_sentence(self, sentence, words):
+        # Re-segment Chinese words not in cedict
+        if self.cedict_vocab:
+            expanded = []
+            for w in words:
+                has_chinese = any(is_chinese(c) for c in w)
+                if has_chinese and w not in self.cedict_vocab:
+                    expanded.extend(self._resegment_word(w))
+                else:
+                    expanded.append(w)
+            words = expanded
+
         # Skip sentences with fewer than 3 Chinese characters
         chinese_chars = sum(1 for w in ''.join(words) if is_chinese(w))
         if chinese_chars < 3 or chinese_chars > 20:
             self.skipped_sentences += 1
             return
 
-        # Only treat Chinese words as unknown
-        unknown = {w for w in words if any(is_chinese(c) for c in w) and w not in self.known_words}
+        # Only treat Chinese words in cedict as unknown
+        unknown = {
+            w for w in words
+            if any(is_chinese(c) for c in w)
+            and w not in self.known_words
+            and (not self.cedict_vocab or w in self.cedict_vocab)
+        }
         
         if not unknown:
             self.skipped_sentences += 1

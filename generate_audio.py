@@ -183,12 +183,17 @@ def generate_audio_for_selected_sentences(
     sentence_to_audio = {segments[i][2]: f"[sound:{audio_filenames[i]}]" for i in range(len(segments))}
     sequence_df['audio'] = sequence_df['Sentence'].map(lambda s: sentence_to_audio.get(s, ''))
 
-    # Generate word TTS audio and add pinyin
+    # Generate word TTS audio, pinyin, and definitions
     from pinyin_jyutping_sentence import pinyin
+    from cedict import load_cedict_definitions
     sequence_df = generate_word_audio(sequence_df, output_dir)
     sequence_df['sentence_pinyin'] = sequence_df['Sentence'].apply(pinyin)
     sequence_df['word_pinyin'] = sequence_df['New_Words'].apply(
         lambda x: pinyin(str(x).strip()) if str(x).strip() else ''
+    )
+    definitions = load_cedict_definitions()
+    sequence_df['word_definition'] = sequence_df['New_Words'].apply(
+        lambda x: definitions.get(str(x).strip(), '')
     )
 
     # Save updated sequence CSV
