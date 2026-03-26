@@ -35,8 +35,11 @@ def process_video(video_url, num, total):
     _, elapsed = time_function(prepare_vtt_data, video_url)
     print(f"Time: {elapsed:.1f}s")
 
-    print("Step 2: Removing old enhanced CSV...")
-    os.remove("data_files/sentences_enhanced.csv") if os.path.exists("data_files/sentences_enhanced.csv") else None
+    print("Step 2: Removing old intermediate CSVs...")
+    for f in ["data_files/sentences_enhanced.csv",
+              "data_files/sentence_sequence.csv"]:
+        if os.path.exists(f):
+            os.remove(f)
 
     print("Step 3: Enhancing CSV...")
     _, elapsed = time_function(enhance_csv_with_segmentation,

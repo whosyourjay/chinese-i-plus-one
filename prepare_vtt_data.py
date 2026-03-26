@@ -20,6 +20,7 @@ def download_youtube_video(video_url: str, output_base: str = "data_files/video"
         '--audio-format', 'mp3',
         '--write-subs',
         '--sub-langs', 'zh,zh-CN,zh-Hans',
+        '--no-warnings',
         '-o', output_base,
         video_url
     ]

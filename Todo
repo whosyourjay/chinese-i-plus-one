@@ -7,8 +7,8 @@ Define word
   - Just use CC-CEDICT?
 
 Improve workflow for importing to Anki
-  - Export word cards and use non-new cards as known words
   - Run the script
+  - Translate sentence (upload to sheet, google translate)
   - Delete "new" cards in Anki
   - Load the new sentences as cards. Match fields
   - Copy audio files for sentence and word into Anki data folder

@@ -29,35 +29,65 @@ async def generate_word_tts_async(word: str, output_file: Path) -> str:
     return output_file.name
 
 
-def generate_word_audio(sequence_df: pd.DataFrame, output_dir: str) -> pd.DataFrame:
+async def generate_all_word_tts(tasks, output_path):
+    """Generate TTS for all words concurrently."""
+    results = {}
+
+    async def do_one(word, filepath):
+        try:
+            await generate_word_tts_async(word, filepath)
+            return word, True
+        except Exception as e:
+            print(f"  ✗ Error for '{word}': {e}")
+            return word, False
+
+    coros = [
+        do_one(word, output_path / filename)
+        for word, filename in tasks
+    ]
+    for result in await asyncio.gather(*coros):
+        results[result[0]] = result[1]
+    return results
+
+
+def generate_word_audio(
+    sequence_df: pd.DataFrame, output_dir: str
+) -> pd.DataFrame:
     """Add word_audio column with TTS for the target word."""
     print("\nGenerating Edge TTS for target words...")
     output_path = Path(output_dir)
     output_path.mkdir(exist_ok=True)
 
-    word_audio_list = []
-    for idx, row in sequence_df.iterrows():
-        word = str(row.get('New_Words', '')).strip()
-
-        if not word:
-            word_audio_list.append('')
+    # Collect words that need TTS
+    word_to_filename = {}
+    tasks = []
+    for _, row in sequence_df.iterrows():
+        raw = row.get('New_Words', '')
+        if pd.isna(raw):
             continue
-
+        word = str(raw).strip()
+        if not word or word in word_to_filename:
+            continue
         filename = f"word_{sanitize_filename(word, 30)}.mp3"
-        filepath = output_path / filename
+        word_to_filename[word] = filename
+        if not (output_path / filename).exists():
+            tasks.append((word, filename))
 
-        if not filepath.exists():
-            try:
-                asyncio.run(generate_word_tts_async(word, filepath))
-            except Exception as e:
-                print(f"  ✗ Error for '{word}': {e}")
-                word_audio_list.append('')
-                continue
+    if tasks:
+        asyncio.run(generate_all_word_tts(tasks, output_path))
 
-        word_audio_list.append(f"[sound:{filename}]")
+    def word_audio_ref(w):
+        if pd.isna(w):
+            return ''
+        key = str(w).strip()
+        if key in word_to_filename:
+            return f"[sound:{word_to_filename[key]}]"
+        return ''
 
-    sequence_df['word_audio'] = word_audio_list
-    print(f"  ✓ Generated audio for {len(sequence_df)} sentences")
+    sequence_df['word_audio'] = (
+        sequence_df['New_Words'].apply(word_audio_ref)
+    )
+    print(f"  ✓ Generated audio for {len(tasks)} words")
     return sequence_df
 
 
