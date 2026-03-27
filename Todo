@@ -1,18 +1,27 @@
 Improve workflow for importing to Anki
   - Run the script
-  - Translate sentence (upload to sheet, google translate)
   - Delete "new" cards in Anki
   - Load the new sentences as cards. Match fields
   - Copy audio files for sentence and word into Anki data folder
   - Delete the card generated from the header row
-  
+
+Turboscribe for videos without subs
+  https://turboscribe.ai/
+
+Allow backtracking between videos
+  1. Load many SRT files but not audio
+  2. Choose sentences and label them by final order
+  3. Load audio of one video at a time and cut audio segment for relevant cards
+
 Low priority
-  - Current segmenting approach may be discarding too many sentences
+  - Weird segmenting
+    - Doubled words AABB
+    - Elastic words separated by common patterns like 得不
   - Reduce the n^2 dependence on i+1 bucket. Maybe already done?
   - Better word TTS using some obscure model
   - Define word in context
   - Bigger dictionary e.g. someone's Pleco PLC file
-
+  
 Cleanup test_segmenters
   - Import list and venvs to enable more segmenters
   - greedy_segmenter to match other formats
@@ -20,6 +29,8 @@ Cleanup test_segmenters
   - show test sentence output
 
 Not sure these are good
+  - Merge neighboring subs or avoid very short target sentences
+  - Discard 10-20% least dense videos
   - Add bold tags back at the end?
   - Add images
 

@@ -227,15 +227,18 @@ def generate_audio_for_selected_sentences(
     )
 
     # Translate sentences
+    from concurrent.futures import ThreadPoolExecutor
     from deep_translator import GoogleTranslator
     print("\nTranslating sentences...")
-    translator = GoogleTranslator(source='zh-CN', target='en')
     sentences = sequence_df['Sentence'].tolist()
-    BATCH_SIZE = 50
-    translations = []
-    for i in range(0, len(sentences), BATCH_SIZE):
-        batch = sentences[i:i + BATCH_SIZE]
-        translations.extend(translator.translate_batch(batch))
+
+    def translate_one(text):
+        return GoogleTranslator(
+            source='zh-CN', target='en'
+        ).translate(text)
+
+    with ThreadPoolExecutor(max_workers=20) as ex:
+        translations = list(ex.map(translate_one, sentences))
     sequence_df['translation'] = translations
 
     # Save updated sequence CSV

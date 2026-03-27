@@ -72,6 +72,26 @@ def parse_vtt_file(vtt_path: str) -> List[Tuple[float, float, str]]:
     return segments
 
 
+def generate_subtitles_with_whisper(audio_file, output_base):
+    """Generate VTT subtitles using Whisper when YouTube has none."""
+    import whisper
+    from whisper.utils import get_writer
+
+    print("Loading Whisper model (medium)...")
+    model = whisper.load_model("medium")
+    print("Transcribing audio...")
+    result = model.transcribe(audio_file, language="zh")
+
+    output_dir = os.path.dirname(output_base)
+    writer = get_writer("vtt", output_dir)
+    base_name = os.path.basename(output_base)
+    writer(result, f"{base_name}.zh.vtt")
+
+    vtt_path = f"{output_base}.zh.vtt"
+    print(f"Whisper generated: {vtt_path}")
+    return vtt_path
+
+
 def create_basic_csv(
     segments: List[Tuple[float, float, str]],
     output_csv_path: str
@@ -129,7 +149,8 @@ def process_video(video_url, output_base="data_files/video",
             break
 
     if not vtt_file:
-        raise FileNotFoundError(f"No Chinese subtitle file found")
+        print("No Chinese subtitles found, running Whisper...")
+        vtt_file = generate_subtitles_with_whisper(audio_file, output_base)
 
     # Parse VTT file
     print(f"Parsing VTT file: {vtt_file}")
