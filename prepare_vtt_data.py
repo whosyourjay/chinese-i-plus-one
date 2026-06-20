@@ -7,9 +7,39 @@ Audio files will be created after sentence selection.
 
 import csv
 import re
+import shutil
 import subprocess
 import os
 from typing import List, Tuple
+
+
+def extract_video_id(video_url: str) -> str:
+    """Extract YouTube video ID from a bare ID, query string, or URL."""
+    video_url = video_url.strip()
+    if re.fullmatch(r'[A-Za-z0-9_-]{11}', video_url):
+        return video_url
+
+    patterns = [
+        r'[?&]v=([A-Za-z0-9_-]{11})',
+        r'youtu\.be/([A-Za-z0-9_-]{11})',
+        r'youtube\.com/(?:embed|shorts)/([A-Za-z0-9_-]{11})',
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, video_url)
+        if match:
+            return match.group(1)
+
+    raise ValueError(f"Could not extract video ID from URL: {video_url}")
+
+
+def normalize_url(video_url: str) -> str:
+    """Return a URL yt-dlp can consume from a bare video ID or query string."""
+    video_url = video_url.strip()
+    if re.fullmatch(r'[A-Za-z0-9_-]{11}', video_url):
+        return f"https://www.youtube.com/watch?v={video_url}"
+    if video_url.startswith('?'):
+        return f"https://www.youtube.com/watch{video_url}"
+    return video_url
 
 
 def download_youtube_video(video_url: str, output_base: str = "data_files/video"):
@@ -124,6 +154,8 @@ def create_basic_csv(
 def process_video(video_url, output_base="data_files/video",
                   output_csv="data_files/sentences_basic.csv"):
     """Process a YouTube video: download, parse subtitles, create CSV with timing info."""
+    video_url = normalize_url(video_url)
+    video_id = extract_video_id(video_url)
     audio_file = f"{output_base}.mp3"
     subtitle_langs = ['zh', 'zh-CN', 'zh-Hans']
 
@@ -149,8 +181,21 @@ def process_video(video_url, output_base="data_files/video",
             break
 
     if not vtt_file:
-        print("No Chinese subtitles found, running Whisper...")
-        vtt_file = generate_subtitles_with_whisper(audio_file, output_base)
+        saved_vtt = f"VTT/{video_id}.vtt"
+        if os.path.exists(saved_vtt):
+            vtt_file = saved_vtt
+        else:
+            raise RuntimeError(
+                f"No Chinese subtitles found for {video_id}. "
+                f"Download VTT manually to VTT/{video_id}.vtt"
+            )
+
+    # Save VTT to VTT/<video_id>.vtt if not already there
+    os.makedirs("VTT", exist_ok=True)
+    saved_vtt = f"VTT/{video_id}.vtt"
+    if not os.path.exists(saved_vtt):
+        shutil.copy2(vtt_file, saved_vtt)
+        print(f"Saved VTT: {saved_vtt}")
 
     # Parse VTT file
     print(f"Parsing VTT file: {vtt_file}")
