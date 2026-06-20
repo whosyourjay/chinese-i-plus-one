@@ -7,12 +7,15 @@ Also generates TTS audio for target words using Edge TTS.
 
 import re
 import subprocess
+import sys
 import pandas as pd
 from pathlib import Path
 from typing import List, Tuple
 from concurrent.futures import ProcessPoolExecutor, as_completed
 import asyncio
 import edge_tts
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 
 def sanitize_filename(text: str, max_length: int = 50) -> str:

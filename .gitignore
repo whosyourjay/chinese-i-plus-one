@@ -40,6 +40,7 @@ iknow2
 data_files/
 known
 audio_segments/
+repair/
 
 # Keys
 api.key
