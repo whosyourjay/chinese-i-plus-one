@@ -18,6 +18,7 @@ DEFAULT_DECKS = (
     "First > Second > Chinese > Words > Words 1k",
     "First > Second > Chinese > Words > Words 1k-3k",
     "First > Second > Chinese > Words > Spoonfed 3k-6.5k",
+    "First > Second > Chinese > Words > Youtube 6k-11k",
 )
 DEFAULT_SENTENCE_FIELDS = (
     "SentenceSimplified",

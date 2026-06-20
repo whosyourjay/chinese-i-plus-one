@@ -15,13 +15,19 @@ from pathlib import Path
 
 from anki_collection import (
     DEFAULT_COLLECTION,
-    DEFAULT_DECKS,
     DEFAULT_SENTENCE_FIELDS,
     NoteRow,
     duplicate_groups,
     first_field,
     notes_from_collection,
     strip_for_report,
+)
+
+DECK_BLOCKS = (
+    ("1k", ("First > Second > Chinese > Words > Words 1k",)),
+    ("1k-3k", ("First > Second > Chinese > Words > Words 1k-3k",)),
+    ("3k-6.5k", ("First > Second > Chinese > Words > Spoonfed 3k-6.5k",)),
+    ("youtube", ("First > Second > Chinese > Words > Youtube 6k-11k",)),
 )
 
 
@@ -63,12 +69,74 @@ def build_wordlist(
     return words, omitted_by_note_id, groups
 
 
+def build_positioned_wordlist(
+    block_notes: list[tuple[str, list[NoteRow]]],
+    generated_csv: Path,
+    omit_earlier_duplicate_sentences: bool = True,
+) -> tuple[list[str], list[dict[str, str]], dict[int, NoteRow], list[list[NoteRow]]]:
+    all_notes = [note for _, notes in block_notes for note in notes]
+    groups = duplicate_groups(all_notes, keep_latest=True)
+    omitted_by_note_id = replacement_map(groups) if omit_earlier_duplicate_sentences else {}
+
+    words: list[str] = []
+    positions: list[dict[str, str]] = []
+    seen: set[str] = set()
+
+    def add_word(word: str, source: str, source_key: str = "", note_id: str = "") -> None:
+        word = strip_for_report(word)
+        if not word or word in seen:
+            return
+        seen.add(word)
+        words.append(word)
+        positions.append(
+            {
+                "position": str(len(words)),
+                "word": word,
+                "source": source,
+                "source_key": source_key,
+                "note_id": note_id,
+            }
+        )
+
+    for block_name, notes in block_notes:
+        for note in sorted_word_notes(notes):
+            if note.note_id in omitted_by_note_id:
+                continue
+            add_word(
+                word_text(note),
+                block_name,
+                note.field_values.get("Key", ""),
+                str(note.note_id),
+            )
+
+    if generated_csv.exists():
+        with generated_csv.open(encoding="utf-8", newline="") as f:
+            for row in csv.DictReader(f):
+                add_word(
+                    row.get("New_Words", ""),
+                    "generated",
+                    row.get("Sequence", ""),
+                    "",
+                )
+
+    return words, positions, omitted_by_note_id, groups
+
+
 def write_wordlist(words: list[str], output: Path) -> None:
     output.parent.mkdir(parents=True, exist_ok=True)
     with output.open("w", encoding="utf-8") as f:
         for word in words:
             f.write(word)
             f.write("\n")
+
+
+def write_positions(positions: list[dict[str, str]], output: Path) -> None:
+    output.parent.mkdir(parents=True, exist_ok=True)
+    fieldnames = ("position", "word", "source", "source_key", "note_id")
+    with output.open("w", encoding="utf-8", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames, delimiter="\t")
+        writer.writeheader()
+        writer.writerows(positions)
 
 
 def write_omitted_report(omitted_by_note_id: dict[int, NoteRow], notes: list[NoteRow], output: Path) -> None:
@@ -119,7 +187,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
         "--deck",
         action="append",
         dest="decks",
-        help="Deck path to extract, using ' > ' separators. May be repeated.",
+        help="Override deck paths to extract as one block, using ' > ' separators. May be repeated.",
     )
     parser.add_argument(
         "--sentence-field",
@@ -139,6 +207,18 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
         help="Known-word output path (default: known).",
     )
     parser.add_argument(
+        "--generated-csv",
+        type=Path,
+        default=Path("data_files/all_sentences.csv"),
+        help="Append generated New_Words after Anki deck words (default: data_files/all_sentences.csv).",
+    )
+    parser.add_argument(
+        "--positions-output",
+        type=Path,
+        default=Path("reports/known_word_positions.tsv"),
+        help="TSV path for distinct word positions.",
+    )
+    parser.add_argument(
         "--omitted-report",
         type=Path,
         default=Path("reports/anki_wordlist_omitted_duplicates.tsv"),
@@ -153,18 +233,35 @@ def main(argv: list[str]) -> int:
         print(f"Collection not found: {DEFAULT_COLLECTION}", file=sys.stderr)
         return 1
 
-    display_decks = tuple(args.decks or DEFAULT_DECKS)
     preferred_sentence_fields = tuple(args.sentence_fields or DEFAULT_SENTENCE_FIELDS)
-    notes, warnings = notes_from_collection(
-        display_decks=display_decks,
-        preferred_sentence_fields=preferred_sentence_fields,
-    )
-    words, omitted_by_note_id, groups = build_wordlist(
-        notes,
+    warnings: list[str] = []
+
+    if args.decks:
+        notes, deck_warnings = notes_from_collection(
+            display_decks=tuple(args.decks),
+            preferred_sentence_fields=preferred_sentence_fields,
+        )
+        warnings.extend(deck_warnings)
+        block_notes = [("anki", notes)]
+    else:
+        block_notes = []
+        for block_name, decks in DECK_BLOCKS:
+            notes, deck_warnings = notes_from_collection(
+                display_decks=decks,
+                preferred_sentence_fields=preferred_sentence_fields,
+            )
+            warnings.extend(deck_warnings)
+            block_notes.append((block_name, notes))
+
+    words, positions, omitted_by_note_id, groups = build_positioned_wordlist(
+        block_notes,
+        args.generated_csv,
         omit_earlier_duplicate_sentences=not args.keep_earlier_duplicate_words,
     )
+    notes = [note for _, block in block_notes for note in block]
 
     write_wordlist(words, args.output)
+    write_positions(positions, args.positions_output)
     write_omitted_report(omitted_by_note_id, notes, args.omitted_report)
 
     print(f"Scanned notes: {len(notes)}")
@@ -172,6 +269,7 @@ def main(argv: list[str]) -> int:
     print(f"Omitted earlier duplicate-sentence notes: {len(omitted_by_note_id)}")
     print(f"Known words written: {len(words)}")
     print(f"Wordlist: {args.output}")
+    print(f"Positions: {args.positions_output}")
     print(f"Omitted report: {args.omitted_report}")
     if warnings:
         print("\nWarnings:")

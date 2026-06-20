@@ -72,6 +72,7 @@ class SentenceOrganizer:
         self.skipped_sentences = 0
         self.n2_sentences_used = 0
         self.all_words = set()
+        self.oov_unknown_words = set()
 
         # Process all sentences with pre-segmented data
         t2 = time.time()
@@ -124,13 +125,15 @@ class SentenceOrganizer:
             self.skipped_sentences += 1
             return
 
-        # Only treat Chinese words in cedict as unknown
+        # Dictionary-missing Chinese tokens must still count as unknown. If they
+        # did not, a sentence could be incorrectly treated as i+1.
         unknown = {
             w for w in words
             if any(is_chinese(c) for c in w)
             and w not in self.known_words
-            and (not self.cedict_vocab or w in self.cedict_vocab)
         }
+        if self.cedict_vocab:
+            self.oov_unknown_words.update(w for w in unknown if w not in self.cedict_vocab)
         
         if not unknown:
             self.skipped_sentences += 1

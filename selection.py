@@ -66,6 +66,11 @@ def print_summary(organizer, sequence_data):
     print(f"\nProcessed {len(sequence_data)} sentences")
     print(f"Skipped {organizer.skipped_sentences} sentences")
     print(f"Remaining unprocessed: {remaining} sentences")
+    if organizer.oov_unknown_words:
+        words = sorted(organizer.oov_unknown_words)
+        preview = ", ".join(words[:50])
+        suffix = "" if len(words) <= 50 else f", ... ({len(words)} total)"
+        print(f"Dictionary-missing unknown words: {preview}{suffix}")
 
 
 def run_i_plus_1_selection(enhanced_csv, output_csv, initial_words_count=6, use_known_file=True):
