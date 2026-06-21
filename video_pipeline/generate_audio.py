@@ -25,6 +25,61 @@ def sanitize_filename(text: str, max_length: int = 50) -> str:
     return sanitized[:max_length] if len(sanitized) > max_length else sanitized
 
 
+def _norm_for_subset(s: str) -> str:
+    """Keep only letters/digits/CJK chars — drops punctuation and whitespace."""
+    return ''.join(c for c in s if c.isalnum())
+
+
+_TERMINATORS = "。！？"
+_SEPARATORS = "，、；："
+
+
+def _chunks(audio: str) -> list[str]:
+    """Split audio into clause-sized chunks.
+    Terminators (。！？) are kept with their chunk; separators (，、；：) are
+    drop boundaries so trailing fragments like '...票，他给。' get isolated."""
+    out: list[str] = []
+    cur: list[str] = []
+    for ch in audio:
+        if ch in _TERMINATORS:
+            cur.append(ch)
+            chunk = ''.join(cur).strip()
+            if chunk:
+                out.append(chunk)
+            cur = []
+        elif ch in _SEPARATORS:
+            chunk = ''.join(cur).strip()
+            if chunk:
+                out.append(chunk)
+            cur = []
+        else:
+            cur.append(ch)
+    chunk = ''.join(cur).strip()
+    if chunk:
+        out.append(chunk)
+    return out
+
+
+def prefer_audio_when_subset(sentence: str, audio: str) -> str:
+    """Return audio when it adds real content within the same clause as the sub
+    (clauses split on 。！？，、；：, punct/whitespace ignored). Punctuation-only
+    differences are neutral — keep the subtitle. Cross-clause additions are
+    treated as separate utterances and ignored."""
+    if not sentence or not audio:
+        return sentence
+    ns = _norm_for_subset(sentence)
+    if not ns:
+        return sentence
+    for chunk in _chunks(audio):
+        nc = _norm_for_subset(chunk)
+        if ns not in nc:
+            continue
+        if ns == nc:
+            return sentence  # only punctuation/whitespace differs — neutral
+        return chunk
+    return sentence
+
+
 async def generate_word_tts_async(word: str, output_file: Path) -> str:
     """Generate TTS audio for a word using Edge TTS."""
     communicate = edge_tts.Communicate(word, "zh-CN-XiaoxiaoNeural", rate="-20%")

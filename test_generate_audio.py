@@ -5,8 +5,34 @@ from unittest.mock import patch, AsyncMock
 
 from generate_audio import (
     generate_word_audio,
+    prefer_audio_when_subset,
     sanitize_filename,
 )
+
+
+def test_prefer_audio_when_subset():
+    # Audio extends sub within same clause (no separator between) → take audio
+    assert prefer_audio_when_subset("你好", "你好世界") == "你好世界"
+    # Whitespace differences ignored; audio adds 啊 within the clause
+    assert prefer_audio_when_subset("你好世界", "你好 世界 啊") == "你好 世界 啊"
+    # Punctuation-only difference is neutral → keep sub
+    assert prefer_audio_when_subset("你好。", "你好") == "你好。"
+    assert prefer_audio_when_subset("西冷它是什么特点",
+                                    "西冷它是什么特点？你想。") == "西冷它是什么特点"
+    # Sub not contained in audio → keep sub
+    assert prefer_audio_when_subset("你好", "再见") == "你好"
+    # Empty audio → keep sub
+    assert prefer_audio_when_subset("你好", "") == "你好"
+    # Empty sub → keep sub (no-op)
+    assert prefer_audio_when_subset("", "你好") == ""
+    # Comma splits clauses: trailing fragment dropped, keep sub since the
+    # containing chunk is just sub + terminator (punct-only diff)
+    assert prefer_audio_when_subset("一判就是判几年",
+                                    "对，一判就是判几年。如果说。") == "一判就是判几年"
+    # Comma split prevents junk like "票，他给。" from being appended
+    assert prefer_audio_when_subset("他没有票", "他没有票，他给。") == "他没有票"
+    # Audio adds new content before sub within same clause → take audio
+    assert prefer_audio_when_subset("世界", "你好世界啊") == "你好世界啊"
 
 
 def test_sanitize_filename():
