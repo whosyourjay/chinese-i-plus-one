@@ -1,0 +1,16 @@
+# Core pipeline
+pandas
+pkuseg
+edge-tts
+pinyin-jyutping-sentence
+deep-translator
+
+# Optional: audio transcription with SenseVoice (downloads ~1GB model on first run).
+# Skip this section if you don't need the `audio_transcription` / `audio_language`
+# columns — the pipeline will detect the missing import and continue.
+#   funasr
+#   torchaudio
+#   numpy<2          # required while torch on macOS x86_64 is pinned at 2.2.x
+
+# Optional: Anki backup restore (repair/revert_from_backup.py)
+#   zstandard

@@ -16,6 +16,16 @@ _TAG_RE = re.compile(r"<\|[^|]*\|>")
 _LANG_RE = re.compile(r"<\|([a-z]{2})\|>")
 
 
+def is_available() -> bool:
+    """True if SenseVoice transcription can run (funasr + torchaudio present)."""
+    try:
+        import funasr  # noqa: F401
+        import torchaudio  # noqa: F401
+        return True
+    except ImportError:
+        return False
+
+
 def get_model():
     """Lazily load SenseVoice-small. First call downloads ~470MB."""
     global _MODEL
