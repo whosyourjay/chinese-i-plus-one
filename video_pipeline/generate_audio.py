@@ -216,6 +216,13 @@ def generate_audio_for_selected_sentences(
     sentence_to_audio = {segments[i][2]: f"[sound:{audio_filenames[i]}]" for i in range(len(segments))}
     sequence_df['audio'] = sequence_df['Sentence'].map(lambda s: sentence_to_audio.get(s, ''))
 
+    print(f"\nTranscribing {len(audio_filenames)} clips with SenseVoice...")
+    from transcribe_audio import transcribe_many
+    audio_paths = [Path(output_dir) / f for f in audio_filenames]
+    results = transcribe_many(audio_paths)
+    sequence_df['audio_transcription'] = [text for _, text in results]
+    sequence_df['audio_language'] = [lang for lang, _ in results]
+
     # Generate word TTS audio, pinyin, and definitions
     from pinyin_jyutping_sentence import pinyin
     from cedict import load_cedict_definitions

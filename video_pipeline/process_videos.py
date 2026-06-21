@@ -9,6 +9,14 @@ from selection import run_i_plus_1_selection
 from generate_audio import generate_audio_for_selected_sentences
 
 
+ALL_SENTENCES_COLUMNS = [
+    'Sequence', 'Sentence', 'New_Words', 'Word_Rank',
+    'start_time', 'end_time', 'translation', 'segmented_words',
+    'audio', 'audio_transcription', 'audio_language', 'word_audio',
+    'sentence_pinyin', 'word_pinyin', 'word_definition', 'video_url',
+]
+
+
 def time_function(func, *args, **kwargs):
     start = time.time()
     result = func(*args, **kwargs)
@@ -68,6 +76,13 @@ def process_video(video_url, num, total):
 
     df = pd.read_csv(seq_csv)
     df['video_url'] = video_url
+    df = df.reindex(columns=ALL_SENTENCES_COLUMNS)
+    if os.path.exists(all_csv):
+        existing = pd.read_csv(all_csv, nrows=0).columns.tolist()
+        if existing != ALL_SENTENCES_COLUMNS:
+            raise ValueError(
+                f"{all_csv} header drift: {existing} != {ALL_SENTENCES_COLUMNS}"
+            )
     df.to_csv(all_csv, mode='a', header=not os.path.exists(all_csv), index=False)
     print(f"Appended {len(df)} sentences")
 

@@ -41,6 +41,7 @@ data_files/
 known
 audio_segments/
 repair/
+bkp_probe/
 
 # Keys
 api.key

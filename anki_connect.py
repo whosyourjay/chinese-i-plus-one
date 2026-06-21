@@ -61,6 +61,12 @@ def add_tags(note_ids: list[int], tags: str) -> None:
     request("addTags", notes=note_ids, tags=tags)
 
 
+def remove_tags(note_ids: list[int], tags: str) -> None:
+    if not note_ids:
+        return
+    request("removeTags", notes=note_ids, tags=tags)
+
+
 def store_media_file(filename: str, path: str, overwrite: bool = False) -> str:
     return request(
         "storeMediaFile",

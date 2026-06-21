@@ -1,17 +1,27 @@
-Improve workflow for importing to Anki
-  - Run the script
-  - Delete "new" cards in Anki
-  - Load the new sentences as cards. Match fields
-  - Copy audio files for sentence and word into Anki data folder
-  - Delete the card generated from the header row
+One-time repair
+  Enrich all existing sentences with segmentation
+    Target word is source of truth
+  Generate another 1500 cards and replace more duplicate sentences
+  Swap dup order if we can only find a new sentence for the later word
+  Delete dups if we couldn't find either word
 
-Turboscribe or Whisper for videos without subs
-  https://turboscribe.ai/
+Reorder decks to reflect frequency
+  Write AnkiConnect dependency to Readme
+  Write import script
+
+Better auto-sentences
+  Whisper to double check audio segment
+    https://turboscribe.ai/
+  List mismatches between segmenter and sentence split. Ask AI to review for incorrect words.
+  Try merging neighboring segments
+  Doubled words AABB
+  Elastic words separated by common patterns like 得不
+
+Improve workflow for importing to Anki
+
 
 Low priority
   - Weird segmenting
-    - Doubled words AABB
-    - Elastic words separated by common patterns like 得不
   Allow backtracking between videos
     1. Load many SRT files but not audio
     2. Choose sentences and label them by final order
@@ -33,5 +43,3 @@ Not sure these are good
   - Add bold tags back at the end?
   - Add images
 
-
-enhance_csv.py uses pkuseg to cut sentences into words. However many of the words do not appear in cedict_ts.u8 . What are some options for getting a final sentence where every word is in this list?
