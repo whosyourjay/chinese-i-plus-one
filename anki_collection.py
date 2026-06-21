@@ -14,12 +14,14 @@ from typing import Iterable
 
 ANKI_FIELD_SEP = "\x1f"
 DEFAULT_PROFILE = "Pepe"
-DEFAULT_DECKS = (
-    "First > Second > Chinese > Words > Words 1k",
-    "First > Second > Chinese > Words > Words 1k-3k",
-    "First > Second > Chinese > Words > Spoonfed 3k-6.5k",
-    "First > Second > Chinese > Words > Youtube 6k-11k",
+DECK_BLOCKS = (
+    ("1k", ("First > Second > Chinese > Words > Words 1k",)),
+    ("1k-3k", ("First > Second > Chinese > Words > Words 1k-3k",)),
+    ("3k-6.5k", ("First > Second > Chinese > Words > Spoonfed 3k-6.5k",)),
+    ("youtube", ("First > Second > Chinese > Words > Youtube 6k-11k",)),
 )
+DEFAULT_DECKS = tuple(d for _, decks in DECK_BLOCKS for d in decks)
+_DECK_RANK = {deck: rank for rank, (_, decks) in enumerate(DECK_BLOCKS) for deck in decks}
 DEFAULT_SENTENCE_FIELDS = (
     "SentenceSimplified",
     "Sentence",
@@ -65,8 +67,14 @@ class NoteRow:
         return key_num, self.word, self.note_id
 
     @property
-    def latest_sort(self) -> tuple[int, int]:
-        return self.key_num, self.note_id
+    def deck_rank(self) -> int:
+        ranks = [_DECK_RANK[d] for d in self.decks if d in _DECK_RANK]
+        return min(ranks) if ranks else len(DECK_BLOCKS)
+
+    @property
+    def duplicate_keep_sort(self) -> tuple[int, int, str, int]:
+        """Earlier deck blocks are known first; ties follow deck key/order."""
+        return self.deck_rank, self.key_sort[0], self.word, self.note_id
 
 
 def anki_profile_collection(profile: str) -> Path:
@@ -268,7 +276,9 @@ def load_target_notes(
     return notes, warnings
 
 
-def duplicate_groups(notes: Iterable[NoteRow], keep_latest: bool = True) -> list[list[NoteRow]]:
+def duplicate_groups(notes: Iterable[NoteRow]) -> list[list[NoteRow]]:
+    """Group notes by sentence. Keeper (index 0) is in the earliest deck
+    block (1k -> youtube), ties broken by lowest Key then oldest note_id."""
     grouped: dict[str, list[NoteRow]] = defaultdict(list)
     for note in notes:
         grouped[note.normalized_sentence].append(note)
@@ -277,10 +287,7 @@ def duplicate_groups(notes: Iterable[NoteRow], keep_latest: bool = True) -> list
     for group in grouped.values():
         if len(group) <= 1:
             continue
-        if keep_latest:
-            groups.append(sorted(group, key=lambda note: note.latest_sort, reverse=True))
-        else:
-            groups.append(sorted(group, key=lambda note: note.key_sort))
+        groups.append(sorted(group, key=lambda note: note.duplicate_keep_sort))
     return sorted(groups, key=lambda group: group[0].key_sort)
 
 

@@ -7,7 +7,22 @@ from generate_audio import (
     generate_word_audio,
     prefer_audio_when_subset,
     sanitize_filename,
+    should_transcribe,
 )
+
+
+def test_should_transcribe():
+    # 10 chars in 2s = 0.2 s/char → no extra audio
+    assert not should_transcribe(0.0, 2.0, "你好世界你好世界你好世")
+    # 2 chars in 2s = 1.0 s/char → suspicious
+    assert should_transcribe(0.0, 2.0, "你好")
+    # No Chinese chars → don't try
+    assert not should_transcribe(0.0, 5.0, "")
+    assert not should_transcribe(0.0, 5.0, "abc 123")
+    # Right at threshold (0.4) → not above, skip
+    assert not should_transcribe(0.0, 0.8, "你好")
+    # Just above threshold → transcribe
+    assert should_transcribe(0.0, 0.9, "你好")
 
 
 def test_prefer_audio_when_subset():

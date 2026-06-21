@@ -1,17 +1,25 @@
 One-time repair
   Enrich all existing sentences with segmentation
     Target word is source of truth
-  Generate another 1500 cards and replace more duplicate sentences
-  Swap dup order if we can only find a new sentence for the later word
-  Delete dups if we couldn't find either word
+  Suspend and move dup cards into a new deck
+  Topo sort
+    Swap dup order when the later word was replaced
+    Move replaced sentences and their dependent dups generally later, but not too late?
+    Or just topo sort the whole collection
+  Correct numbering to increase across decks
+  Mark cards with a word outside the list for replace or suspend
+  Find and break cycles
+    Allow cycles inside 1k at first
+    Reduce to 100 and then 10
 
 Reorder decks to reflect frequency
   Write AnkiConnect dependency to Readme
   Write import script
 
 Better auto-sentences
-  Whisper to double check audio segment
-    https://turboscribe.ai/
+  Better heuristic to call audio->text
+  Better merge of audio text and original
+  Faster audio->text so we can run it more
   List mismatches between segmenter and sentence split. Ask AI to review for incorrect words.
   Try merging neighboring segments
   Doubled words AABB
@@ -21,7 +29,6 @@ Improve workflow for importing to Anki
 
 
 Low priority
-  - Weird segmenting
   Allow backtracking between videos
     1. Load many SRT files but not audio
     2. Choose sentences and label them by final order

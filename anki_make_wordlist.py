@@ -2,8 +2,8 @@
 """Build the known-word list directly from known Anki vocabulary cards.
 
 By default, when multiple notes share the same normalized sentence, the script
-keeps the latest numeric Key in the wordlist and omits earlier words from the
-wordlist only. It does not modify Anki.
+keeps the earliest card in deck-block order in the wordlist and omits newer
+duplicate-sentence words from the wordlist only. It does not modify Anki.
 """
 
 from __future__ import annotations
@@ -14,6 +14,7 @@ import sys
 from pathlib import Path
 
 from anki_collection import (
+    DECK_BLOCKS,
     DEFAULT_COLLECTION,
     DEFAULT_SENTENCE_FIELDS,
     NoteRow,
@@ -21,13 +22,6 @@ from anki_collection import (
     first_field,
     notes_from_collection,
     strip_for_report,
-)
-
-DECK_BLOCKS = (
-    ("1k", ("First > Second > Chinese > Words > Words 1k",)),
-    ("1k-3k", ("First > Second > Chinese > Words > Words 1k-3k",)),
-    ("3k-6.5k", ("First > Second > Chinese > Words > Spoonfed 3k-6.5k",)),
-    ("youtube", ("First > Second > Chinese > Words > Youtube 6k-11k",)),
 )
 
 
@@ -40,9 +34,32 @@ def replacement_map(groups: list[list[NoteRow]]) -> dict[int, NoteRow]:
     for group in groups:
         keeper = group[0]
         for note in group[1:]:
-            if keeper.latest_sort > note.latest_sort:
-                replacements[note.note_id] = keeper
+            replacements[note.note_id] = keeper
     return replacements
+
+
+def duplicate_note_ids(groups: list[list[NoteRow]]) -> set[int]:
+    return {note.note_id for group in groups for note in group}
+
+
+def load_segmentation_omissions(
+    path: Path,
+    grouped_note_ids: set[int],
+) -> dict[int, dict[str, str]]:
+    if not path.exists():
+        return {}
+    out: dict[int, dict[str, str]] = {}
+    with path.open(encoding="utf-8", newline="") as f:
+        for row in csv.DictReader(f, delimiter="\t"):
+            if row.get("action") != "replace_sentence":
+                continue
+            try:
+                note_id = int(row.get("note_id", ""))
+            except ValueError:
+                continue
+            if note_id not in grouped_note_ids:
+                out[note_id] = row
+    return out
 
 
 def sorted_word_notes(notes: list[NoteRow]) -> list[NoteRow]:
@@ -51,32 +68,50 @@ def sorted_word_notes(notes: list[NoteRow]) -> list[NoteRow]:
 
 def build_wordlist(
     notes: list[NoteRow],
+    segmentation_omissions_path: Path | None = None,
     omit_earlier_duplicate_sentences: bool = True,
-) -> tuple[list[str], dict[int, NoteRow], list[list[NoteRow]]]:
-    groups = duplicate_groups(notes, keep_latest=True)
+) -> tuple[list[str], dict[int, NoteRow], dict[int, dict[str, str]], list[list[NoteRow]]]:
+    groups = duplicate_groups(notes)
     omitted_by_note_id = replacement_map(groups) if omit_earlier_duplicate_sentences else {}
+    segmentation_omissions = (
+        load_segmentation_omissions(
+            segmentation_omissions_path,
+            duplicate_note_ids(groups),
+        )
+        if segmentation_omissions_path is not None
+        else {}
+    )
 
     words: list[str] = []
     seen: set[str] = set()
     for note in sorted_word_notes(notes):
-        if note.note_id in omitted_by_note_id:
+        if note.note_id in omitted_by_note_id or note.note_id in segmentation_omissions:
             continue
         word = word_text(note)
         if not word or word in seen:
             continue
         seen.add(word)
         words.append(word)
-    return words, omitted_by_note_id, groups
+    return words, omitted_by_note_id, segmentation_omissions, groups
 
 
 def build_positioned_wordlist(
     block_notes: list[tuple[str, list[NoteRow]]],
     generated_csv: Path,
+    segmentation_omissions_path: Path | None = None,
     omit_earlier_duplicate_sentences: bool = True,
-) -> tuple[list[str], list[dict[str, str]], dict[int, NoteRow], list[list[NoteRow]]]:
+) -> tuple[list[str], list[dict[str, str]], dict[int, NoteRow], dict[int, dict[str, str]], list[list[NoteRow]]]:
     all_notes = [note for _, notes in block_notes for note in notes]
-    groups = duplicate_groups(all_notes, keep_latest=True)
+    groups = duplicate_groups(all_notes)
     omitted_by_note_id = replacement_map(groups) if omit_earlier_duplicate_sentences else {}
+    segmentation_omissions = (
+        load_segmentation_omissions(
+            segmentation_omissions_path,
+            duplicate_note_ids(groups),
+        )
+        if segmentation_omissions_path is not None
+        else {}
+    )
 
     words: list[str] = []
     positions: list[dict[str, str]] = []
@@ -100,7 +135,7 @@ def build_positioned_wordlist(
 
     for block_name, notes in block_notes:
         for note in sorted_word_notes(notes):
-            if note.note_id in omitted_by_note_id:
+            if note.note_id in omitted_by_note_id or note.note_id in segmentation_omissions:
                 continue
             add_word(
                 word_text(note),
@@ -119,7 +154,7 @@ def build_positioned_wordlist(
                     "",
                 )
 
-    return words, positions, omitted_by_note_id, groups
+    return words, positions, omitted_by_note_id, segmentation_omissions, groups
 
 
 def write_wordlist(words: list[str], output: Path) -> None:
@@ -181,6 +216,39 @@ def write_omitted_report(omitted_by_note_id: dict[int, NoteRow], notes: list[Not
             )
 
 
+def write_segmentation_omitted_report(
+    segmentation_omissions: dict[int, dict[str, str]],
+    notes: list[NoteRow],
+    output: Path,
+) -> None:
+    output.parent.mkdir(parents=True, exist_ok=True)
+    notes_by_id = {note.note_id: note for note in notes}
+    fieldnames = (
+        "note_id",
+        "key",
+        "word",
+        "sentence",
+        "candidate_tokens",
+        "reason",
+    )
+    with output.open("w", encoding="utf-8", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames, delimiter="\t")
+        writer.writeheader()
+        for note_id in sorted(segmentation_omissions, key=lambda nid: notes_by_id[nid].key_sort):
+            note = notes_by_id[note_id]
+            row = segmentation_omissions[note_id]
+            writer.writerow(
+                {
+                    "note_id": note_id,
+                    "key": note.field_values.get("Key", ""),
+                    "word": word_text(note),
+                    "sentence": strip_for_report(note.sentence),
+                    "candidate_tokens": row.get("candidate_tokens", ""),
+                    "reason": row.get("reason", ""),
+                }
+            )
+
+
 def parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -198,7 +266,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument(
         "--keep-earlier-duplicate-words",
         action="store_true",
-        help="Do not omit earlier words when a later word has the same sentence.",
+        help="Do not omit non-keeper words when duplicate cards share a sentence.",
     )
     parser.add_argument(
         "--output",
@@ -223,6 +291,18 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
         type=Path,
         default=Path("reports/anki_wordlist_omitted_duplicates.tsv"),
         help="TSV audit report for words omitted from the wordlist.",
+    )
+    parser.add_argument(
+        "--segmentation-actions-report",
+        type=Path,
+        default=Path("reports/words_1k3k_target_segmentation_actions.tsv"),
+        help="TSV action report whose non-duplicate replace_sentence rows are also omitted.",
+    )
+    parser.add_argument(
+        "--segmentation-omitted-report",
+        type=Path,
+        default=Path("reports/anki_wordlist_omitted_segmentation.tsv"),
+        help="TSV audit report for segmentation-based omissions.",
     )
     return parser.parse_args(argv)
 
@@ -253,9 +333,10 @@ def main(argv: list[str]) -> int:
             warnings.extend(deck_warnings)
             block_notes.append((block_name, notes))
 
-    words, positions, omitted_by_note_id, groups = build_positioned_wordlist(
+    words, positions, omitted_by_note_id, segmentation_omissions, groups = build_positioned_wordlist(
         block_notes,
         args.generated_csv,
+        segmentation_omissions_path=args.segmentation_actions_report,
         omit_earlier_duplicate_sentences=not args.keep_earlier_duplicate_words,
     )
     notes = [note for _, block in block_notes for note in block]
@@ -263,14 +344,21 @@ def main(argv: list[str]) -> int:
     write_wordlist(words, args.output)
     write_positions(positions, args.positions_output)
     write_omitted_report(omitted_by_note_id, notes, args.omitted_report)
+    write_segmentation_omitted_report(
+        segmentation_omissions,
+        notes,
+        args.segmentation_omitted_report,
+    )
 
     print(f"Scanned notes: {len(notes)}")
     print(f"Duplicate sentence groups: {len(groups)}")
-    print(f"Omitted earlier duplicate-sentence notes: {len(omitted_by_note_id)}")
+    print(f"Omitted non-keeper duplicate-sentence notes: {len(omitted_by_note_id)}")
+    print(f"Omitted segmentation replace-sentence notes: {len(segmentation_omissions)}")
     print(f"Known words written: {len(words)}")
     print(f"Wordlist: {args.output}")
     print(f"Positions: {args.positions_output}")
     print(f"Omitted report: {args.omitted_report}")
+    print(f"Segmentation omitted report: {args.segmentation_omitted_report}")
     if warnings:
         print("\nWarnings:")
         for warning in warnings:

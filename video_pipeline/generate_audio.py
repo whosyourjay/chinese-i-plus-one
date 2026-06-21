@@ -60,6 +60,23 @@ def _chunks(audio: str) -> list[str]:
     return out
 
 
+# Mandarin runs ~3–5 chars/sec, so a tight clip is ~0.2–0.3 s/char. Above
+# this threshold the clip likely captured speech beyond the subtitle.
+_SECONDS_PER_CHAR_THRESHOLD = 0.38
+
+
+def _chinese_char_count(s: str) -> int:
+    return sum(1 for ch in str(s) if "\u4e00" <= ch <= "\u9fff")
+
+
+def should_transcribe(start: float, end: float, sentence: str) -> bool:
+    """True when clip duration suggests extra speech beyond the subtitle."""
+    chars = _chinese_char_count(sentence)
+    if chars == 0:
+        return False
+    return (end - start) / chars > _SECONDS_PER_CHAR_THRESHOLD
+
+
 def prefer_audio_when_subset(sentence: str, audio: str) -> str:
     """Return audio when it adds real content within the same clause as the sub
     (clauses split on 。！？，、；：, punct/whitespace ignored). Punctuation-only
@@ -273,11 +290,23 @@ def generate_audio_for_selected_sentences(
 
     from transcribe_audio import is_available as transcription_available, transcribe_many
     if transcription_available():
-        print(f"\nTranscribing {len(audio_filenames)} clips with SenseVoice...")
-        audio_paths = [Path(output_dir) / f for f in audio_filenames]
-        results = transcribe_many(audio_paths)
-        sequence_df['audio_transcription'] = [text for _, text in results]
-        sequence_df['audio_language'] = [lang for lang, _ in results]
+        rows = list(sequence_df.itertuples(index=False))
+        to_transcribe = [
+            (i, Path(output_dir) / audio_filenames[i])
+            for i, r in enumerate(rows)
+            if should_transcribe(r.start_time, r.end_time, r.Sentence)
+        ]
+        print(f"\nTranscribing {len(to_transcribe)}/{len(audio_filenames)} "
+              f"suspicious clips with SenseVoice...")
+        transcriptions = [''] * len(rows)
+        languages = [''] * len(rows)
+        if to_transcribe:
+            results = transcribe_many([p for _, p in to_transcribe])
+            for (idx, _), (lang, text) in zip(to_transcribe, results):
+                transcriptions[idx] = text
+                languages[idx] = lang
+        sequence_df['audio_transcription'] = transcriptions
+        sequence_df['audio_language'] = languages
     else:
         print("\nSkipping audio transcription (install funasr + torchaudio to enable).")
 
