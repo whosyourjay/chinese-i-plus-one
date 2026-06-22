@@ -7,6 +7,7 @@ from prepare_vtt_data import process_video as prepare_vtt_data
 from enhance_csv import enhance_csv_with_segmentation
 from selection import run_i_plus_1_selection
 from generate_audio import generate_audio_for_selected_sentences
+from check_video_language import check_and_filter as check_video_language
 
 
 ALL_SENTENCES_COLUMNS = [
@@ -48,6 +49,12 @@ def process_video(video_url, num, total):
               "data_files/sentence_sequence.csv"]:
         if os.path.exists(f):
             os.remove(f)
+
+    print("Step 2b: Filtering non-Chinese sentences...")
+    _, elapsed = time_function(check_video_language,
+                               "data_files/sentences_basic.csv",
+                               "data_files/video.mp3")
+    print(f"Time: {elapsed:.1f}s")
 
     print("Step 3: Enhancing CSV...")
     _, elapsed = time_function(enhance_csv_with_segmentation,

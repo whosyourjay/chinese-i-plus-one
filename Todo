@@ -1,4 +1,20 @@
 One-time repair
+  Correct numbering to increase across decks
+  Add word audio to Spoonfed (and a few Youtube)
+  A bunch of cards around New 24017 have hindi
+    每位受访的性工作者都希望有更多的选择
+    大姐 我是一名性工作者
+    甚至有孩子会帮忙招揽生意 叫来皮条客
+    或者那种大船载着尸体
+    吃饭 住房再少也得花几千塔卡这样
+    翻译：为什么不去其它地方呢
+    他们会被注射药物
+    我年纪轻轻的时候就结婚了
+    我供她生活的所有支出
+    她们其实在不断流动
+    可以和他结婚 和他组建家庭
+    那时候我们兄弟姐妹都很小
+    
   Enrich all existing sentences with segmentation
     Target word is source of truth
   Suspend and move dup cards into a new deck
@@ -6,7 +22,6 @@ One-time repair
     Swap dup order when the later word was replaced
     Move replaced sentences and their dependent dups generally later, but not too late?
     Or just topo sort the whole collection
-  Correct numbering to increase across decks
   Mark cards with a word outside the list for replace or suspend
   Find and break cycles
     Allow cycles inside 1k at first
