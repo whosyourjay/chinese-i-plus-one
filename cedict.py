@@ -39,3 +39,39 @@ def load_cedict_definitions(path=CEDICT_PATH):
     """Load simplified word -> definition mapping."""
     _, definitions = parse_cedict(path)
     return definitions
+
+
+def has_chinese(word):
+    return any("\u4e00" <= ch <= "\u9fff" for ch in word)
+
+
+def resegment_word(word, cedict_vocab):
+    """Split a token not in cedict via greedy longest-match against cedict.
+    Single chars are kept as-is when no longer prefix matches."""
+    result = []
+    i = 0
+    while i < len(word):
+        best = None
+        for end in range(len(word), i, -1):
+            candidate = word[i:end]
+            if candidate in cedict_vocab:
+                best = candidate
+                break
+        if best:
+            result.append(best)
+            i += len(best)
+        else:
+            result.append(word[i])
+            i += 1
+    return result
+
+
+def expand_segmented_words(words, cedict_vocab):
+    """Greedy-resegment any Chinese token that isn't in cedict; keep the rest."""
+    expanded = []
+    for word in words:
+        if has_chinese(word) and word not in cedict_vocab:
+            expanded.extend(resegment_word(word, cedict_vocab))
+        else:
+            expanded.append(word)
+    return expanded

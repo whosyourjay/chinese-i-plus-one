@@ -5,6 +5,8 @@ from collections import defaultdict
 import pandas as pd
 # from line_profiler import profile
 
+from cedict import expand_segmented_words
+
 
 def is_chinese(char):
     """Check if character is in Chinese unicode ranges"""
@@ -87,37 +89,11 @@ class SentenceOrganizer:
         print(f"  Process sentences: {process_time:.2f} seconds")
         print(f"  Total: {total_time:.2f} seconds")
     
-    def _resegment_word(self, word):
-        """Split a word not in cedict via greedy longest-match."""
-        result = []
-        i = 0
-        while i < len(word):
-            best = None
-            for end in range(len(word), i, -1):
-                candidate = word[i:end]
-                if candidate in self.cedict_vocab:
-                    best = candidate
-                    break
-            if best:
-                result.append(best)
-                i += len(best)
-            else:
-                result.append(word[i])
-                i += 1
-        return result
-
     # @profile
     def _process_sentence(self, sentence, words):
         # Re-segment Chinese words not in cedict
         if self.cedict_vocab:
-            expanded = []
-            for w in words:
-                has_chinese = any(is_chinese(c) for c in w)
-                if has_chinese and w not in self.cedict_vocab:
-                    expanded.extend(self._resegment_word(w))
-                else:
-                    expanded.append(w)
-            words = expanded
+            words = expand_segmented_words(words, self.cedict_vocab)
 
         # Skip sentences with fewer than 3 Chinese characters
         chinese_chars = sum(1 for w in ''.join(words) if is_chinese(w))

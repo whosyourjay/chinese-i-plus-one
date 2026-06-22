@@ -87,6 +87,44 @@ def test_resegment_mixed_english_chinese():
     assert data['unknown'] == {'好'}
 
 
+def test_cedict_resegment_examples():
+    """Current CEDICT split policy for common over-merged tokens."""
+    from cedict import expand_segmented_words
+
+    cedict_vocab = {
+        '一',
+        '上',
+        '书',
+        '函数',
+        '家',
+        '很',
+        '快',
+        '是',
+        '本',
+        '桌',
+        '这',
+        '一家',
+        '穿着',
+    }
+    assert expand_segmented_words(['函数', '一家', '穿着'], cedict_vocab) == [
+        '函数',
+        '一家',
+        '穿着',
+    ]
+    assert expand_segmented_words(['这是', '这家', '本书', '很快', '桌上'], cedict_vocab) == [
+        '这',
+        '是',
+        '这',
+        '家',
+        '本',
+        '书',
+        '很',
+        '快',
+        '桌',
+        '上',
+    ]
+
+
 def test_english_words_ignored_for_i_plus_1():
     """English segments don't count as unknown; sentence still selected."""
     cedict_vocab = {'今天', '用', '很', '好'}
